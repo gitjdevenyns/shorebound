@@ -30,6 +30,10 @@ const DESKTOP_NAV = [
   // thumb. Fish + Gear is its natural neighbour.
   { to: '/id', label: 'Photo ID', end: false },
   { to: '/rigs', label: 'Rigs + Knots', end: false },
+  // Desktop nav only, like Photo ID: the tab bar is fixed at five slots
+  // by the design boards, and bait is something you look up before you
+  // leave rather than with a thumb on the water.
+  { to: '/shops', label: 'Bait + Tackle', end: false },
   { to: '/care', label: 'Handle With Care', end: false },
 ];
 

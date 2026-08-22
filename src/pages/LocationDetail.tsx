@@ -21,6 +21,7 @@ import {
   Skeleton,
 } from '../components/ui';
 import { IconClarity, IconMoon, IconTemp, IconWind } from '../components/ui/icons';
+import BaitNearby from '../components/location/BaitNearby';
 import NotFound from './NotFound';
 
 /**
@@ -566,6 +567,7 @@ export default function LocationDetail() {
           </p>
         )}
       </section>
+      <BaitNearby location={loc} />
     </>
   );
 }

@@ -11,6 +11,7 @@ import IdentifyFish from './pages/IdentifyFish';
 import Water from './pages/Water';
 import Tides from './pages/Tides';
 import Rigs from './pages/Rigs';
+import Shops from './pages/Shops';
 import Care from './pages/Care';
 import NotFound from './pages/NotFound';
 
@@ -40,6 +41,7 @@ export default function App() {
         <Route path="/water" element={<Page path="water" element={<Water />} />} />
         <Route path="/tides" element={<Page path="tides" element={<Tides />} />} />
         <Route path="/rigs" element={<Page path="rigs" element={<Rigs />} />} />
+        <Route path="/shops" element={<Page path="shops" element={<Shops />} />} />
         <Route path="/care" element={<Page path="care" element={<Care />} />} />
         <Route path="*" element={<NotFound />} />
       </Route>
