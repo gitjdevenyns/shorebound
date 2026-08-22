@@ -135,3 +135,27 @@ html[data-theme="dark"] .leaflet-tile{filter:brightness(.78) saturate(.86) contr
   .baits{grid-template-columns:repeat(4,1fr)}
   .legend{grid-template-columns:repeat(4,1fr)}
 }
+
+/* ---------- FOOTER ----------
+   Sits above the tab bar on every page. It exists because a privacy policy has
+   to be reachable from anywhere in the app, not from one settings screen, and
+   because the prediction-not-measurement caveat is worth repeating where
+   somebody will actually meet it. */
+.appfoot{padding:var(--s5) var(--s4) var(--s6);border-top:1px solid var(--l);
+  background:var(--c);display:grid;gap:var(--s3)}
+.appfoot nav{display:flex;gap:var(--s4);flex-wrap:wrap}
+.appfoot a{font-size:var(--fs-sm);color:var(--link)}
+.appfoot p{margin:0;color:var(--m);font-size:var(--fs-xs);line-height:var(--lh-body);max-width:60ch}
+
+/* ---------- PROSE PAGES ----------
+   Privacy and support are read, not scanned, so they get a measure and real
+   heading rhythm rather than the card grid the rest of the app uses. */
+.prose{max-width:66ch}
+.prose h3{font-family:var(--ff-display);font-size:var(--fs-h2);font-weight:800;
+  letter-spacing:-.015em;margin:var(--s6) 0 var(--s2)}
+.prose h4{font-family:var(--ff-display);font-size:var(--fs-h3);font-weight:800;
+  margin:var(--s5) 0 var(--s1)}
+.prose p{margin:0 0 var(--s3);line-height:var(--lh-body)}
+.prose .lede{font-size:var(--fs-h3);line-height:var(--lh-body);margin-bottom:var(--s4)}
+.prose ul{margin:0 0 var(--s3)}
+.prose li{margin-bottom:var(--s2);line-height:var(--lh-body)}

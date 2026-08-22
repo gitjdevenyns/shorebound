@@ -127,6 +127,21 @@ export default function Layout() {
         </div>
       </main>
 
+      {/* Every page ends here, which is what "easily accessible" means for a
+          privacy policy under App Store guideline 5.1.1(i) — a link in one
+          buried settings screen does not qualify. */}
+      <footer className="appfoot">
+        <nav aria-label="Legal and support">
+          <Link to="/privacy">Privacy</Link>
+          <Link to="/support">Support</Link>
+          <Link to="/shops">Bait &amp; tackle</Link>
+        </nav>
+        <p>
+          Tide predictions from NOAA, forecasts from the National Weather
+          Service. Everything live here is a prediction, never a measurement.
+        </p>
+      </footer>
+
       <nav className="tabbar" aria-label="Primary">
         {TABS.map(({ to, label, end, Icon }) => (
           <NavLink

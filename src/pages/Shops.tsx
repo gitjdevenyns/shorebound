@@ -4,7 +4,7 @@ import { useGeolocation, milesBetween } from '../lib/geo';
 import { SHOP_KINDS, SHOP_KIND_LABEL } from '../data/shops';
 import type { ShopKind } from '../data/shops';
 import ShopCard from '../components/ShopCard';
-import { SectionTitle, Skeleton } from '../components/ui';
+import { Skeleton } from '../components/ui';
 
 /**
  * Where to buy bait.
@@ -36,7 +36,7 @@ export default function Shops() {
 
   return (
     <div className="sect">
-      <SectionTitle as="h2" id="shops">Bait &amp; tackle</SectionTitle>
+      <h1 className="d2">Bait &amp; tackle</h1>
       <p className="mut lede">
         Where to buy bait near the spots in this guide. Local shops, researched
         the same way everything else here was — and listed whether or not they

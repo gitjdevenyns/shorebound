@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
@@ -65,8 +67,27 @@ const STATIC_ROUTES = [
   '/tides',
   '/rigs',
   '/care',
+  '/shops',
+  '/privacy',
+  '/support',
   '/nope/nothing-here',
 ];
+
+/**
+ * The list above is hand-written, and three pages were once added to the
+ * router without it — which quietly excluded them from the render, axe and
+ * heading checks below. This asserts the two cannot drift apart again.
+ */
+describe('the route list matches the router', () => {
+  it('covers every path declared in App.tsx', () => {
+    const app = readFileSync(join(__dirname, '..', 'App.tsx'), 'utf8');
+    const declared = [...app.matchAll(/<Route path="([^"]+)"/g)]
+      .map((m) => m[1])
+      .filter((p) => p !== '*' && !p.includes(':'));
+    const missing = declared.filter((p) => !STATIC_ROUTES.includes(p));
+    expect(missing, `Routed but untested:\n${missing.join('\n')}`).toEqual([]);
+  });
+});
 
 describe('every route renders', () => {
   for (const path of STATIC_ROUTES) {
