@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Read the water">
+  <!--
+    App icon. Source of truth for every rasterised size in this folder.
+
+    The mark is the app's own: three water lines with the middle one lime, the
+    same reading the home hero is built on — the bottom does not move, the
+    water over it does, and the line you care about is where it is right now.
+
+    No wordmark, deliberately. An abstract mark survives a rename, and two
+    things a store icon must not do are carry text (illegible at 60px, and
+    discouraged by both stores) and promise the wrong thing — the icon this
+    replaces showed a largemouth bass, a freshwater fish, on a saltwater guide.
+
+    Maskable-safe: platforms may crop to any shape inscribed in the circle of
+    radius 205 (the 80% safe zone), so the background is full bleed and every
+    stroke stays inside that circle.
+
+    Locked brand values only: royal blue #075bd8, key lime #8dff00.
+  -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#0a63e4"/>
+      <stop offset="0.55" stop-color="#075bd8"/>
+      <stop offset="1" stop-color="#031530"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#bg)"/>
+
+  <!--
+    Stroke weights are heavier than the 34px in-app mark scaled up would give.
+    Fine lines vanish at 48px on a home screen, which is the size that decides
+    whether anyone taps it.
+  -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M136 178 C 200 128, 254 210, 318 168 C 358 142, 390 158, 404 178"
+          stroke="#8fbaf7" stroke-width="30" opacity=".7"/>
+    <path d="M136 264 C 200 214, 254 296, 318 254 C 358 228, 390 244, 404 264"
+          stroke="#8dff00" stroke-width="38"/>
+    <path d="M136 350 C 200 300, 254 382, 318 340 C 358 314, 390 330, 404 350"
+          stroke="#c2dbfb" stroke-width="30" opacity=".55"/>
+  </g>
+</svg>

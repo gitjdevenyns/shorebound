@@ -86,10 +86,12 @@ export default defineConfig({
           // crop the artwork. The SVG is drawn inside the 80% safe circle.
           { src: 'assets/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
           { src: 'assets/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+          // Raster, not SVG: Bubblewrap's TWA build rejects an SVG maskable,
+          // and the manifest has to name the same asset the store package uses.
           {
-            src: 'assets/icon-maskable.svg',
-            sizes: 'any',
-            type: 'image/svg+xml',
+            src: 'assets/icon-maskable-512.png',
+            sizes: '512x512',
+            type: 'image/png',
             purpose: 'maskable',
           },
         ],
@@ -113,7 +115,7 @@ export default defineConfig({
         globIgnores: [
           'assets/icon-192.png',
           'assets/icon-512.png',
-          'assets/icon-maskable.svg',
+          'assets/icon-maskable-512.png',
           'manifest.webmanifest',
           // Owner tooling. Precaching it would push the admin console onto
           // every reader's device and make it available offline, which is both
