@@ -260,6 +260,32 @@ const RAW: RawSpot[] = [
       // nose-down for the same shellfish the redfish are after.
       { species: 'Black drum', rig: 'fish-finder', hook: '2/0–3/0 circle', leader: '25–30 lb', weight: '1/2 oz slider', bait: 'fresh dead shrimp/cut crab' },
     ],
+    seasons: [
+      'Jun–Aug snook, redfish and trout staging off the point as the river freshens',
+      'Trout on the flats around the point most of the year',
+    ],
+    accessNotes: [
+      'Manatee County preserve at 5801 17th Street West, Palmetto, open daily from sunrise to sunset, 365 days a year.',
+      'The fishing dock is closed until further notice after hurricane damage — the county alert is still live. There are other docks along the walking trails you can fish from, but no cast netting anywhere in the preserve.',
+      'Two paddle launches and no boat ramp: the beach at the west end, straight into the mouth of the Manatee River, and a second launch about six-tenths of a mile in with a wooden dock onto the Blueway Trail through the mangrove tunnels to Terra Ceia Bay.',
+    ],
+    safety: [
+      'Mosquitoes here can be intense at some times of year, and Milton took much of the canopy down, so there is less shade than there was.',
+    ],
+    sources: [
+      {
+        id: 'mymanatee-1',
+        label: 'Emerson Point Preserve — hours, launches, dock closure',
+        url: 'https://www.mymanatee.org/connect/locations/location-details/emerson-point-preserve',
+        publisher: 'Manatee County Government',
+      },
+      {
+        id: 'floridahikes-2',
+        label: 'Emerson Point Preserve — post-Milton conditions and facilities',
+        url: 'https://floridahikes.com/emerson-point-preserve/',
+        publisher: 'Florida Hikes',
+      },
+    ],
   },
   {
     id: 'palma-sola-bay',
@@ -272,10 +298,47 @@ const RAW: RawSpot[] = [
     structures: ['grass', 'potholes'],
     station: STATION_PALMA_SOLA_N,
     tide: 'Moving tide',
+    dayparts: ['dawn', 'night'],
     targets: [
       { species: 'Trout', rig: 'popping cork', hook: '1/0–2/0', leader: '15–20 lb', weight: 'light', bait: 'shrimp' },
       { species: 'Redfish', rig: 'weedless paddletail', hook: '3/0–4/0', leader: '20–25 lb', weight: '1/16–1/8 oz', bait: 'paddletail' },
       { species: 'Snook', rig: 'free-line', hook: '2/0–4/0', leader: '30–40 lb', weight: 'none', bait: 'pilchard' },
+    ],
+    seasons: [
+      'Dec–Mar trout in the back reaches of the bay',
+      'Aug–Sep snook and trout around the dock and bridge lights',
+      'Redfish along the shorelines and docks most of the year',
+    ],
+    accessNotes: [
+      'Palma Sola Causeway Park, 9500 Manatee Avenue West on SR 64 between Bradenton and Anna Maria Island. The park is open sunrise to sunset unless posted otherwise.',
+      'The boat ramp is governed separately — the county lists its ramps as 24-hour, and the only posted restriction here is no overnight parking, under Ordinance 23-121.',
+      'The ramp is free: one lane, paved, with docks, about twenty parking spaces, wheelchair accessible, and no restrooms at the ramp itself.',
+      'A short county fishing pier sits further along the causeway at 9450 Manatee Ave W — dawn to dusk, no fee, restrooms, fresh water and monofilament recycling, but no bait, no fish-cleaning table and not wheelchair accessible.',
+      'The pier does not provide a fishing licence — bring your own.',
+    ],
+    safety: [
+      'No lifeguard. Manatee County guards only Coquina Beach and Manatee Public Beach.',
+      'The ramp has a history of sanding in — the county closed it for six months in 2019 after an inspection found shallow conditions at the end of the ramp that made launching and landing difficult at low tide.',
+    ],
+    sources: [
+      {
+        id: 'mymanatee-1',
+        label: 'Palma Sola Causeway Park — hours and facilities',
+        url: 'https://www.mymanatee.org/connect/locations/location-details/palma-sola-causeway-park',
+        publisher: 'Manatee County Government',
+      },
+      {
+        id: 'mymanatee-2',
+        label: 'Palma Sola Causeway boat ramp — no overnight parking (Ordinance 23-121)',
+        url: 'https://www.mymanatee.org/connect/locations/location-details/palma-sola-causeway-boat-ramp',
+        publisher: 'Manatee County Government',
+      },
+      {
+        id: 'gis-3',
+        label: 'Palma Sola Causeway fishing pier — facilities, hours, licence status',
+        url: 'https://gis.myfwc.com/boating_guides/tampa_bay/pages/fishing_piers/palma_sola_causeway/mobile_index.html',
+        publisher: 'FWC — Boating and Angling Guide to Tampa Bay',
+      },
     ],
   },
   {
@@ -283,8 +346,8 @@ const RAW: RawSpot[] = [
     slug: 'green-bridge',
     name: 'Green Bridge',
     region: 'Bradenton',
-    lat: 27.5003,
-    lng: -82.5705,
+    lat: 27.514,
+    lng: -82.574,
     access: ['shore', 'pier'],
     structures: ['pilings', 'channel', 'lights'],
     station: STATION_BRADENTON,
@@ -299,6 +362,38 @@ const RAW: RawSpot[] = [
       { species: 'Ladyfish', rig: 'jig', hook: '1/4 oz jig head', leader: '20 lb', weight: 'jig', bait: 'white paddletail/small jig' },
       // Deep river holes beside the pilings — bait on the bottom, not swum past.
       { species: 'Black drum', rig: 'fish-finder', hook: '3/0–5/0 circle', leader: '30–40 lb', weight: '1–3 oz slider', bait: 'cut blue crab/dead shrimp' },
+    ],
+    seasons: [
+      'Mar–Nov snook from the bridge down to the river mouth',
+      'Dec–Mar sheepshead on the bridge pilings',
+    ],
+    accessNotes: [
+      'The pier is the surviving span of the 1927 bridge, on the Palmetto side of the river in Riverside Park at Riverside Drive and 9th Ave W — not the Bradenton bank.',
+      'Free, with no entrance fee, and listed as open 24 hours; the boat ramp in the same park is listed 7 am to 11 pm, so if you are relying on that parking, treat the shorter window as the real one.',
+      'The City of Palmetto rents the pier out for tournaments and festivals at $200 a day, so it can be closed to casual anglers without warning. Manatee County repaired the rails in April 2026 and is separately evaluating demolition and replacement.',
+    ],
+    safety: [
+      'A 1920s structure roughly two thousand feet long and thirty-four feet wide, with no shade for its length. Manatee County has inspected it, costed demolition and replacement, and is not planning to keep patching it — take every barricade and closure sign here literally.',
+    ],
+    sources: [
+      {
+        id: 'gis-1',
+        label: 'Riverside Park / Green Bridge Pier — facilities, hours, licence status',
+        url: 'https://gis.myfwc.com/boating_guides/tampa_bay/pages/fishing_piers/riverside_park/mobile_index.html',
+        publisher: 'FWC — Boating and Angling Guide to Tampa Bay',
+      },
+      {
+        id: 'palmettofl-2',
+        label: 'City of Palmetto facility rental fees — the pier can be booked for events',
+        url: 'https://www.palmettofl.org/198/Facilities-Rental-Fees',
+        publisher: 'City of Palmetto',
+      },
+      {
+        id: 'pulseofmanatee-3',
+        label: 'Green Bridge Fishing Pier rail repairs, April 2026',
+        url: 'https://www.pulseofmanatee.com/p/green-bridge-fishing-pier-repairs',
+        publisher: 'Pulse of Manatee (6 April 2026); Manatee County Government official Facebook account',
+      },
     ],
   },
   {
@@ -320,6 +415,32 @@ const RAW: RawSpot[] = [
       // which is the whole reason sheepshead sit on them.
       { species: 'Sheepshead', rig: 'bottom rig', hook: '1–1/0 short shank', leader: '20 lb fluoro', weight: '1/4–1/2 oz', bait: 'fiddler crab/live shrimp' },
     ],
+    accessNotes: [
+      'The Riverwalk is the only City of Bradenton park open 24 hours a day — every other city park closes at 9 pm. That makes it the guide\'s most straightforward night-fishing shoreline.',
+      'A 2.03-mile riverfront strip between the Green Bridge and the DeSoto Bridge, along Barcarrota Blvd, Waterfront Drive and Riverside Drive. There is a dock at 452 3rd Ave W, inside Rossi Park.',
+      'Downtown parking is free until further notice, including the 500-space City Centre garage on 3rd Avenue West between 10th and 12th Streets, plus the Judicial Center garage, the County Administration Building and the Post Office lot.',
+      'The city says plainly that most anglers need a licence and points you at FWC — no pier licence covers this shoreline. Alcohol is prohibited; leashed dogs are fine.',
+    ],
+    sources: [
+      {
+        id: 'cityofbradenton-1',
+        label: 'City of Bradenton parks — hours, alcohol and dog rules, fishing licences',
+        url: 'https://cityofbradenton.com/parksrec',
+        publisher: 'City of Bradenton',
+      },
+      {
+        id: 'cityofbradenton-2',
+        label: 'Downtown Bradenton public parking',
+        url: 'https://cityofbradenton.com/parking',
+        publisher: 'City of Bradenton',
+      },
+      {
+        id: 'mymanatee-3',
+        label: 'Bradenton Riverwalk Pier — location',
+        url: 'https://www.mymanatee.org/connect/locations/location-details/bradenton-riverwalk-pier',
+        publisher: 'Manatee County Government',
+      },
+    ],
   },
   {
     id: 'bridge-street-pier',
@@ -332,6 +453,7 @@ const RAW: RawSpot[] = [
     structures: ['pilings', 'current'],
     station: STATION_CORTEZ,
     tide: 'Moving tide',
+    dayparts: ['night'],
     targets: [
       { species: 'Snook', rig: 'live bait', hook: '3/0–5/0', leader: '40 lb', weight: 'light', bait: 'pilchard' },
       { species: 'Snapper', rig: 'knocker', hook: '1/0–2/0', leader: '20–30 lb', weight: '1/2 oz', bait: 'shrimp' },
@@ -339,6 +461,40 @@ const RAW: RawSpot[] = [
       // A walk-on pier in current: the most reliable fish here for a first
       // saltwater catch, and it will keep coming back for the same jig.
       { species: 'Ladyfish', rig: 'jig', hook: '1/8–1/4 oz jig', leader: '20 lb', weight: 'jig', bait: 'white jig/small silver spoon' },
+    ],
+    seasons: [
+      'Dec–Mar sheepshead on the barnacled pilings',
+      'Apr–May Spanish mackerel off the pier',
+    ],
+    accessNotes: [
+      'The Historic Bradenton Beach City Pier, at the end of Bridge Street on the Sarasota Bay side. Walking on is free; the city publishes no opening or closing time, so read the signs at the head of the pier.',
+      'Public restrooms, a restaurant and a retail shop on the pier, plus a public day dock and a dinghy dock. The Richard P. Suhre Pavilion at the bay end is the only shade on the deck.',
+      'City parking lots on the island are free and close at 9 pm; overnight parking is prohibited. The main lot is off 1st Street North just east of the Circle K, and the free island trolley runs every 20 minutes from 6 am to 10.30 pm.',
+      'Hurricane repairs to decking, pilings, handrails and the floating docks were still under way in 2026 under an agreement running to 30 September — expect sections to be fenced.',
+      'No easy bait stop on this stretch since Annie’s in Cortez was demolished in 2025 — the nearest live bait is Bridge Street Bait Shop, or Island Discount Tackle four miles north. Buy before you drive out.',
+    ],
+    safety: [
+      'The pier has a working public day dock and dinghy dock, and boats come alongside all day. Cast clear of the docking area rather than over it.',
+    ],
+    sources: [
+      {
+        id: 'cityofbradentonbeach-1',
+        label: 'Historic Bradenton Beach City Pier — facilities and access',
+        url: 'https://www.cityofbradentonbeach.com/179/City-Pier',
+        publisher: 'City of Bradenton Beach',
+      },
+      {
+        id: 'cityofbradentonbeach-2',
+        label: 'Bradenton Beach parking and island trolley',
+        url: 'https://www.cityofbradentonbeach.com/180/Parking',
+        publisher: 'City of Bradenton Beach',
+      },
+      {
+        id: 'pulseofmanatee-3',
+        label: 'Bradenton Beach extends hurricane pier-repair agreement to 30 September',
+        url: 'https://www.pulseofmanatee.com/p/bradenton-beach-approves-updated',
+        publisher: 'Pulse of Manatee (29 March 2026)',
+      },
     ],
   },
   {
@@ -352,6 +508,7 @@ const RAW: RawSpot[] = [
     structures: ['deep pass', 'bridge'],
     station: STATION_CORTEZ,
     tide: 'Strong moving tide',
+    dayparts: ['day', 'dusk'],
     targets: [
       { species: 'Snook', rig: 'live bait drift', hook: '4/0–5/0', leader: '40–60 lb', weight: '1/2–2 oz', bait: 'pinfish' },
       { species: 'Tarpon', rig: 'live crab', hook: '5/0–8/0', leader: '60–80 lb', weight: 'drift dependent', bait: 'crab/threadfin' },
@@ -361,6 +518,42 @@ const RAW: RawSpot[] = [
       // Jacks push bait against the bridge fenders and the pass edge — heavier
       // gear than the rest of this list, because they do not give up.
       { species: 'Jack crevalle', rig: 'casting lure', hook: 'single inline hooks', leader: '40–50 lb', weight: 'lure', bait: 'topwater plug/1 oz jig' },
+    ],
+    seasons: [
+      'Spanish mackerel through the pass spring and fall',
+      'May–Jun tarpon schools through the pass',
+      'Sep–Oct snook on the pass edges and the beach',
+      'Jan–Feb pompano and whiting through the pass',
+    ],
+    accessNotes: [
+      'Shore access on the Anna Maria side is through the two Coquina Bayside boat ramps on Gulf Drive South; both are posted no overnight parking under Ordinance 23-121.',
+      'On the Longboat Key side, the public access at 100 North Shore Road has about thirty parking spaces on site.',
+      'Longboat Key closes every public beach and bay access from 11 pm to 5 am, so the south side of the pass is not a legal night-fishing spot.',
+      'FDOT has no construction project on this bridge, but its replacement study was due to finish in mid-2026 — the bridge you fish today may not be the bridge that is here in a decade.',
+      'No easy bait stop on this stretch since Annie’s in Cortez was demolished in 2025 — the nearest live bait is Bridge Street Bait Shop, or Island Discount Tackle four miles north. Buy before you drive out.',
+    ],
+    safety: [
+      'There are no lifeguards anywhere on Longboat Key.',
+    ],
+    sources: [
+      {
+        id: 'longboatkey-1',
+        label: 'Longboat Key public beach and bay accesses — parking, hours, no lifeguards',
+        url: 'https://www.longboatkey.org/331/Beaches',
+        publisher: 'Town of Longboat Key',
+      },
+      {
+        id: 'mymanatee-2',
+        label: 'Coquina Bayside North boat ramp',
+        url: 'https://www.mymanatee.org/connect/locations/location-details/coquina-bayside-north-boat-ramp',
+        publisher: 'Manatee County Government',
+      },
+      {
+        id: 'swflroads-3',
+        label: 'SR 789 bridge over Longboat Pass — replacement PD&E study',
+        url: 'https://www.swflroads.com/project/436676-1',
+        publisher: 'Florida Department of Transportation, District One',
+      },
     ],
   },
   {
@@ -380,6 +573,38 @@ const RAW: RawSpot[] = [
       { species: 'Pompano', rig: 'surf rig', hook: '1/0', leader: '15–20 lb', weight: '1–3 oz pyramid', bait: 'sand flea/shrimp' },
       { species: 'Mackerel', rig: 'spoon', hook: 'single hook', leader: '30–40 lb bite', weight: 'lure', bait: 'spoon' },
     ],
+    seasons: [
+      'Jan–Mar pompano and whiting in the trough',
+      'Aug–Oct snook in the surf',
+    ],
+    accessNotes: [
+      'Manatee County beach park at 2650 Gulf Drive, Bradenton Beach, open sunrise to sunset unless posted otherwise.',
+      'Parking is free and there is a lot of it, but the island lots close at 9 pm and overnight parking is prohibited. A free island trolley serves the park.',
+      'Restrooms, showers, changing cabanas, concessions and a gift shop on site. Three beach wheelchairs and a walker are lent free at the concession stand, first come first served.',
+      'Lifeguards are on duty 9 am to 5 pm, and to 7 pm between Memorial Day and Labor Day — outside those hours nobody is watching the water.',
+      'Sea turtle nesting runs 1 May to 31 October: no lights on the beach after dark and all furniture off the sand at dusk. Alcohol, glass, pets, drones and fireworks are prohibited year-round.',
+      'No easy bait stop on this stretch since Annie’s in Cortez was demolished in 2025 — the nearest live bait is Bridge Street Bait Shop, or Island Discount Tackle four miles north. Buy before you drive out.',
+    ],
+    safety: [
+      'Lifeguards cover 9 am to 5 pm, and to 7 pm in summer. Dawn and dusk — the two best windows here — are unguarded.',
+      'Read the flags before you wade: two red is closed water, one red is high hazard or strong current, purple is dangerous marine life.',
+      'If a rip takes you, do not swim against it. Swim parallel to the beach until you are out of it, then in.',
+      'Two county boat ramps discharge into Longboat Pass immediately south of the beach — expect traffic close in at the south end.',
+    ],
+    sources: [
+      {
+        id: 'mymanatee-1',
+        label: 'Coquina Beach — hours, amenities, wheelchairs, turtle season',
+        url: 'https://www.mymanatee.org/connect/locations/location-details/coquina-beach',
+        publisher: 'Manatee County Government',
+      },
+      {
+        id: 'mymanatee-2',
+        label: 'Manatee County lifeguarded beaches, flag system and rip-current guidance',
+        url: 'https://www.mymanatee.org/services-and-amenities/service-listing/service-details/find-a-lifeguarded-beach',
+        publisher: 'Manatee County Government',
+      },
+    ],
   },
   {
     id: 'bean-point',
@@ -392,10 +617,44 @@ const RAW: RawSpot[] = [
     structures: ['point', 'surf cuts'],
     station: STATION_ANNA_MARIA,
     tide: 'Moving water',
+    dayparts: ['dawn', 'dusk'],
     targets: [
       { species: 'Snook', rig: 'live bait', hook: '3/0–5/0', leader: '30–40 lb', weight: 'light', bait: 'pilchard' },
       { species: 'Tarpon', rig: 'live crab', hook: '5/0–8/0', leader: '60–80 lb', weight: 'none', bait: 'crab' },
       { species: 'Pompano', rig: 'surf rig', hook: '1/0', leader: '15–20 lb', weight: '1–3 oz', bait: 'sand flea' },
+    ],
+    seasons: [
+      'May–Jun tarpon in the pass and over the sandbar',
+      'Jan–Feb pompano and whiting in the surf off the point',
+      'Sep–Oct snook off the point on the outgoing',
+    ],
+    accessNotes: [
+      'Anna Maria enforces parking hard: all tyres off the pavement, nothing within 30 feet of a stop sign or 20 feet of an intersection, nothing on a sidewalk or blocking a drive. Park with the flow of traffic and read every sign.',
+      'No restrooms at the point. The nearest are at Anna Maria Bayfront Park, 310 North Bay Boulevard, open sunrise to sunset with restrooms and showers.',
+      'No dogs, no glass, no alcohol, no fires and no anchoring a boat to the beach. During turtle season, 1 May to 31 October, any light that reaches the beach is prohibited — which rules out the way most people fish a beach at night.',
+    ],
+    safety: [
+      'No lifeguard. Manatee County guards only Coquina, Cortez and Manatee Public beaches — Bean Point is not one of them.',
+    ],
+    sources: [
+      {
+        id: 'cityofannamaria-1',
+        label: 'Anna Maria parking enforcement — what gets you a citation',
+        url: 'https://www.cityofannamaria.com/182/Parking-Enforcement',
+        publisher: 'City of Anna Maria',
+      },
+      {
+        id: 'cityofannamaria-2',
+        label: 'Anna Maria beach regulations and turtle-season lighting',
+        url: 'https://www.cityofannamaria.com/226/Beach-Regulations',
+        publisher: 'City of Anna Maria',
+      },
+      {
+        id: 'mymanatee-3',
+        label: 'Manatee County lifeguarded beaches, flag system and rip-current guidance',
+        url: 'https://www.mymanatee.org/services-and-amenities/service-listing/service-details/find-a-lifeguarded-beach',
+        publisher: 'Manatee County Government',
+      },
     ],
   },
   {
@@ -418,6 +677,33 @@ const RAW: RawSpot[] = [
       // The deeper scour beside the bridge holds drum on a moving tide.
       { species: 'Black drum', rig: 'fish-finder', hook: '3/0–4/0 circle', leader: '30 lb', weight: '1–2 oz slider', bait: 'dead shrimp/cut crab' },
     ],
+    seasons: [
+      'Trout on the Anna Maria Sound and Sarasota Bay grass most of the year',
+      'Mar–Apr mangrove snapper on the bridge pilings',
+    ],
+    accessNotes: [
+      'FDOT began construction of the replacement bridge in September 2026 — a 1,200-day project. The existing bridge stays open to traffic and pedestrians through Phase 1; the old drawbridge is demolished in Phase 2, with the second traffic shift expected mid-2028.',
+      'Traffic is shifted slightly south at both approaches while crews build the north half of the new bridge, and the work is being done from barges and temporary trestles in the water either side of the span.',
+      'No easy bait stop on this stretch since Annie’s in Cortez was demolished in 2025 — the nearest live bait is Bridge Street Bait Shop, or Island Discount Tackle four miles north. Buy before you drive out.',
+    ],
+    safety: [
+      'This is now an active construction site. Barges, temporary trestles and work boats operate in the channel either side of the bridge for the life of the project — do not fish, drift or anchor into the work zone.',
+      'The 1956 drawbridge is scheduled for demolition in Phase 2. Treat every barricade, cone and closure sign here as current, because the layout changes as the job moves.',
+    ],
+    sources: [
+      {
+        id: 'swflroads-1',
+        label: 'Cortez Bridge (SR 684) replacement — phases, schedule and construction method',
+        url: 'https://www.swflroads.com/project/430204-2',
+        publisher: 'Florida Department of Transportation, District One',
+      },
+      {
+        id: 'yourobserver-2',
+        label: 'Cortez Bridge replacement to start soon',
+        url: 'https://www.yourobserver.com/news/2026/aug/13/cortez-bridge-replacement-soon/',
+        publisher: 'Your Observer (13 August 2026)',
+      },
+    ],
   },
   {
     id: 'south-palma-sola-flats',
@@ -430,10 +716,35 @@ const RAW: RawSpot[] = [
     structures: ['grass', 'potholes'],
     station: STATION_PALMA_SOLA_S,
     tide: 'Low incoming',
+    dayparts: ['dawn'],
     targets: [
       { species: 'Trout', rig: 'paddletail', hook: '1/8–1/4 oz jig', leader: '15–20 lb', weight: 'jig', bait: 'paddletail' },
       { species: 'Redfish', rig: 'weedless', hook: '3/0–4/0', leader: '20–25 lb', weight: '1/16–1/8 oz', bait: 'paddletail' },
       { species: 'Snook', rig: 'jerk shad', hook: '3/0–4/0', leader: '25–30 lb', weight: 'light', bait: 'jerk shad' },
+    ],
+    seasons: [
+      'Aug–Sep redfish, snook and trout on the flats',
+    ],
+    accessNotes: [
+      'The nearest public access is two Manatee County preserves on Manatee Ave W — Perico Preserve at 11700 and Neal Preserve at 12301. Both open daily, sunrise to sunset, 365 days a year, and both list fishing access.',
+      'Neither preserve has a boat ramp or a kayak launch. If you need to launch, the Palma Sola Causeway ramp is a mile and a half north.',
+      'Perico has an observation dock, a bird blind, boardwalks and a picnic shelter, but no restrooms. Neal has boardwalks, a 20-foot observation tower and a 0.3-mile shell trail loop, and one portable restroom in the car park.',
+      'Neal parks on the south side of Manatee Avenue with overflow parking on the north side of the Anna Maria Island Bridge — crossing SR 64 on foot to fish is not a good plan.',
+      'Perico is a designated bird sanctuary: no dogs except service dogs, bikes on designated trails only. Neal allows no pets at all and no bikes on the trails.',
+    ],
+    sources: [
+      {
+        id: 'mymanatee-1',
+        label: 'Perico Preserve — hours, fishing access, bird-sanctuary rules',
+        url: 'https://www.mymanatee.org/connect/locations/location-details/perico-preserve',
+        publisher: 'Manatee County Government',
+      },
+      {
+        id: 'mymanatee-2',
+        label: 'Neal Preserve — hours, parking, facilities and restrictions',
+        url: 'https://www.mymanatee.org/connect/locations/location-details/neal-preserve',
+        publisher: 'Manatee County Government',
+      },
     ],
   },
   {
@@ -447,6 +758,7 @@ const RAW: RawSpot[] = [
     structures: ['pass', 'surf', 'mangrove'],
     station: STATION_ENGLEWOOD,
     tide: 'Moving tide',
+    dayparts: ['dawn', 'dusk'],
     targets: [
       { species: 'Snook', rig: 'live bait', hook: '3/0–5/0', leader: '30–40 lb', weight: '0–1/2 oz', bait: 'pilchard' },
       { species: 'Redfish', rig: 'shrimp/weedless', hook: '1/0–3/0', leader: '20–30 lb', weight: 'light', bait: 'shrimp' },
@@ -455,6 +767,39 @@ const RAW: RawSpot[] = [
       // seam, pompano in the trough on the Gulf side.
       { species: 'Ladyfish', rig: 'jig', hook: '1/4 oz jig', leader: '20 lb', weight: 'jig', bait: 'white jig/small silver spoon' },
       { species: 'Pompano', rig: 'surf rig', hook: '#1–1/0 dropper loops', leader: '20 lb', weight: '2–3 oz pyramid', bait: 'sand flea/fresh shrimp' },
+    ],
+    seasons: [
+      'May–Sep snook in the pass and along the beach',
+      'Aug–Nov redfish schooling on the flats inside the pass',
+      'Jan–Mar pompano and whiting in the pass and the surf',
+      'Jun–Jul tarpon off the beaches outside the pass',
+    ],
+    accessNotes: [
+      'Stump Pass Beach State Park at the south end of Manasota Key, 900 Gulf Blvd, Englewood. Reported open 8 am to sundown daily — not sunrise.',
+      'Leashed dogs on the trail, but not on the beach.',
+    ],
+    safety: [
+      'A pass mouth with hard structure either side is where rip currents form. There are no lifeguards here.',
+    ],
+    sources: [
+      {
+        id: 'yoursun-1',
+        label: 'Stump Pass Beach State Park reopens — hours, fee, temporary restrooms',
+        url: 'https://www.yoursun.com/charlotte/news/stump-pass-beach-state-park-reopens/article_f91fac75-0a7d-491d-b4ec-62c551d8d752.html',
+        publisher: 'Sun Newspapers (15 September 2025)',
+      },
+      {
+        id: 'floridahikes-2',
+        label: 'Stump Pass Beach State Park — trail, new Milton cut, dogs',
+        url: 'https://floridahikes.com/stump-pass-beach-state-park/',
+        publisher: 'Florida Hikes',
+      },
+      {
+        id: 'weather-3',
+        label: 'Rip current science — where rips form and how fast they run',
+        url: 'https://www.weather.gov/safety/ripcurrent-science',
+        publisher: 'NOAA National Weather Service',
+      },
     ],
   },
   {
@@ -474,6 +819,38 @@ const RAW: RawSpot[] = [
       { species: 'Pompano', rig: 'surf rig', hook: '1/0', leader: '15–20 lb', weight: '1–3 oz', bait: 'sand flea' },
       { species: 'Mackerel', rig: 'spoon', hook: 'single hook', leader: '30–40 lb bite', weight: 'lure', bait: 'spoon' },
     ],
+    seasons: [
+      'Dec–Mar pompano and whiting in the trough',
+      'Jun–Sep snook in the surf',
+      'Spanish mackerel along the beach spring and fall',
+    ],
+    accessNotes: [
+      'Englewood Beach at Chadwick Park, 2100 N. Beach Road on Manasota Key. Open 6 am to 9 pm; the county boat ramps and fishing piers keep separate 24-hour access.',
+      'Parking is paid — 75 cents an hour, by the ParkMobile app or bought in advance. Passes run $26.75 for three months, $37.45 for six and $53.50 for the year.',
+      'Parking is free at any Charlotte County beach, ramp or pier for a vehicle displaying a state handicap plate or placard, provided the permit holder is present.',
+      'Restrooms, showers and water stations on site. Beach wheelchairs are self-service seven days a week from 7.30 am and must be back by 3.30 pm — so an evening session cannot use one.',
+      'There is no boat ramp or kayak launch at the beach itself; the nearest county launches are Ainger Creek Park and Placida Park.',
+    ],
+    sources: [
+      {
+        id: 'charlottecountyfl-1',
+        label: 'Englewood Beach at Chadwick Park — parking, amenities, beach wheelchairs',
+        url: 'https://www.charlottecountyfl.gov/departments/community-services/parks/all-parks/englewood-beach-at-chadwick-park.stml',
+        publisher: 'Charlotte County, Florida',
+      },
+      {
+        id: 'charlottecountyfl-2',
+        label: 'Charlotte County park parking — rates, passes and the handicap exemption',
+        url: 'https://www.charlottecountyfl.gov/departments/community-services/parks/parking.stml',
+        publisher: 'Charlotte County, Florida',
+      },
+      {
+        id: 'charlottecountyfl-3',
+        label: 'Charlotte County fishing piers, boat ramps and kayak launches',
+        url: 'https://www.charlottecountyfl.gov/departments/community-services/parks/amenities/fishing.stml',
+        publisher: 'Charlotte County, Florida',
+      },
+    ],
   },
   {
     id: 'lemon-bay-mangroves',
@@ -486,10 +863,41 @@ const RAW: RawSpot[] = [
     structures: ['points', 'grass', 'drains'],
     station: STATION_ENGLEWOOD,
     tide: 'High incoming/outgoing',
+    dayparts: ['dawn'],
     targets: [
       { species: 'Redfish', rig: 'weedless', hook: '3/0–4/0', leader: '20–25 lb', weight: '1/16–1/8 oz', bait: 'paddletail' },
       { species: 'Snook', rig: 'live bait', hook: '2/0–4/0', leader: '30–40 lb', weight: 'light', bait: 'pilchard' },
       { species: 'Snapper', rig: 'free-line', hook: '1/0–2/0', leader: '20–25 lb', weight: 'none', bait: 'shrimp' },
+    ],
+    seasons: [
+      'Redfish under the docks and along the mangroves most of the year',
+      'Aug–Nov redfish schooling on the flats',
+      'Apr–Sep snook along the mangrove edges and the dock lines',
+    ],
+    accessNotes: [
+      'The bay is reached from public launches rather than from one named site. Indian Mound Park, 210 Winson Ave, Englewood, is the closest — a Sarasota County ramp with docks and restrooms, open 6 am to midnight.',
+      'Ainger Creek Park, 2011 Placida Road, is the Charlotte County launch at the south end, with a single-lane ramp, a canoe and kayak launch, restrooms and 24-hour ramp access; parking there is the county 75-cents-an-hour charge.',
+      'The fishing piers at Ainger Creek Park are closed.',
+    ],
+    sources: [
+      {
+        id: 'charlottecountyfl-1',
+        label: 'Ainger Creek Park — ramp, kayak launch, and the closed fishing piers',
+        url: 'https://www.charlottecountyfl.gov/departments/community-services/parks/all-parks/ainger-creek-park.stml',
+        publisher: 'Charlotte County, Florida',
+      },
+      {
+        id: 'gis-2',
+        label: 'Indian Mound Park boat ramp — hours, lanes and facilities',
+        url: 'https://gis.myfwc.com/boating_guides/Charlotte_Harbor/pages/boat_ramps/indian_mound/index.html',
+        publisher: 'FWC — Boating and Angling Guide to Charlotte Harbor',
+      },
+      {
+        id: 'visitsarasota-3',
+        label: 'Lemon Bay Park and Environmental Center — shoreline, launch and facilities',
+        url: 'https://www.visitsarasota.com/beaches-parks/lemon-bay-park-and-environmental-center',
+        publisher: 'Visit Sarasota County',
+      },
     ],
   },
   {
@@ -503,12 +911,49 @@ const RAW: RawSpot[] = [
     structures: ['mangrove', 'flats', 'docks'],
     station: STATION_PLACIDA,
     tide: 'Moving tide',
+    dayparts: ['dawn', 'dusk', 'night'],
     targets: [
       { species: 'Redfish', rig: 'weedless', hook: '3/0–4/0', leader: '20–30 lb', weight: 'light', bait: 'paddletail' },
       { species: 'Snook', rig: 'live bait', hook: '3/0–5/0', leader: '30–50 lb', weight: 'none', bait: 'pilchard' },
       { species: 'Trout', rig: 'popping cork', hook: '1/0–2/0', leader: '15–20 lb', weight: 'light', bait: 'shrimp' },
       // Dock pilings through the sound are the winter sheepshead structure here.
       { species: 'Sheepshead', rig: 'bottom rig', hook: '1–1/0 short shank', leader: '20 lb fluoro', weight: '1/4–1/2 oz', bait: 'fiddler crab/live shrimp' },
+    ],
+    seasons: [
+      'Nov–Mar sheepshead on the trestle, the docks and the oyster bars',
+      'Aug–Nov redfish schooling on the sound flats',
+      'May–Jun snook staging through the sound for the beaches',
+      'Trout on the sound grass most of the year',
+    ],
+    accessNotes: [
+      'Placida Park, 6499 Boca Grande Causeway, is the public launch onto Gasparilla Sound — three launch lanes with boarding piers and around seventy-nine trailer spaces. Park hours are 6 am to 9 pm; the ramp itself is 24 hours.',
+      'No launch fee, but every vehicle pays to park between 6 am and 10 pm at the county rate of 75 cents an hour. A yearly parking pass is available, and a state handicap permit parks free.',
+      'Restrooms on site; no bait or tackle at the ramp.',
+      'Expect a queue. Anglers report waits of about half an hour on busy days, and longer for bigger boats at weekends.',
+      'The Placida Rotary Centennial Park fishing pier, an old railroad trestle at CR 775 and Fishery Rd, is free and open 24 hours, but sits about a third of a mile from its parking and the walkway is awkward when wet.',
+    ],
+    safety: [
+      'A busy three-lane ramp with a real queue at weekends. If you fish near it, stay clear of reversing trailers — that end is a working launch, not a fishing platform.',
+    ],
+    sources: [
+      {
+        id: 'charlottecountyfl-1',
+        label: 'Placida Park — boat ramp, paddling access and facilities',
+        url: 'https://www.charlottecountyfl.gov/departments/community-services/parks/all-parks/placida-park.stml',
+        publisher: 'Charlotte County, Florida',
+      },
+      {
+        id: 'charlottecountyfl-2',
+        label: 'Placida West boat ramp expansion — scope and schedule',
+        url: 'https://www.charlottecountyfl.gov/projects/placida-west-boat-ramp-expansion.stml',
+        publisher: 'Charlotte County, Florida',
+      },
+      {
+        id: 'gis-3',
+        label: 'Placida Rotary Centennial Park fishing pier — access and walkway warning',
+        url: 'https://gis.myfwc.com/boating_guides/Charlotte_Harbor/pages/fishing_piers/Placida/index.html',
+        publisher: 'FWC — Boating and Angling Guide to Charlotte Harbor',
+      },
     ],
   },
   {
@@ -522,10 +967,39 @@ const RAW: RawSpot[] = [
     structures: ['major pass', 'deep current'],
     station: STATION_BOCA_GRANDE,
     tide: 'Seasonal / current',
+    dayparts: ['dusk', 'night'],
     targets: [
       { species: 'Tarpon', rig: 'live crab drift', hook: '5/0–8/0', leader: '60–80 lb', weight: 'depth dependent', bait: 'crab/threadfin' },
       { species: 'Snook', rig: 'live bait', hook: '4/0–5/0', leader: '40–60 lb', weight: '1/2–2 oz', bait: 'pinfish' },
       { species: 'Jack', rig: 'heavy lure', hook: 'single hook', leader: '40–60 lb', weight: 'lure', bait: 'plug/jig' },
+    ],
+    seasons: [
+      'Apr–Jun tarpon through the pass',
+      'Apr–Jun snook moving out through the pass',
+    ],
+    accessNotes: [
+      'FWC defines the Boca Grande Pass boundary by six named points, and the gear rules below apply inside it — not to Charlotte Harbor generally.',
+    ],
+    safety: [
+      'Inside the pass, fishing with a weight that hangs lower than the hook is prohibited year-round, for any species. Prohibited jigs must be stowed and not readily accessible — natural bait is exempt.',
+      'In April, May and June no vessel may deploy more than three lines at once, and breakaway gear may not be used, fished with or placed in the water.',
+      'Tarpon is catch-and-release only. Anything over 40 inches stays in the water unless you are chasing a record with a tarpon tag. Snagging and snatch hooking are prohibited.',
+      'Sharks work the pass around hooked tarpon. Stay in the boat.',
+      'One of the deepest natural passes in Florida, with hard tide, shifting shoals and heavy boat traffic through the April-to-June peak — the same months the extra gear restrictions apply.',
+    ],
+    sources: [
+      {
+        id: 'myfwc-1',
+        label: 'Tarpon regulations, including the Boca Grande Pass gear rules and boundary',
+        url: 'https://myfwc.com/fishing/saltwater/recreational/tarpon/',
+        publisher: 'Florida Fish and Wildlife Conservation Commission',
+      },
+      {
+        id: 'myfwc-2',
+        label: 'Tarpon regulation FAQs — snagging, breakaway gear, seasonal rules',
+        url: 'https://myfwc.com/fishing/saltwater/recreational/tarpon/faqs/',
+        publisher: 'Florida Fish and Wildlife Conservation Commission',
+      },
     ],
   },
 

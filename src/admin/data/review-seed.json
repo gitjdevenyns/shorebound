@@ -1,0 +1,1496 @@
+[
+  {
+    "id": "source:GUIDE:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:GUIDE:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "permit:GUIDE:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "permit:GUIDE:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "permit:GUIDE:03",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "permit:GUIDE:04",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:emerson-point:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:emerson-point:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:emerson-point:03",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "access_note:emerson-point:04",
+    "status": "needs_info",
+    "field": null,
+    "why": "A secondary source on a claim that goes stale — hours, fees, construction. Not wrong, but not something to put in front of a reader without a call or a look."
+  },
+  {
+    "id": "safety:emerson-point:01",
+    "status": "skipped",
+    "field": null,
+    "why": "No checkable source. The guide's rule is that an unresearched field stays empty — empty means \"not done yet\", and that is a more useful thing to show a reader than a plausible sentence nobody verified."
+  },
+  {
+    "id": "safety:emerson-point:02",
+    "status": "skipped",
+    "field": null,
+    "why": "No checkable source. The guide's rule is that an unresearched field stays empty — empty means \"not done yet\", and that is a more useful thing to show a reader than a plausible sentence nobody verified."
+  },
+  {
+    "id": "safety:emerson-point:03",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "source:emerson-point:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:emerson-point:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "alert:emerson-point:01",
+    "status": "accepted",
+    "field": "accessNotes",
+    "why": "The county says the dock is closed until further notice and the guide sends people there for shore and kayak access. This is the single most important item in the queue."
+  },
+  {
+    "id": "access_note:palma-sola-bay:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:palma-sola-bay:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:palma-sola-bay:03",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "access_note:palma-sola-bay:04",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "access_note:palma-sola-bay:05",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "safety:palma-sola-bay:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "safety:palma-sola-bay:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "source:palma-sola-bay:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:palma-sola-bay:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:palma-sola-bay:03",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "alert:green-bridge:01",
+    "status": "accepted",
+    "field": "DATA_FIX",
+    "why": "The coordinates in locations.ts point at the wrong bank. The pier is the surviving 1927 span on the Palmetto side. A wrong pin sends someone to the opposite shore of a river."
+  },
+  {
+    "id": "access_note:green-bridge:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:green-bridge:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "access_note:green-bridge:03",
+    "status": "needs_info",
+    "field": null,
+    "why": "A secondary source on a claim that goes stale — hours, fees, construction. Not wrong, but not something to put in front of a reader without a call or a look."
+  },
+  {
+    "id": "access_note:green-bridge:04",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "safety:green-bridge:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "source:green-bridge:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:green-bridge:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:green-bridge:03",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "access_note:bradenton-riverwalk:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:bradenton-riverwalk:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:bradenton-riverwalk:03",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:bradenton-riverwalk:04",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "source:bradenton-riverwalk:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:bradenton-riverwalk:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:bradenton-riverwalk:03",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "access_note:bridge-street-pier:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:bridge-street-pier:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:bridge-street-pier:03",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "access_note:bridge-street-pier:04",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "safety:bridge-street-pier:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "source:bridge-street-pier:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:bridge-street-pier:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:bridge-street-pier:03",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "alert:bridge-street-pier:01",
+    "status": "accepted",
+    "field": "accessNotes",
+    "why": "Part of the pier is still closed and the guide types this spot as pier access. Sourced to the county funding agreement."
+  },
+  {
+    "id": "access_note:longboat-pass:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:longboat-pass:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:longboat-pass:03",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:longboat-pass:04",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "safety:longboat-pass:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "source:longboat-pass:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:longboat-pass:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:longboat-pass:03",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "access_note:coquina-beach:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:coquina-beach:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "access_note:coquina-beach:03",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:coquina-beach:04",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:coquina-beach:05",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "safety:coquina-beach:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "safety:coquina-beach:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "safety:coquina-beach:03",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "safety:coquina-beach:04",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "source:coquina-beach:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:coquina-beach:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "alert:coquina-beach:01",
+    "status": "accepted",
+    "field": "accessNotes",
+    "why": "Renourishment starts within months of now and runs through the season. Official, funded, dated."
+  },
+  {
+    "id": "access_note:bean-point:01",
+    "status": "skipped",
+    "field": null,
+    "why": "No checkable source. The guide's rule is that an unresearched field stays empty — empty means \"not done yet\", and that is a more useful thing to show a reader than a plausible sentence nobody verified."
+  },
+  {
+    "id": "access_note:bean-point:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:bean-point:03",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:bean-point:04",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "safety:bean-point:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "source:bean-point:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:bean-point:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:bean-point:03",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "alert:bean-point:01",
+    "status": "needs_info",
+    "field": null,
+    "why": "A parking study, not an enacted rate. Publishing $4.50/hour before the vote would be stating a proposal as fact. Re-check after the 31 Aug 2026 meeting."
+  },
+  {
+    "id": "access_note:cortez-bridge:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:cortez-bridge:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:cortez-bridge:03",
+    "status": "skipped",
+    "field": null,
+    "why": "No checkable source. The guide's rule is that an unresearched field stays empty — empty means \"not done yet\", and that is a more useful thing to show a reader than a plausible sentence nobody verified."
+  },
+  {
+    "id": "safety:cortez-bridge:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "safety:cortez-bridge:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "source:cortez-bridge:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:cortez-bridge:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "alert:cortez-bridge:01",
+    "status": "accepted",
+    "field": "accessNotes",
+    "why": "A 1,200-day FDOT construction project in the channel either side of the span. The guide describes fishing the pilings; that description is now questionable for years."
+  },
+  {
+    "id": "access_note:south-palma-sola-flats:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:south-palma-sola-flats:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "access_note:south-palma-sola-flats:03",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "access_note:south-palma-sola-flats:04",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "access_note:south-palma-sola-flats:05",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "safety:south-palma-sola-flats:01",
+    "status": "skipped",
+    "field": null,
+    "why": "No checkable source. The guide's rule is that an unresearched field stays empty — empty means \"not done yet\", and that is a more useful thing to show a reader than a plausible sentence nobody verified."
+  },
+  {
+    "id": "source:south-palma-sola-flats:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:south-palma-sola-flats:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "access_note:stump-pass:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "access_note:stump-pass:02",
+    "status": "needs_info",
+    "field": null,
+    "why": "A secondary source on a claim that goes stale — hours, fees, construction. Not wrong, but not something to put in front of a reader without a call or a look."
+  },
+  {
+    "id": "access_note:stump-pass:03",
+    "status": "needs_info",
+    "field": null,
+    "why": "A secondary source on a claim that goes stale — hours, fees, construction. Not wrong, but not something to put in front of a reader without a call or a look."
+  },
+  {
+    "id": "access_note:stump-pass:04",
+    "status": "needs_info",
+    "field": null,
+    "why": "A secondary source on a claim that goes stale — hours, fees, construction. Not wrong, but not something to put in front of a reader without a call or a look."
+  },
+  {
+    "id": "access_note:stump-pass:05",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "safety:stump-pass:01",
+    "status": "needs_info",
+    "field": null,
+    "why": "A secondary source on a claim that goes stale — hours, fees, construction. Not wrong, but not something to put in front of a reader without a call or a look."
+  },
+  {
+    "id": "safety:stump-pass:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "source:stump-pass:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:stump-pass:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:stump-pass:03",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "alert:stump-pass:01",
+    "status": "accepted",
+    "field": "accessNotes",
+    "why": "Milton cut a new pass through the trail. The guide implies a walk to the tip that no longer exists as one beach. Medium confidence, but the change is physical and well attested."
+  },
+  {
+    "id": "access_note:englewood-beach:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:englewood-beach:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:englewood-beach:03",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:englewood-beach:04",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:englewood-beach:05",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "safety:englewood-beach:01",
+    "status": "skipped",
+    "field": null,
+    "why": "No checkable source. The guide's rule is that an unresearched field stays empty — empty means \"not done yet\", and that is a more useful thing to show a reader than a plausible sentence nobody verified."
+  },
+  {
+    "id": "source:englewood-beach:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:englewood-beach:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:englewood-beach:03",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "alert:englewood-beach:01",
+    "status": "needs_info",
+    "field": null,
+    "why": "The research itself says verify. County pier status after the storms is exactly the kind of claim that must not be guessed."
+  },
+  {
+    "id": "access_note:lemon-bay-mangroves:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "access_note:lemon-bay-mangroves:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:lemon-bay-mangroves:03",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:lemon-bay-mangroves:04",
+    "status": "needs_info",
+    "field": null,
+    "why": "A secondary source on a claim that goes stale — hours, fees, construction. Not wrong, but not something to put in front of a reader without a call or a look."
+  },
+  {
+    "id": "safety:lemon-bay-mangroves:01",
+    "status": "skipped",
+    "field": null,
+    "why": "No checkable source. The guide's rule is that an unresearched field stays empty — empty means \"not done yet\", and that is a more useful thing to show a reader than a plausible sentence nobody verified."
+  },
+  {
+    "id": "source:lemon-bay-mangroves:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:lemon-bay-mangroves:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:lemon-bay-mangroves:03",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "alert:lemon-bay-mangroves:01",
+    "status": "needs_info",
+    "field": null,
+    "why": "Last reported closed in March 2025 and the county sites 403 to automated checks. \"Probably still closed eighteen months later\" is not something to publish."
+  },
+  {
+    "id": "access_note:placida-gasparilla-sound:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:placida-gasparilla-sound:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:placida-gasparilla-sound:03",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:placida-gasparilla-sound:04",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "access_note:placida-gasparilla-sound:05",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "safety:placida-gasparilla-sound:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "source:placida-gasparilla-sound:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:placida-gasparilla-sound:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:placida-gasparilla-sound:03",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "alert:placida-gasparilla-sound:01",
+    "status": "accepted",
+    "field": "accessNotes",
+    "why": "Dated, funded, scoped public works with a defined window. Useful for anyone planning ahead."
+  },
+  {
+    "id": "access_note:boca-grande-pass:01",
+    "status": "skipped",
+    "field": null,
+    "why": "No checkable source. The guide's rule is that an unresearched field stays empty — empty means \"not done yet\", and that is a more useful thing to show a reader than a plausible sentence nobody verified."
+  },
+  {
+    "id": "access_note:boca-grande-pass:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "access_note:boca-grande-pass:03",
+    "status": "needs_info",
+    "field": null,
+    "why": "A secondary source on a claim that goes stale — hours, fees, construction. Not wrong, but not something to put in front of a reader without a call or a look."
+  },
+  {
+    "id": "safety:boca-grande-pass:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "safety:boca-grande-pass:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "safety:boca-grande-pass:03",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "safety:boca-grande-pass:04",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "safety:boca-grande-pass:05",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "source:boca-grande-pass:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "source:boca-grande-pass:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A citation attached to a spot. Pure upside: it makes an existing claim checkable and adds nothing new to verify."
+  },
+  {
+    "id": "seasons:bridge-street-pier:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:bridge-street-pier:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "daypart:bridge-street-pier:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:longboat-pass:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:longboat-pass:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "seasons:longboat-pass:03",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:longboat-pass:04",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "daypart:longboat-pass:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "daypart:longboat-pass:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "seasons:coquina-beach:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "seasons:coquina-beach:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "seasons:bean-point:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:bean-point:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:bean-point:03",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "daypart:bean-point:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "daypart:bean-point:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:cortez-bridge:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "seasons:cortez-bridge:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "seasons:stump-pass:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:stump-pass:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:stump-pass:03",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:stump-pass:04",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "daypart:stump-pass:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "daypart:stump-pass:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "seasons:englewood-beach:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:englewood-beach:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "seasons:englewood-beach:03",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "seasons:lemon-bay-mangroves:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:lemon-bay-mangroves:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:lemon-bay-mangroves:03",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "daypart:lemon-bay-mangroves:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "seasons:placida-gasparilla-sound:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:placida-gasparilla-sound:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:placida-gasparilla-sound:03",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:placida-gasparilla-sound:04",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "daypart:placida-gasparilla-sound:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "daypart:placida-gasparilla-sound:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "daypart:placida-gasparilla-sound:03",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:boca-grande-pass:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:boca-grande-pass:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "daypart:boca-grande-pass:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "daypart:boca-grande-pass:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:emerson-point:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "seasons:emerson-point:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "alert:emerson-point:02",
+    "status": "accepted",
+    "field": "accessNotes",
+    "why": "Published first-person observation from a named local columnist about seagrass loss. Accepted as an attributed quote, never as the guide's own claim about the water."
+  },
+  {
+    "id": "seasons:palma-sola-bay:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "seasons:palma-sola-bay:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "seasons:palma-sola-bay:03",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "daypart:palma-sola-bay:01",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "daypart:palma-sola-bay:02",
+    "status": "accepted",
+    "field": null,
+    "why": "Official or first-party source, quoted. This is the bar the guide already holds its existing content to."
+  },
+  {
+    "id": "alert:palma-sola-bay:01",
+    "status": "needs_info",
+    "field": null,
+    "why": "This is a fishing REGULATION. The rule dates to 2021 and the research says re-check it against FWC. The guide states plainly that regulations are verified before being presented as legal guidance — getting this wrong could cost a reader a citation."
+  },
+  {
+    "id": "seasons:south-palma-sola-flats:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "daypart:south-palma-sola-flats:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "alert:south-palma-sola-flats:01",
+    "status": "skipped",
+    "field": null,
+    "why": "\"People can be seen wading here\" is an observation from a source document, not usable guide content. It tells a reader nothing they cannot see for themselves."
+  },
+  {
+    "id": "seasons:green-bridge:01",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "seasons:green-bridge:02",
+    "status": "accepted",
+    "field": null,
+    "why": "A credible secondary source with nothing official contradicting it, on a claim that does not go stale."
+  },
+  {
+    "id": "alert:annies-bait-and-tackle:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Handled in the directory instead: Annie's is correctly absent from src/data/shops.ts and the live-site trap is recorded in the research file. Nothing to add to a location page."
+  },
+  {
+    "id": "alert:seafood-shack-marina:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Shop data, already handled by its absence from the directory."
+  },
+  {
+    "id": "alert:GUIDE:anna-maria-city-pier",
+    "status": "skipped",
+    "field": null,
+    "why": "Anna Maria City Pier is not one of the guide's 25 spots, so nothing in the app is currently wrong about it. Worth revisiting if it is added after the late-2026 reopening."
+  },
+  {
+    "id": "alert:GUIDE:rod-and-reel-pier",
+    "status": "skipped",
+    "field": null,
+    "why": "Not a spot in the guide. Same reasoning as the City Pier."
+  },
+  {
+    "id": "shop:bridge-street-bait-shop:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:palmetto-bait-and-tackle:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:safe-harbor-regatta-pointe:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:fishermens-headquarters:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:cortez-bait-and-seafood:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:island-discount-tackle:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:skyway-bait-and-tackle:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:bradenton-beach-marina:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:discount-tackle-outlet:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:star-fish-company:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:ap-bell-fish-co:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:snead-island-boat-works:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:twin-dolphin-marina:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:kingfish-boat-ramp:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:coquina-beach-south-boat-ramp:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:warners-bayou:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:bam-bait-and-tackle:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:941-bait-company:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "alert:GUIDE:cortez-bait-cluster",
+    "status": "accepted",
+    "field": "CLUSTER_BAIT",
+    "why": "The strongest piece of practical content in the whole queue: since Annie's went, this cluster has no easy bait stop. That is precisely the \"buy bait before you drive in\" note Weedon Island already carries, and it applies to the Cortez, Bridge Street, Longboat Pass and Coquina spots."
+  },
+  {
+    "id": "alert:mastrys-bait-and-tackle:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Shop data, handled by absence from the directory."
+  },
+  {
+    "id": "alert:bait-bucket-tierra-verde:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Unsourced and shop data. The closure needs a phone call, which is recorded in the research file."
+  },
+  {
+    "id": "shop:gator-jims-pier-shop:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:gator-jims-main-shop:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:oneills-marina:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:st-pete-municipal-marina:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:gandy-bait-and-tackle:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:riviera-bait-and-tackle:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:mitchs-bait-n-tackle:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:4th-street-tackle:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:maximo-marina:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:bill-jacksons-shop-for-adventure:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:demens-landing-park:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:sunlit-cove:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:maximo-park-ramp:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:crisp-park:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:grandview-park:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:ne-exchange-club-coffee-pot-park:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:bay-vista-park:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:weedon-island-launch:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:captain-ks-bait-and-tackle:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:gulf-to-bay-bait-and-tackle:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:merry-pier:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  },
+  {
+    "id": "shop:tackle-shack:01",
+    "status": "skipped",
+    "field": null,
+    "why": "Superseded — the researched shop now lives in src/data/shops.ts and is managed in the Bait & tackle tab, where it has an include toggle and a listing tier. Keeping a duplicate here would mean two places to change one fact."
+  }
+]
