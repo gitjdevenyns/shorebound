@@ -13,7 +13,7 @@
 export const SUPPORT_EMAIL: string | null = 'support@shorebound.app';
 
 /** Works today, and stays useful after the rename. */
-export const ISSUES_URL = 'https://github.com/gitjdevenyns/GCF/issues';
+export const ISSUES_URL = 'https://github.com/gitjdevenyns/shorebound/issues';
 
 /** Last substantive change to the privacy policy. Shown on the page. */
 export const PRIVACY_UPDATED = '22 August 2026';

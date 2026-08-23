@@ -1,3 +1,8 @@
+# NOTE: the app now builds with base '/' for its own domain, so this
+# workflow's output cannot resolve at gitjdevenyns.github.io/shorebound/
+# — asset URLs are absolute from the root. Hosting moved to Cloudflare
+# Pages. Kept as a fallback: it works again the moment a custom domain is
+# attached to GitHub Pages, which serves at root.
 # Build and deploy GCF to GitHub Pages (Actions mode).
 #
 # IMPORTANT: This workflow only takes effect once the repository's Pages
