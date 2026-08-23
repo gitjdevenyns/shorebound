@@ -45,7 +45,14 @@ Six things. Nothing on this list is optional and nothing else is on it.
 
 ### 1. Name, domain, email
 Blocks the store listing, the privacy policy URL, the support URL and every
-piece of marketing. **Recommendation: Read the Water** (`readthewater.app`
+piece of marketing.
+
+**Email is decided (23 Aug 2026): a custom domain added to the existing
+Microsoft 365 subscription.** Included in what is already paid for, so no
+incremental cost. Deliverability matters more than usual here — the first
+revenue line is cold-approaching bait shops, so SPF, DKIM and DMARC need to be
+right or the pitch lands in spam and it reads as a sales problem rather than a
+DNS one. **Recommendation: Read the Water** (`readthewater.app`
 free; the `.com` is a parked lander worth a broker quote). Renaming touches
 `vite.config.ts`, the router, the service worker precache and `dist/404.html`
 — one careful pass, not a find-and-replace.
