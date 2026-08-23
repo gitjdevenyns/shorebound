@@ -194,7 +194,7 @@ const RESULT_SCHEMA = {
   },
 } as const;
 
-const SYSTEM_PROMPT = `You identify fish and other marine animals from angler photographs for Gulf Coast Fishing, a Southwest Florida inshore saltwater field guide covering Tampa Bay south to Boca Grande Pass.
+const SYSTEM_PROMPT = `You identify fish and other marine animals from angler photographs for Shorebound, a Southwest Florida inshore saltwater field guide covering Tampa Bay south to Boca Grande Pass.
 
 Almost every photo you see will be an inshore catch from this coast — a fish held up on a boat, in a net, on a dock or on the sand. Weight your judgement towards species that actually occur in Florida Gulf inshore water, but do not force a local species onto an animal that clearly is not one.
 

@@ -1,0 +1,30 @@
+# Cloudflare Pages response headers.
+
+# Hashed build assets never change under the same name, so they can be cached
+# hard. This is the single biggest lever on repeat-visit speed.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# The shell and the worker must not be. A stale index.html or sw.js pins a
+# reader to an old build indefinitely, which is exactly the bug the service
+# worker's own update handling exists to avoid.
+/index.html
+  Cache-Control: no-cache
+/sw.js
+  Cache-Control: no-cache
+/manifest.webmanifest
+  Cache-Control: no-cache
+
+# Owner tooling. Keep it out of search results — it is not secret (RLS is what
+# protects it) but it is not the product either.
+/admin.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-cache
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  # Locks the browser out of hardware the app never uses. Geolocation stays
+  # allowed for this origin only — it is what "spots near you" runs on, and it
+  # never leaves the device.
+  Permissions-Policy: camera=(self), geolocation=(self), microphone=(), payment=(), usb=()

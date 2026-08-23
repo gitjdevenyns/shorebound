@@ -1,8 +1,8 @@
 {
-  "name": "gcf",
+  "name": "shorebound",
   "private": true,
   "version": "7.0.0",
-  "description": "Gulf Coast Fishing Guide \u2014 visual Southwest Florida saltwater field guide PWA",
+  "description": "Shore fishing guide for Florida's Gulf coast \u2014 25 researched spots, live tide, and the rig for each one. Works offline.",
   "type": "module",
   "scripts": {
     "dev": "vite",

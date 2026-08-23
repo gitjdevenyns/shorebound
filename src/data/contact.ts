@@ -5,12 +5,12 @@
  * policy reachable inside the app as well as in App Store Connect (5.1.1(i)).
  * Google Play requires a privacy policy URL too.
  *
- * SUPPORT_EMAIL is deliberately null until the domain exists. A support page
- * that prints an address nobody can receive mail at is worse than one that
- * says "use this instead" — so the UI branches on null rather than rendering a
- * dead mailto. Set it in one place here when the rename lands.
+ * SUPPORT_EMAIL must be a mailbox that actually receives. The UI still
+ * branches on null, so setting this back to null is the correct move if the
+ * address ever stops working — a support page printing an address nobody
+ * reads is worse than one pointing somewhere else.
  */
-export const SUPPORT_EMAIL: string | null = null;
+export const SUPPORT_EMAIL: string | null = 'support@shorebound.app';
 
 /** Works today, and stays useful after the rename. */
 export const ISSUES_URL = 'https://github.com/gitjdevenyns/GCF/issues';

@@ -6,14 +6,16 @@ import { copyFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 /**
- * GitHub Pages SPA fallback: Pages serves 404.html for unknown paths.
- * Copying the built index.html to 404.html lets deep links like
- * /GCF/locations/emerson-point boot the SPA (all asset URLs are absolute
- * under /GCF/, so the copy works from any path).
+ * SPA fallback for a deep link like /locations/emerson-point.
+ *
+ * Cloudflare Pages serves it from `public/_redirects`. This keeps a 404.html
+ * copy as well, because GitHub Pages (and most static hosts) fall back to that
+ * file instead, and one stale deploy target serving broken deep links is not
+ * worth the two lines it costs to avoid.
  */
 function spaFallback(): Plugin {
   return {
-    name: 'gcf-spa-404-fallback',
+    name: 'spa-404-fallback',
     apply: 'build',
     closeBundle() {
       const dist = resolve(import.meta.dirname, 'dist');
@@ -23,8 +25,9 @@ function spaFallback(): Plugin {
 }
 
 export default defineConfig({
-  // Project site: https://gitjdevenyns.github.io/GCF/
-  base: '/GCF/',
+  // Served from the root of shorebound.app. Was '/GCF/' when this lived on a
+  // github.io project path; every absolute URL below moved with it.
+  base: '/',
   build: {
     rollupOptions: {
       // Two entries, deliberately. `index.html` is the guide readers install;
@@ -66,13 +69,14 @@ export default defineConfig({
       // `add-to-cache-list-conflicting-entries`. The worker then never installs
       // and the app has no offline support at all.
       manifest: {
-        id: '/GCF/',
-        name: 'Gulf Coast Fishing Guide',
-        short_name: 'GCF Guide',
+        id: '/',
+        name: 'Shorebound',
+        short_name: 'Shorebound',
         description:
-          'Visual Southwest Florida saltwater fishing field guide: habitats, tides, locations, tackle and safe handling.',
-        start_url: '/GCF/',
-        scope: '/GCF/',
+          "Shore fishing guide for Florida's Gulf coast — 25 researched spots, "
+          + 'live tide, and the rig for each one. Works offline.',
+        start_url: '/',
+        scope: '/',
         display: 'standalone',
         orientation: 'portrait-primary',
         lang: 'en-US',
@@ -127,7 +131,7 @@ export default defineConfig({
         ],
         // SPA offline fallback: any navigation not in the cache serves the
         // precached index.html (bundled data means the whole guide works offline).
-        navigateFallback: '/GCF/index.html',
+        navigateFallback: '/index.html',
         navigationPreload: false,
         cleanupOutdatedCaches: true,
         // `registerType: 'autoUpdate'` only sets skipWaiting, so a new worker
@@ -157,7 +161,7 @@ export default defineConfig({
           {
             // Same-origin static files not in the precache manifest.
             urlPattern: ({ url, sameOrigin }) =>
-              sameOrigin && url.pathname.startsWith('/GCF/assets/'),
+              sameOrigin && url.pathname.startsWith('/assets/'),
             handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'gcf-static',

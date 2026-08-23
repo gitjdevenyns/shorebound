@@ -11,7 +11,7 @@ import './styles/app.css';
 import App from './App';
 import { installUpdateRecovery } from './lib/appUpdate';
 
-// BASE_URL is '/GCF/' in production (GitHub Pages project site).
+// BASE_URL is '/' — the app is served from the root of its own domain.
 const basename = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // Before rendering: a tab left open across a deploy is serving the previous

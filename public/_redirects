@@ -1,0 +1,8 @@
+# Cloudflare Pages SPA fallback. Without this, a deep link like
+# /locations/emerson-point 404s on a hard refresh — the router only exists
+# once index.html has booted. 200 (not 301) so the URL the reader typed
+# survives into the address bar and into the router.
+#
+# Kept below any real file: Pages matches static assets first, so this never
+# shadows /assets/* or /admin.html.
+/*    /index.html   200

@@ -77,7 +77,7 @@ export default function Layout() {
             <IconMark />
           </span>
           <span>
-            <span className="name">Gulf Coast Fishing</span>
+            <span className="name">Shorebound</span>
             <span className="lab lab-xs" style={{ display: 'block' }}>
               Tampa Bay → Boca Grande
             </span>
