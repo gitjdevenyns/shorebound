@@ -25,7 +25,7 @@ import { getSupabaseClient, isSupabaseConfigured } from './supabase';
  * then read an entitlement the server vouches for, never a local flag.
  */
 
-const TIER_KEY = 'gcf.tier';
+const TIER_KEY = 'shorebound.tier';
 
 export function useTier(): [Tier, (t: Tier) => void] {
   const [tier, setTier] = useState<Tier>(() => {

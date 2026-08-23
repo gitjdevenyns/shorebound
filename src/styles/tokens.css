@@ -1,7 +1,7 @@
 /* ==========================================================================
    Gulf Coast Fishing — design tokens
    Ported verbatim from the finished design system
-   ("Gulf Coast Fishing — Track B Screens" / gcf.css §1–5).
+   ("Track B Screens" / §1–5 of the source sheets).
 
    Every colour below is either a locked brand value or a documented step of
    one of the two brand hues (--b royal blue #075bd8, --g key lime #8dff00)
@@ -77,7 +77,7 @@
 }
 
 /* ---------- 5. SEMANTIC — DARK (app default) ---------- */
-html[data-theme="dark"], .gcf-dark {
+html[data-theme="dark"], .shorebound-dark {
   --bg:var(--n99);
   --c:var(--n90);
   --c2:var(--n88);

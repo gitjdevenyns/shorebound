@@ -16,8 +16,8 @@ external APIs directly.
 
 | Source | Endpoint | Terms |
 | --- | --- | --- |
-| NWS API | `api.weather.gov` | US Government work, public domain. Requires a `User-Agent` header identifying the application and a contact (we send `(gcf-app fishing guide, john.devenyns@gmail.com)`) and we ask for `Accept: application/geo+json`. Docs: https://www.weather.gov/documentation/services-web-api |
-| NOAA CO-OPS | `api.tidesandcurrents.noaa.gov` | US Government work, public domain. No API key; callers should identify themselves via the `application=` query parameter (we send `gcf-app`). Docs: https://api.tidesandcurrents.noaa.gov/api/prod/ |
+| NWS API | `api.weather.gov` | US Government work, public domain. Requires a `User-Agent` header identifying the application and a contact (we send `(shorebound shore fishing guide, support@shorebound.app)`) and we ask for `Accept: application/geo+json`. Docs: https://www.weather.gov/documentation/services-web-api |
+| NOAA CO-OPS | `api.tidesandcurrents.noaa.gov` | US Government work, public domain. No API key; callers should identify themselves via the `application=` query parameter (we send `shorebound`). Docs: https://api.tidesandcurrents.noaa.gov/api/prod/ |
 
 Everything cached here is a **prediction** (CO-OPS astronomical tide) or a
 **forecast** (NWS). Neither is an observation, and the UI must not present them
@@ -51,10 +51,10 @@ between two events. Starting a day early guarantees a preceding event exists.
 
 CO-OPS is queried with `time_zone=lst_ldt`, so `predictions[].t` is a bare
 station-local wall-clock string (`"2026-08-10 10:35"`) with no offset. The
-function stamps a `gcf_meta` sidecar into the stored payload recording
+function stamps a `shorebound_meta` sidecar into the stored payload recording
 `station_tz` (`America/New_York` — every GCF station is in Florida), the datum,
 units, interval and `kind: "prediction"`. The client resolves the naive strings
-against `gcf_meta.station_tz`, so a viewer in another timezone still sees the
+against `shorebound_meta.station_tz`, so a viewer in another timezone still sees the
 correct stage.
 
 ## Deployment
@@ -82,6 +82,9 @@ caller's bearer token from Vault at run time, so no key material is in the
 repository. Create that secret once per project:
 
 ```sql
+-- NOTE: the secret is named `gcf_functions_bearer` from before the rename.
+-- The scheduled job looks it up by that exact name, so it stays as-is;
+-- renaming it here without renaming it in the vault breaks the 3-hourly refresh.
 select vault.create_secret('<VITE_SUPABASE_ANON_KEY>', 'gcf_functions_bearer');
 ```
 

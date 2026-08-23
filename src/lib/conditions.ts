@@ -244,7 +244,7 @@ export function freshnessOf(
 
 /**
  * Fallback timezone for CO-OPS timestamps. Every GCF tide station is in
- * Florida. The Edge Function stamps the real zone into `payload.gcf_meta`;
+ * Florida. The Edge Function stamps the real zone into `payload.shorebound_meta`;
  * this only covers a snapshot written before that sidecar existed.
  */
 export const DEFAULT_STATION_TZ = 'America/New_York';
@@ -375,7 +375,12 @@ function parseDatedPredictions(payload: unknown): DatedEvent[] {
   const raw = payload.predictions;
   if (!Array.isArray(raw)) return [];
 
-  const meta = isRecord(payload.gcf_meta) ? payload.gcf_meta : null;
+  // `gcf_meta` is the pre-rename spelling. Snapshots live for three hours,
+  // so both appear in the wild briefly after a deploy; reading either means
+  // the rename never costs a reader their tide times. Drop the fallback
+  // once every stored snapshot has turned over.
+  const rawMeta = payload.shorebound_meta ?? payload.gcf_meta;
+  const meta = isRecord(rawMeta) ? rawMeta : null;
   const tz = (meta && asString(meta.station_tz)) || DEFAULT_STATION_TZ;
 
   const out: DatedEvent[] = [];

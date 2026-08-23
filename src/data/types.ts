@@ -1,5 +1,5 @@
 /**
- * GCF content schema — follows the location/target-recipe recommendation in
+ * Shorebound content schema — follows the location/target-recipe recommendation in
  * GCF-Claude-Code-Handoff/docs/ARCHITECTURE.md.
  *
  * Fields that the v6 data did not contain (seasons, dayparts, access_notes,

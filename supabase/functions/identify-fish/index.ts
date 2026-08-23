@@ -1,5 +1,5 @@
 // =============================================================================
-// GCF `identify-fish` Edge Function — photo in, species estimate out.
+// Shorebound `identify-fish` Edge Function — photo in, species estimate out.
 // =============================================================================
 //
 // What it does on each request:
@@ -264,7 +264,7 @@ async function callerHash(req: Request, pepper: string): Promise<string> {
     false,
     ["sign"],
   );
-  const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(`gcf-fish-id:${ip}`));
+  const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(`shorebound-fish-id:${ip}`));
   return Array.from(new Uint8Array(sig))
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("");

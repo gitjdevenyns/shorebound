@@ -22,7 +22,7 @@
  * that a human can read than spin forever.
  */
 
-const RELOAD_KEY = 'gcf:update-reload';
+const RELOAD_KEY = 'shorebound:update-reload';
 /** Long enough that a reload loop cannot form, short enough to retry later. */
 const RELOAD_COOLDOWN_MS = 15_000;
 
@@ -34,7 +34,7 @@ function reloadOnce(reason: string): void {
     /* storage blocked (private mode); fall through and allow one reload */
   }
   if (Date.now() - last < RELOAD_COOLDOWN_MS) {
-    console.warn(`[gcf] skipping reload (${reason}) — one just happened`);
+    console.warn(`[shorebound] skipping reload (${reason}) — one just happened`);
     return;
   }
   try {
@@ -42,7 +42,7 @@ function reloadOnce(reason: string): void {
   } catch {
     /* ignore */
   }
-  console.info(`[gcf] reloading to pick up a new build (${reason})`);
+  console.info(`[shorebound] reloading to pick up a new build (${reason})`);
   window.location.reload();
 }
 

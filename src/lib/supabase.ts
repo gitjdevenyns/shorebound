@@ -62,7 +62,7 @@ async function loadClient(config: SupabaseConfig): Promise<SupabaseClient> {
   const { createClient } = await import('@supabase/supabase-js');
   return createClient(config.url, config.anonKey, {
     auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
-    global: { headers: { 'x-application-name': 'gcf-app' } },
+    global: { headers: { 'x-application-name': 'shorebound' } },
   });
 }
 

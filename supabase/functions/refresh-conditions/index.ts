@@ -1,5 +1,5 @@
 // =============================================================================
-// GCF `refresh-conditions` Edge Function — DEPLOYED, scheduled every 3 hours.
+// Shorebound `refresh-conditions` Edge Function — DEPLOYED, scheduled every 3 hours.
 // =============================================================================
 //
 // What it does on each run:
@@ -31,17 +31,17 @@
 
 import { createClient } from "npm:@supabase/supabase-js@2";
 
-const NWS_USER_AGENT = "(gcf-app fishing guide, john.devenyns@gmail.com)";
-const COOPS_APP = "gcf-app";
+const NWS_USER_AGENT = "(shorebound shore fishing guide, support@shorebound.app)";
+const COOPS_APP = "shorebound";
 const RETENTION_DAYS = 7;
 const FETCH_DELAY_MS = 250;
 const MAX_ATTEMPTS = 3;
 
 /**
- * Every GCF tide station is in Florida, i.e. America/New_York. CO-OPS is queried
+ * Every Shorebound tide station is in Florida, i.e. America/New_York. CO-OPS is queried
  * with time_zone=lst_ldt, so the `t` values it returns are bare station-local
  * wall-clock strings with no offset. We stamp the zone into the stored payload
- * under `gcf_meta` so the client can resolve those strings to real instants
+ * under `shorebound_meta` so the client can resolve those strings to real instants
  * without hardcoding a zone of its own.
  */
 const STATION_TZ = "America/New_York";
@@ -131,7 +131,7 @@ Deno.serve(async (_req) => {
 
   for (const stationId of stationIds) {
     // interval=hilo works for both reference and subordinate stations; most of
-    // the GCF stations are subordinate (high/low predictions only).
+    // the stations are subordinate (high/low predictions only).
     const url =
       "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter" +
       `?product=predictions&application=${COOPS_APP}&station=${stationId}` +
@@ -152,7 +152,7 @@ Deno.serve(async (_req) => {
           ...payload,
           // Namespaced sidecar: the timestamps above carry no offset, so record
           // the zone they are expressed in alongside them.
-          gcf_meta: {
+          shorebound_meta: {
             station_tz: STATION_TZ,
             time_zone_param: "lst_ldt",
             datum: "MLLW",

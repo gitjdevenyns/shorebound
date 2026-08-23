@@ -1,4 +1,4 @@
-/* Home-screen components. Ported from the design system (gcf-home.css).
+/* Home-screen components. Ported from the design system (the home sheet).
    The design-surface-only .deskframe/.deskbar rules are not shipped. */
 .hero{position:relative;isolation:isolate;overflow:hidden;color:var(--n05);
   padding:var(--s6) var(--s4) 150px;
@@ -119,7 +119,7 @@
 .care-teaser:hover{text-decoration:none;color:inherit;border-color:var(--l2);border-left-color:var(--warn)}
 
 /* ==========================================================================
-   Track A additions — extensions the boards imply but gcf-home.css did not
+   Track A additions — extensions the boards imply but the home sheet did not
    name. Nothing above this line is modified.
    ========================================================================== */
 

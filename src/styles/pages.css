@@ -1,4 +1,4 @@
-/* Species, Tides and Care pages. Ported from the design system (gcf-pages.css).
+/* Species, Tides and Care pages. Ported from the design system (the pages sheet).
    No new hues: every value is a step of the blue ramp, the lime ramp, the neutral
    ramp, or the two documented status colours. */
 
@@ -31,7 +31,7 @@
 .idleaders .lead{stroke:var(--lime);stroke-width:1.25;stroke-linecap:round}
 .idleaders .lead-dot{fill:var(--lime);stroke:rgba(3,21,48,.55);stroke-width:1.5}
 /* Scoped to .idplate deliberately. The design system names `.mark` twice — the
-   34px appbar brand in gcf.css §16 and this ID pin in gcf-pages.css — and
+   34px appbar brand in §16 and this ID pin in the pages sheet — and
    because pages.css loads second, an unscoped rule here pulled the appbar brand
    out of flow on every screen that shows both. The ID pin only ever exists
    inside an annotated plate, so scoping it is the fix that keeps both intact.

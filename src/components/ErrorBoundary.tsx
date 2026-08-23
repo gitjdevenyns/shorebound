@@ -25,7 +25,7 @@ export default class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, info: ErrorInfo) {
     // No telemetry backend in scope; keep one structured record for debugging.
-    console.error('[gcf] render error', error, info.componentStack);
+    console.error('[shorebound] render error', error, info.componentStack);
   }
 
   reset = () => this.setState({ error: null });

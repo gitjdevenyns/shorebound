@@ -25,7 +25,7 @@ function Admin() {
     <div className="app">
       <header className="appbar">
         <span className="appbar-brand">
-          <span className="name">GCF · owner console</span>
+          <span className="name">Shorebound · owner console</span>
         </span>
         <nav className="adm-tabs">
           <button

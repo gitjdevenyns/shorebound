@@ -21,7 +21,7 @@ import { getSupabaseClient, isSupabaseConfigured } from './supabase';
  * was built to avoid.
  */
 
-const CACHE_KEY = 'gcf.shopListings.v1';
+const CACHE_KEY = 'shorebound.shopListings.v1';
 
 export interface ListedShop {
   shop: Shop;

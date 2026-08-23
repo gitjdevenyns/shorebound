@@ -151,7 +151,7 @@ export default defineConfig({
             urlPattern: /^https:\/\/[a-z0-9-]+\.supabase\.co\/.*/i,
             handler: 'NetworkFirst',
             options: {
-              cacheName: 'gcf-supabase',
+              cacheName: 'shorebound-supabase',
               networkTimeoutSeconds: 5,
               expiration: { maxEntries: 64, maxAgeSeconds: 60 * 60 * 24 },
               // Only cache real successes — never opaque/failed responses.
@@ -164,7 +164,7 @@ export default defineConfig({
               sameOrigin && url.pathname.startsWith('/assets/'),
             handler: 'StaleWhileRevalidate',
             options: {
-              cacheName: 'gcf-static',
+              cacheName: 'shorebound-static',
               expiration: { maxEntries: 128, maxAgeSeconds: 60 * 60 * 24 * 30 },
               cacheableResponse: { statuses: [200] },
             },
