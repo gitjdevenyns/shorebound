@@ -246,3 +246,4 @@
 .wl-store:hover{color:var(--m);text-decoration:none;background:var(--c2)}
 .wl-store .tag{flex:none;padding:2px 8px;border:1px solid var(--l2);border-radius:var(--ra-pill);
   font-family:var(--ff-mono);font-size:var(--fs-chart);letter-spacing:.12em;text-transform:uppercase}
+.wl-bad{color:var(--danger-text);font-weight:600}

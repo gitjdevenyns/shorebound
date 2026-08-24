@@ -1,10 +1,11 @@
 import { NavLink, Link, Outlet, useLocation } from 'react-router-dom';
+import { useAuth } from '../lib/auth';
 import { useEffect, useRef } from 'react';
 import type { ComponentType } from 'react';
 import { useTheme } from '../lib/theme';
 import { useOnline } from '../lib/network';
 import {
-  IconCameraFish, IconDanger, IconFish, IconHome, IconSpots, IconWater,
+  IconCameraFish, IconDanger, IconFish, IconHome, IconSpots, IconUser, IconWater,
 } from './ui/icons';
 
 /**
@@ -71,6 +72,7 @@ function useRouteFocus() {
 }
 
 export default function Layout() {
+  const { status } = useAuth();
   const [theme, toggleTheme] = useTheme();
   const online = useOnline();
   const main = useRouteFocus();
@@ -109,6 +111,14 @@ export default function Layout() {
         </nav>
 
         <div className="appbar-actions">
+          {/* Only when there is an account to reach. A build with no backend,
+              and a visitor who has not signed in, get no dead link. */}
+          {status === 'in' && (
+            <Link className="iconbtn" to="/settings" aria-label="Your account settings">
+              <IconUser className="ic" />
+              <span className="acct-label">Account</span>
+            </Link>
+          )}
           <button
             type="button"
             className="iconbtn"

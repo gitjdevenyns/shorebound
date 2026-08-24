@@ -17,6 +17,12 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import type { ConditionsSnapshot } from './conditions';
 import { derivePhase, parseNwsForecast, parseTidePredictions } from './conditions';
 
+/**
+ * Where the SDK keeps the session. Exported because the auth layer reads this
+ * key synchronously on first paint (see auth.tsx) and the two must not drift.
+ */
+export const AUTH_STORAGE_KEY = 'shorebound.auth';
+
 export interface SupabaseConfig {
   url: string;
   anonKey: string;
@@ -72,7 +78,7 @@ async function loadClient(config: SupabaseConfig): Promise<SupabaseClient> {
       autoRefreshToken: true,
       detectSessionInUrl: true,
       flowType: 'pkce',
-      storageKey: 'shorebound.auth',
+      storageKey: AUTH_STORAGE_KEY,
     },
     global: { headers: { 'x-application-name': 'shorebound' } },
   });

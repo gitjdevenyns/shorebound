@@ -144,3 +144,15 @@ export function IconDanger({ className = 'ic' }: IconProps) {
     </svg>
   );
 }
+
+/** Account. A person, drawn the same weight as the rest of the set. */
+export function IconUser({ className = 'ic' }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor"
+      strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
+      aria-hidden="true" focusable="false">
+      <circle cx="12" cy="8.2" r="3.7" />
+      <path d="M4.6 20.2a7.4 7.4 0 0 1 14.8 0" />
+    </svg>
+  );
+}

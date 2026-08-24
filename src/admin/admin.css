@@ -110,3 +110,28 @@
   display:flex;gap:var(--s3);flex-wrap:wrap;align-items:center}
 .sh-plc legend{font-family:var(--ff-mono);font-size:var(--fs-lab);letter-spacing:.06em;
   text-transform:uppercase;color:var(--m);padding:0 6px}
+.adm-who{font-size:var(--fs-xs);color:var(--m);margin-right:var(--s2)}
+
+/* --------------------------------------------------------------- accounts */
+.adm-stats{display:flex;flex-wrap:wrap;gap:var(--s3);margin:0 0 var(--s5)}
+.adm-stats div{flex:1 1 120px;padding:var(--s3);background:var(--c2);
+  border:1px solid var(--l);border-radius:var(--ra-md)}
+.adm-stats b{display:block;font-family:var(--ff-display);font-size:var(--fs-d2);
+  font-weight:800;line-height:1}
+.adm-stats span{display:block;margin-top:4px;font-size:var(--fs-xs);color:var(--m)}
+.adm-table{width:100%;border-collapse:collapse;font-size:var(--fs-sm)}
+.adm-table th{text-align:left;font-size:var(--fs-xs);text-transform:uppercase;
+  letter-spacing:.08em;color:var(--m);padding:8px 10px;border-bottom:1px solid var(--l2)}
+.adm-table td{padding:10px;border-bottom:1px solid var(--l);vertical-align:top}
+.adm-sub{margin-top:3px;font-size:var(--fs-xs);color:var(--m)}
+.adm-pill{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:var(--ra-pill);
+  background:var(--c3);font-size:var(--fs-micro);font-weight:700;text-transform:uppercase;
+  letter-spacing:.06em}
+.adm-pill-warn{background:var(--warn-bg);color:var(--warn-text)}
+.adm-manage{margin-top:var(--s3);padding:var(--s3);background:var(--c2);
+  border:1px solid var(--l);border-radius:var(--ra-md);min-width:min(320px,70vw)}
+.adm-manage .authfield{margin-bottom:var(--s3)}
+.adm-manage .btn{margin-top:8px}
+.adm-note{color:var(--m);font-size:var(--fs-sm)}
+/* The table is wide by nature; it scrolls inside itself, never the page. */
+.adm-pane{overflow-x:auto}

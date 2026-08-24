@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../lib/auth';
 import { getFishList, getHabitats, getHazards, getLocations } from '../lib/api';
 import { ISSUES_URL, SUPPORT_EMAIL } from '../data/contact';
 import type { Location } from '../data';
@@ -23,7 +24,7 @@ import type { Location } from '../data';
  *    forbids paraphrasing researched content, because paraphrasing researched
  *    fishing content is writing new fishing content.
  *
- * The sign-up form has no backend and does not pretend to. See SignupForm.
+ * The sign-up form creates a real account. See SignupForm.
  */
 
 /** Access types you can reach without a boat. `kayak` and `boat` are not. */
@@ -99,20 +100,57 @@ function Tideline() {
 /* ------------------------------------------------------------- sign-up */
 
 /**
- * There is no list.
+ * Sign-up, for real now.
  *
- * The honest version of an email capture with nothing behind it is to say so
- * before the reader types and again after they submit — not to fake a success
- * state, and not to invent an endpoint. Nothing is sent and nothing is kept:
- * the address never leaves this component's state.
+ * This form used to say, at length, that it had no backend — which was the
+ * honest thing to render while that was true. It is not true any more: this
+ * creates an account. The old copy is gone rather than softened, because a
+ * page that says "nothing is sent" while sending something is worse than
+ * either version on its own.
+ *
+ * The password field is here rather than on a second screen: one form is one
+ * decision, and bouncing somebody to /signup to retype the address they just
+ * typed loses people for no reason.
  */
 function SignupForm() {
+  const { signUp, status } = useAuth();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
-  const [asked, setAsked] = useState(false);
+  const [password, setPassword] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [note, setNote] = useState<{ tone: 'good' | 'bad'; text: string } | null>(null);
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setAsked(true);
+    if (password.length < 8) {
+      setNote({ tone: 'bad', text: 'Passwords need to be at least eight characters.' });
+      return;
+    }
+    setBusy(true);
+    setNote(null);
+    const result = await signUp(email, password);
+    setBusy(false);
+    if (!result.ok) {
+      setNote({ tone: 'bad', text: result.message ?? 'Could not create the account.' });
+      return;
+    }
+    if (result.needsConfirmation) {
+      setNote({ tone: 'good', text: result.message ?? 'Check your email to confirm.' });
+      return;
+    }
+    navigate('/', { replace: true });
+  }
+
+  // Already in? Then this is not the thing to show them.
+  if (status === 'in') {
+    return (
+      <div className="wl-said">
+        <p>
+          <strong>You are signed in.</strong>{' '}
+          <Link to="/">Open the guide</Link>.
+        </p>
+      </div>
+    );
   }
 
   return (
@@ -127,43 +165,49 @@ function SignupForm() {
             name="email"
             autoComplete="email"
             placeholder="you@example.com"
+            required
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
-              setAsked(false);
+              setNote(null);
             }}
           />
         </div>
-        <button type="submit" className="btn btn-blue">
-          Ask for early access
+        <div className="wl-field">
+          <label htmlFor="wl-password">Password</label>
+          <input
+            id="wl-password"
+            className="wl-input"
+            type="password"
+            name="password"
+            autoComplete="new-password"
+            minLength={8}
+            placeholder="Eight characters or more"
+            required
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setNote(null);
+            }}
+          />
+        </div>
+        <button type="submit" className="btn btn-blue" disabled={busy}>
+          {busy ? 'Creating…' : 'Create your free account'}
         </button>
       </form>
 
       <div className="wl-said" aria-live="polite">
-        {asked ? (
-          <>
-            <p>
-              <strong>Not open yet, and nothing was sent.</strong> There is no
-              server behind this form and no list to add you to. Your address
-              stayed in this page and goes nowhere when you close it.
-            </p>
-            <p>
-              Putting it in a fake queue would have been the first dishonest
-              thing on this page. When early access opens it will open here.
-              {SUPPORT_EMAIL ? (
-                <>
-                  {' '}
-                  If you want to say something in the meantime,{' '}
-                  <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> is a
-                  mailbox that is read.
-                </>
-              ) : null}
-            </p>
-          </>
+        {note ? (
+          <p className={note.tone === 'bad' ? 'wl-bad' : undefined}>{note.text}</p>
         ) : (
           <p className="wl-note">
-            This form has no backend yet. Submitting it tells you that, and
-            nothing else happens.
+            Free, and it opens the whole guide. Already have an account?{' '}
+            <Link to="/signin">Sign in</Link>.{' '}
+            {SUPPORT_EMAIL ? (
+              <>
+                Questions first: <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+              </>
+            ) : null}
           </p>
         )}
       </div>

@@ -176,3 +176,5 @@ html[data-theme="dark"] .leaflet-tile{filter:brightness(.78) saturate(.86) contr
    keeps the name alone there. */
 .appbar-brand .lab{display:block;letter-spacing:.04em;font-size:clamp(7px,2.2vw,var(--fs-micro))}
 @media (max-width:349px){.appbar-brand .lab{display:none}}
+/* The account link only ever needs its label where there is room for it. */
+@media (max-width:519px){.acct-label{display:none}}

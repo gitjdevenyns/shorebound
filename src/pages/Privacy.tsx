@@ -19,9 +19,39 @@ export default function Privacy() {
       <p className="mut">Last updated {PRIVACY_UPDATED}.</p>
 
       <p className="lede">
-        This app has no accounts, no analytics, no advertising network and no
-        tracking. Most of what it does happens on your device and never reaches
-        a server at all. What follows is the whole of it.
+        This app has no analytics, no advertising network and no tracking. It
+        does have accounts now — that is the one thing about you it keeps, and
+        it is set out first below. Most of what the app does still happens on
+        your device and never reaches a server at all. What follows is the
+        whole of it.
+      </p>
+
+      <h3>Your account</h3>
+      <p>
+        Using the guide needs an account. Creating one stores your{' '}
+        <strong>email address</strong> and a{' '}
+        <strong>one-way hash of your password</strong> — a hash, not the
+        password, so nobody here can read it, tell it to you, or hand it over.
+        Alongside that we keep only what you choose to set: a display name if
+        you enter one, a home spot if you pick one, whether you want feet or
+        metres, and whether you want the occasional email about new content.
+      </p>
+      <p>
+        That is the complete list. No name is required, no phone number is
+        asked for, no address, no payment details, no date of birth. Your email
+        is used to sign you in, to reset your password, and — only if you tick
+        the box — to tell you when spots or species are added. It is never sold,
+        never rented, and never handed to an advertiser.
+      </p>
+      <p>
+        <strong>You can delete the account from inside the app</strong>, on your
+        settings page, without asking anyone. It removes the account and
+        everything attached to it, immediately and for good. There is no
+        thirty-day window, no reactivation and nothing kept back.
+      </p>
+      <p className="mut">
+        Sign-in is handled by Supabase, which hosts the database. They process
+        your email and password hash on our behalf to make sign-in work.
       </p>
 
       <h3>Your location never leaves your device</h3>
@@ -55,8 +85,8 @@ export default function Privacy() {
       </p>
       <p>
         Anthropic processes the image to answer the request. We do not send
-        your name, your location or any account identifier with it — there is
-        none to send.
+        your name, your email, your account id or your location with it. The
+        request carries the photo and nothing that identifies you.
       </p>
 
       <h3>What the identifier does record</h3>
@@ -106,7 +136,10 @@ export default function Privacy() {
 
       <h3>What we do not do</h3>
       <ul className="bullets">
-        <li>No accounts, no sign-in, no email collection.</li>
+        <li>
+          An account, which is an email address and a password hash. Nothing
+          else about you is required, and you can delete it yourself.
+        </li>
         <li>No analytics, no tracking pixels, no advertising network.</li>
         <li>No selling or sharing of anything, because there is nothing to sell.</li>
         <li>No location history. No photo history. No search history.</li>

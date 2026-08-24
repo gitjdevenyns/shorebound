@@ -72,6 +72,11 @@ const STATIC_ROUTES = [
   '/privacy',
   '/support',
   '/welcome',
+  '/signin',
+  '/signup',
+  '/forgot',
+  '/reset',
+  '/settings',
   '/nope/nothing-here',
 ];
 
