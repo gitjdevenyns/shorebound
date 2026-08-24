@@ -137,10 +137,14 @@ img{height:auto}
 
 /* ---------- 16. NAV ---------- */
 .appbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
-  gap:var(--s3);padding:10px var(--s4);background:var(--c);border-bottom:1px solid var(--l)}
+  gap:var(--s3);background:var(--c);border-bottom:1px solid var(--l);
+  padding:calc(10px + env(safe-area-inset-top)) calc(var(--s4) + env(safe-area-inset-right))
+          10px calc(var(--s4) + env(safe-area-inset-left))}
 .mark{width:34px;height:34px;border-radius:11px;flex:none;display:block;object-fit:cover}
 .tabbar{position:sticky;bottom:0;z-index:20;display:grid;grid-template-columns:repeat(5,1fr);
-  background:var(--c);border-top:1px solid var(--l);padding:6px 4px 10px}
+  background:var(--c);border-top:1px solid var(--l);
+  padding:6px calc(4px + env(safe-area-inset-right))
+          calc(10px + env(safe-area-inset-bottom)) calc(4px + env(safe-area-inset-left))}
 .tabbar a{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;min-height:var(--tap);
   color:var(--m);font-size:var(--fs-micro);font-weight:700;text-decoration:none;letter-spacing:.02em}
 .tabbar a:hover{text-decoration:none;color:var(--t)}

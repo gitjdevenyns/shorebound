@@ -15,7 +15,7 @@ import { Callout, ErrorState, FreshnessNote, Plate, SectionTitle, Skeleton } fro
 import LazyMap from '../components/LazyMap';
 import NearYou from '../components/NearYou';
 import { useGeolocation, milesBetween } from '../lib/geo';
-import { rankNearby } from '../lib/nearby';
+import { formatMiles, rankNearby } from '../lib/nearby';
 import {
   Chevron,
   HabitatGlyph,
@@ -238,9 +238,10 @@ export default function Home() {
   // it resolves offline and before any network read. Its station is then the
   // one worth reading, because a tide stage from forty miles up the coast is
   // not the tide you are standing in.
-  const nearest = geo.coords
-    ? (rankNearby(locations, geo.coords, { stage: null, limit: 1 })[0]?.location ?? null)
+  const nearestRanked = geo.coords
+    ? (rankNearby(locations, geo.coords, { stage: null, limit: 1 })[0] ?? null)
     : null;
+  const nearest = nearestRanked?.location ?? null;
   const nearbyConditions = useConditions(nearest?.slug ?? null);
   const nearbyStage =
     nearbyConditions.status === 'ready'
@@ -345,12 +346,33 @@ export default function Home() {
             which tide to stand there on, what to throw, and how to hold what you catch without
             it hurting you.
           </p>
+          {/* The primary action asks where you are, because "find a spot" with no
+              position is not finding, it is browsing — it hands over a list of
+              twenty-five and leaves the actual question unanswered.
+
+              Once a position is in, the button stops being an invitation and
+              becomes the answer: the closest spot, named, with its distance.
+              The hero is allowed to change here in a way it is not allowed to
+              change on load, because this change is the response to a press. */}
           <div className="hero-cta">
-            <Link className="btn btn-lime" to="/locations">
-              Find a spot
-            </Link>
-            <Link className="btn btn-ghost" to="/care">
-              What will hurt you
+            {geo.coords && nearestRanked ? (
+              <Link className="btn btn-lime" to={`/locations/${nearestRanked.location.slug}`}>
+                {nearestRanked.location.name.split(' / ')[0]} &middot;{' '}
+                {formatMiles(nearestRanked.miles)}
+              </Link>
+            ) : geo.status === 'denied' || geo.status === 'unsupported' ? (
+              /* Refused, or nowhere to ask. Never re-prompt on our own — offer
+                 the list instead and say nothing about the refusal. */
+              <Link className="btn btn-lime" to="/locations">
+                Find a spot
+              </Link>
+            ) : (
+              <button type="button" className="btn btn-lime" onClick={geo.request}>
+                {geo.status === 'asking' ? 'Finding you…' : 'Find a spot near me'}
+              </button>
+            )}
+            <Link className="btn btn-ghost" to="/start">
+              What you need
             </Link>
           </div>
         </div>

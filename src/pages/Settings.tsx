@@ -201,7 +201,7 @@ export default function Settings() {
             The console for the review queue, shop listings, advertising and the free/paid matrix
             is a separate browser-only build.
           </p>
-          <a className="btn btn-ghost" href="/admin.html">
+          <a className="btn btn-ghost" href="/admin">
             Open the owner console
           </a>
         </section>
