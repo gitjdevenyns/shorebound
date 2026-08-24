@@ -40,8 +40,14 @@ let clientPromise: Promise<SupabaseClient> | null = null;
 
 /**
  * The one client instance for the app. Null when the build has no Supabase
- * config. Auth is disabled outright: there are no user accounts, so persisting
- * or refreshing a session would only add storage writes and a token timer.
+ * config.
+ *
+ * Auth persists. It has to: the guide is offline-first, and `getSession()`
+ * reads local storage without a network call, so a person who signed in at the
+ * dock is still signed in on a jetty with no bars. `detectSessionInUrl` is on
+ * because password-reset and magic-link callbacks arrive as URL fragments —
+ * with it off (as it was before accounts existed) those links silently do
+ * nothing, which is exactly what the admin console's magic link had been doing.
  *
  * The SDK is imported dynamically and memoised. The guide's entire static
  * content — every location, species, rig and handling note — renders without
@@ -61,7 +67,13 @@ export function getSupabaseClient(): Promise<SupabaseClient> | null {
 async function loadClient(config: SupabaseConfig): Promise<SupabaseClient> {
   const { createClient } = await import('@supabase/supabase-js');
   return createClient(config.url, config.anonKey, {
-    auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true,
+      flowType: 'pkce',
+      storageKey: 'shorebound.auth',
+    },
     global: { headers: { 'x-application-name': 'shorebound' } },
   });
 }

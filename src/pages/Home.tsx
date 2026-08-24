@@ -314,42 +314,79 @@ export default function Home() {
         give — offline, or a station that has not refreshed. Selling is what
         this page does when it cannot help.
       */}
+      {/* First trip on this coast is a different job from picking tonight's
+          spot, and the reader this guide is for is often on his first. A slim
+          strip above the hero: present on the first screen for the person who
+          needs it, one line high for everyone who does not. */}
+      <Link className="topstrip" to="/start">
+        <IconWater className="ic" aria-hidden="true" />
+        <span className="topstrip-t">
+          <b>First time in salt water?</b> Licence, gear, bait, where to start
+        </span>
+        <Chevron />
+      </Link>
+
       <section className="hero">
         <HeroChart level={level} />
         <div className="hero-scrim" aria-hidden="true" />
         <HeroWave />
         <div className="hero-inner">
           <p className="hero-live">
-            {stage ? (
-              <>
-                <span className="dot" aria-hidden="true" />
-                <span className="now">Where to fish right now</span>
-              </>
-            ) : (
-              <span className="at">Shore fishing guide · Florida Gulf coast</span>
-            )}
+            <span className="at">Shore fishing guide &middot; Florida Gulf coast</span>
+          </p>
+          <h1 className="rise">
+            <span className="hl-a">You know how to fish.</span>
+            <span className="hl-b">
+              You just don&rsquo;t know <em>this</em> water.
+            </span>
+          </h1>
+          <p className="hero-sub">
+            {locations.length} spots from St. Petersburg to Boca Grande Pass — where to stand,
+            which tide to stand there on, what to throw, and how to hold what you catch without
+            it hurting you.
+          </p>
+          <div className="hero-cta">
+            <Link className="btn btn-lime" to="/locations">
+              Find a spot
+            </Link>
+            <Link className="btn btn-ghost" to="/care">
+              What will hurt you
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* The live answer. It arrives after a network round trip, so it owns a
+          section that is allowed to be empty at first rather than borrowing
+          the hero and overwriting it. */}
+      <section className="sect" aria-labelledby="nowline">
+        <h2 className="vh" id="nowline">Where to fish right now</h2>
+        <div className="nowcard">
+          <p className="nowcard-lab">
+            {stage && <span className="dot" aria-hidden="true" />}
+            <span className="now">Where to fish right now</span>
           </p>
 
           {stage && geo.coords ? (
-            /* We know the tide AND where he is standing: name the spot. */
+            /* Tide AND position: name the spot. */
             <>
-              <h1 className="rise">
-                <span className="hl-a">Fish {pick.name.split(' / ')[0]}.</span>
-                <span className="hl-b">
-                  {isPrime ? (
-                    <>It is <em>prime</em> on this tide.</>
-                  ) : (
-                    <>Closest good water right now.</>
-                  )}
+              <h3 className="nowcard-h">
+                Fish {pick.name.split(' / ')[0]}.{' '}
+                <span className="nowcard-h2">
+                  {isPrime ? 'It is prime on this tide.' : 'Closest good water right now.'}
                 </span>
-              </h1>
-              <p className="hero-sub">
+              </h3>
+              <p className="nowcard-p">
                 {pickMiles !== null && (
-                  <><b>{pickMiles < 10 ? pickMiles.toFixed(1) : Math.round(pickMiles)} miles away.</b>{' '}</>
+                  <>
+                    <b>
+                      {pickMiles < 10 ? pickMiles.toFixed(1) : Math.round(pickMiles)} miles away.
+                    </b>{' '}
+                  </>
                 )}
                 {STAGE_CHIP[stage]} at {stationPlace}. {pick.tide_playbook[stage]}
               </p>
-              <div className="hero-cta">
+              <div className="row g2 wrap">
                 <Link className="btn btn-lime" to={`/locations/${pick.slug}`}>
                   Take me there
                 </Link>
@@ -359,27 +396,25 @@ export default function Home() {
               </div>
             </>
           ) : stage ? (
-            /* We know the tide but not where he is. Naming a spot here would
-               be a guess dressed as an answer — it could be ninety miles off.
-               Ask instead, and say what the answer buys.
+            /* Tide but no position. Naming a spot here would be a guess dressed
+               as an answer — it could be ninety miles off. Ask instead, and say
+               what the answer buys.
 
                Deliberately a button rather than an automatic prompt: an
                unrequested permission sheet gets dismissed on reflex and the
                dismissal is sticky, so asking badly once costs the feature for
                good. Asked in context, with the reason attached, it converts. */
             <>
-              <h1 className="rise">
-                <span className="hl-a">{STAGE_CHIP[stage]}.</span>
-                <span className="hl-b">
-                  Where are <em>you</em>?
-                </span>
-              </h1>
-              <p className="hero-sub">
-                Reading from {stationPlace}. Tell me where you are and I will pick the
-                closest of the {locations.length} spots that fishes this tide — your location
-                never leaves your phone.
+              <h3 className="nowcard-h">
+                {STAGE_CHIP[stage]}.{' '}
+                <span className="nowcard-h2">Where are you?</span>
+              </h3>
+              <p className="nowcard-p">
+                Reading from {stationPlace}. Tell me where you are and I will pick the closest of
+                the {locations.length} spots that fishes this tide — your location never leaves
+                your phone.
               </p>
-              <div className="hero-cta">
+              <div className="row g2 wrap">
                 <button type="button" className="btn btn-lime" onClick={geo.request}>
                   {geo.status === 'asking' ? 'Finding you…' : 'Find my closest spot'}
                 </button>
@@ -388,58 +423,36 @@ export default function Home() {
                 </Link>
               </div>
             </>
-          ) : (
-            /* No reading at all — offline, or a station that has not
-               refreshed. Only now does the page fall back to selling. */
+          ) : conditions.status === 'loading' ? (
+            /* Still in flight. A placeholder of the right shape, so nothing on
+               screen has to be taken back a moment later. */
             <>
-              <h1 className="rise">
-                <span className="hl-a">You know how to fish.</span>
-                <span className="hl-b">
-                  You just don&rsquo;t know <em>this</em> water.
-                </span>
-              </h1>
-              <p className="hero-sub">
-                {locations.length} spots from St. Petersburg to Boca Grande Pass — where to
-                stand, which tide to stand there on, what to throw, and how to hold what you
-                catch without it hurting you.
+              <h3 className="nowcard-h nowcard-wait">Reading the tide…</h3>
+              <p className="nowcard-p">
+                Checking the nearest station for what the water is doing right now.
               </p>
-              <div className="hero-cta">
+            </>
+          ) : (
+            /* No reading at all — offline, or a station that has not refreshed.
+               Say so, and hand over the part of the guide that never needed a
+               network in the first place. */
+            <>
+              <h3 className="nowcard-h">
+                No live reading right now.{' '}
+                <span className="nowcard-h2">The guide still works.</span>
+              </h3>
+              <p className="nowcard-p">
+                Tide and forecast need a connection. Every spot, species and rig in here does not —
+                each spot page carries the tide window it fishes best.
+              </p>
+              <div className="row g2 wrap">
                 <Link className="btn btn-lime" to="/locations">
-                  Find a spot
-                </Link>
-                <Link className="btn btn-ghost" to="/care">
-                  What will hurt you
+                  All {locations.length} spots
                 </Link>
               </div>
             </>
           )}
         </div>
-      </section>
-
-      {/* First trip on this coast is a different job from picking tonight's
-          spot, and the reader this guide is for is often on his first. */}
-      <section className="sect" aria-labelledby="startline">
-        <h2 className="vh" id="startline">New to salt water</h2>
-        <Link className="idtile" to="/start" aria-label="Start here — licence, gear and bait">
-          <IconWater className="ic" />
-          <span>
-            <b>First time in salt water?</b>
-            <em>Licence, gear, bait, and where to go first</em>
-          </span>
-          <Chevron />
-        </Link>
-      </section>
-
-      <section className="sect" aria-labelledby="nearyou">
-        <h2 className="vh" id="nearyou">
-          Spots near you
-        </h2>
-        <NearYou
-          locations={locations}
-          geo={geo}
-          stage={nearbyStage}
-          stationName={nearbyStation}
-        />
       </section>
 
       <section className="sect" aria-labelledby="gohere">
@@ -512,6 +525,18 @@ export default function Home() {
           Conditions now at {pick.name}
         </h2>
         <ConditionsCard spot={pick} conditions={conditions} />
+      </section>
+
+      <section className="sect" aria-labelledby="nearyou">
+        <h2 className="vh" id="nearyou">
+          Spots near you
+        </h2>
+        <NearYou
+          locations={locations}
+          geo={geo}
+          stage={nearbyStage}
+          stationName={nearbyStation}
+        />
       </section>
 
       <section aria-labelledby="species">

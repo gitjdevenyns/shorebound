@@ -178,3 +178,33 @@
 .idtile>span{flex:1 1 auto;min-width:0;display:grid;gap:1px}
 .idtile b{font-family:var(--ff-display);font-size:var(--fs-h3);font-weight:800}
 .idtile em{font-style:normal;color:var(--m);font-size:var(--fs-sm)}
+
+/* --------------------------------------------------------------- top strip */
+/* The one-line entry to the getting-started guide, above the hero. Slim on
+   purpose: it has to be on the first screen for a first-timer without taxing
+   the reader who has been fishing this coast for years. */
+.topstrip{display:flex;align-items:center;gap:var(--s2);width:100%;
+  padding:9px var(--s4);background:var(--c2);border-bottom:1px solid var(--l);
+  color:var(--t);font-size:var(--fs-xs);line-height:1.3;text-decoration:none}
+.topstrip:hover{background:var(--c3);text-decoration:none}
+.topstrip .ic{width:18px;height:18px;flex:none;color:var(--lime-text)}
+.topstrip-t{flex:1;min-width:0}
+.topstrip-t b{font-weight:800}
+.topstrip svg:last-child{flex:none;opacity:.55}
+
+/* ------------------------------------------------------------- live answer */
+/* Its own card below the hero. The hero states a claim that is always true;
+   this states one that depends on a station reading, and is allowed to be
+   empty, late or absent without the page changing shape underneath it. */
+.nowcard{background:var(--c);border:1px solid var(--l);border-radius:var(--ra-lg);
+  padding:var(--s4);box-shadow:var(--sh-1)}
+.nowcard-lab{display:flex;align-items:center;gap:var(--s2);margin:0 0 var(--s2)}
+.nowcard-lab .dot{width:7px;height:7px;flex:none;border-radius:50%;background:var(--lime);
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--lime) 22%, transparent)}
+.nowcard-lab .now{font-family:var(--ff-mono);font-size:var(--fs-lab);font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--lime-text)}
+.nowcard-h{font-family:var(--ff-display);font-size:var(--fs-h1);line-height:var(--lh-head);
+  font-weight:800;margin:0 0 var(--s2);text-wrap:balance}
+.nowcard-h2{color:var(--m);font-weight:700}
+.nowcard-wait{color:var(--m)}
+.nowcard-p{margin:0 0 var(--s3);color:var(--t);font-size:var(--fs-body);line-height:var(--lh-body)}
