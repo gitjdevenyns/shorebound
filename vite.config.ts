@@ -137,6 +137,19 @@ export default defineConfig({
         // SPA offline fallback: any navigation not in the cache serves the
         // precached index.html (bundled data means the whole guide works offline).
         navigateFallback: '/index.html',
+        // ...except the owner console, which is a SEPARATE HTML entry and is
+        // deliberately not in the precache (see globIgnores). Without this
+        // denylist the fallback answered /admin with the reader's app shell out
+        // of the cache, React Router matched no route, and the console rendered
+        // as the 404 page — on every device that had ever loaded the site, and
+        // only on those. curl and a fresh incognito window both worked, because
+        // neither has a service worker, which is what made it look like a
+        // deploy or a routing problem rather than a caching one.
+        //
+        // Denied navigations go to the network, where Cloudflare serves the
+        // real admin.html. That the console needs a connection is correct: every
+        // action in it is a network write.
+        navigateFallbackDenylist: [/^\/admin(\.html)?(\/|$)/],
         navigationPreload: false,
         cleanupOutdatedCaches: true,
         // `registerType: 'autoUpdate'` only sets skipWaiting, so a new worker

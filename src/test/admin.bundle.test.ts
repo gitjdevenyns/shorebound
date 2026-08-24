@@ -55,3 +55,51 @@ describe('owner console stays out of the reader app', () => {
     expect(cfg).toMatch(/admin:\s*resolve\((?:__dirname|import\.meta\.dirname),\s*'admin\.html'\)/);
   });
 });
+
+/**
+ * The owner console is a separate HTML entry, deliberately kept out of the
+ * precache — which means the SPA navigate fallback must be told to leave its
+ * path alone.
+ *
+ * Without the denylist the fallback answered /admin with the reader's app
+ * shell out of the cache, React Router matched no route, and the console
+ * rendered as the 404 page. It failed only on devices that had already loaded
+ * the site once, so curl and a fresh incognito window both reported it fine.
+ * That asymmetry is what made a caching bug look like a broken deploy, and it
+ * is exactly the kind of thing worth a test rather than a memory.
+ */
+describe('the owner console is reachable past the service worker', () => {
+  const config = readFileSync(join(__dirname, '..', '..', 'vite.config.ts'), 'utf8');
+
+  it('excludes /admin from the SPA navigate fallback', () => {
+    const match = config.match(/navigateFallbackDenylist:\s*\[([^\]]*)\]/);
+    expect(match, 'navigateFallbackDenylist is gone from vite.config.ts').toBeTruthy();
+    const patterns = (match?.[1] ?? '')
+      .split(/,(?![^/]*\/)/)
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .map((s) => {
+        const body = s.match(/^\/(.*)\/([a-z]*)$/);
+        return body ? new RegExp(body[1], body[2]) : null;
+      })
+      .filter((r): r is RegExp => r !== null);
+
+    expect(patterns.length, 'no usable pattern in the denylist').toBeGreaterThan(0);
+    for (const path of ['/admin', '/admin.html', '/admin/']) {
+      expect(
+        patterns.some((r) => r.test(path)),
+        `${path} would be swallowed by the SPA fallback and render as 404`,
+      ).toBe(true);
+    }
+  });
+
+  it('still lets ordinary app routes use the fallback, or offline breaks', () => {
+    const match = config.match(/navigateFallbackDenylist:\s*\[([^\]]*)\]/);
+    const body = (match?.[1] ?? '').trim().match(/^\/(.*)\/([a-z]*)$/);
+    const re = body ? new RegExp(body[1], body[2]) : null;
+    expect(re).toBeTruthy();
+    for (const path of ['/', '/locations', '/fish/snook', '/settings', '/signin']) {
+      expect(re?.test(path), `${path} must still be served offline from the precache`).toBe(false);
+    }
+  });
+});
