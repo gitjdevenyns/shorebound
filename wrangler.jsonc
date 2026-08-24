@@ -4,8 +4,15 @@
   // of dist/, and Cloudflare serves it straight from the edge.
   //
   // This exists because Cloudflare no longer offers a Pages project for new
-  // sites. `_headers` and `_redirects` are supported natively here, so the
-  // caching and security rules in public/ carry over unchanged.
+  // sites. `_headers` is supported natively here, so the caching and security
+  // rules in public/_headers carry over unchanged.
+  //
+  // There is deliberately no `_redirects`. A `/* -> /index.html 200` rule is
+  // the usual way to get an SPA fallback, and Cloudflare rejects it outright:
+  // `/*` matches `/index.html` itself, so the rule re-triggers on its own
+  // target and the deploy fails with "Infinite loop detected". The
+  // not_found_handling setting below does the same job natively and without
+  // the loop.
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "shorebound",
   "compatibility_date": "2026-08-23",

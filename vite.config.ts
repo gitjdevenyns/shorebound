@@ -36,8 +36,8 @@ export default defineConfig({
       // the bundle a reader downloads, and — see `globIgnores` below — never
       // enter the service worker precache either.
       input: {
-        main: resolve(__dirname, 'index.html'),
-        admin: resolve(__dirname, 'admin.html'),
+        main: resolve(import.meta.dirname, 'index.html'),
+        admin: resolve(import.meta.dirname, 'admin.html'),
       },
       output: {
         // The dynamically imported Supabase SDK otherwise lands in a 200 kB
