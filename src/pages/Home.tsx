@@ -25,6 +25,7 @@ import {
   tideLevel,
 } from '../components/location/art';
 import { zonesFor } from '../components/location/zones';
+import { IconCameraFish } from '../components/ui/icons';
 
 /**
  * Home (design board 01). The first fold answers one question — go where, on
@@ -118,7 +119,7 @@ function ConditionsCard({
               ))}
             </div>
             <p className="mut xs" style={{ marginTop: 10 }}>
-              Reading the latest tide and forecast…
+              Checking the water…
             </p>
           </div>
         )}
@@ -134,8 +135,8 @@ function ConditionsCard({
 
         {status === 'unavailable' && (
           <p className="mut">
-            Live tide and weather are not switched on in this build. The guide still works
-            offline — read the stage you are on from{' '}
+            Live tide and weather are unavailable right now. Everything else works —
+            read the stage you are on from{' '}
             <a href={spot.tide_station.url} target="_blank" rel="noreferrer">
               {spot.tide_station.name} ↗
             </a>{' '}
@@ -186,7 +187,7 @@ function ConditionsCard({
 
             {!phase && !weather && (
               <p className="mut">
-                The snapshot for this station came back empty. Read the stage from{' '}
+                No reading from this station right now. Check it directly at{' '}
                 <a href={spot.tide_station.url} target="_blank" rel="noreferrer">
                   NOAA ↗
                 </a>
@@ -296,33 +297,36 @@ export default function Home() {
                 <span className="at">{pick.region} station</span>
               </>
             ) : (
-              <span className="at">A Southwest Florida field guide</span>
+              <span className="at">Shore fishing guide · Florida Gulf coast</span>
             )}
           </p>
+          {/* The reader is an accomplished angler who has never fished salt.
+              Not a beginner — displaced. The headline has to say that in his
+              own terms, or it reads as an app for people who cannot fish. */}
           <h1 className="rise">
-            <span className="hl-a">Read the water</span>
+            <span className="hl-a">You know how to fish.</span>
             <span className="hl-b">
-              <em>before</em> you cast.
+              You just don't know <em>this</em> water.
             </span>
           </h1>
           <p className="hero-sub">
-            {locations.length} shore, pier, kayak and boat spots from Tampa Bay down to Boca
-            Grande Pass — with the structure, the tide and the rig spelled out.
+            {locations.length} spots from St. Petersburg to Boca Grande Pass — where to
+            stand, which tide to stand there on, what to throw, and how to hold what
+            you catch without it hurting you.
           </p>
           <div className="hero-cta">
             <Link className="btn btn-lime" to="/locations">
               Find a spot
             </Link>
-            <Link className="btn btn-ghost" to="/water">
-              Learn the water
+            <Link className="btn btn-ghost" to="/care">
+              What will hurt you
             </Link>
           </div>
           <p className="hero-key">
             <span className="swatch" aria-hidden="true" />
-            Schematic depth contours.{' '}
             {level === null
-              ? "The lime line is a mid-tide water's edge."
-              : "The lime line is the water's edge at this tide."}
+              ? 'Not a chart of this spot — the lime line sits at mid tide.'
+              : 'Not a chart of this spot — the lime line is the tide right now.'}
           </p>
         </div>
       </section>
@@ -434,18 +438,21 @@ export default function Home() {
           scrolled five fish they might have caught, and "none of these" is the
           exact moment the feature is worth offering. Labelled as a guess here
           too — the honesty rule starts at the entry point, not on the result. */}
+      {/* One tap, one line. What it does is obvious from a camera with a fish
+          in it; the caveats belong on the screen that gives the answer, not in
+          front of someone deciding whether to tap. */}
       <section className="sect" aria-labelledby="photoid">
-        <SectionTitle id="photoid">Not sure what you caught?</SectionTitle>
-        <div className="card card-pad">
-          <p className="mut" style={{ color: 'var(--t)' }}>
-            Take a photo of it and get a best guess at the species, plus a warning if it is one to
-            keep your hands off. It is an estimate from a machine, not an identification — a
-            starting point for you to confirm.
-          </p>
-          <Link className="btn btn-lime btn-block" to="/id" style={{ marginTop: 'var(--s3)' }}>
-            Identify a fish from a photo
-          </Link>
-        </div>
+        <h2 className="vh" id="photoid">Identify a fish from a photo</h2>
+        {/* The visible text is fragmentary — "What is it?" over a caption —
+            which makes a poor accessible name on its own. */}
+        <Link className="idtile" to="/id" aria-label="Identify a fish from a photo">
+          <IconCameraFish />
+          <span>
+            <b>What is it?</b>
+            <em>Photograph a fish, get a species estimate</em>
+          </span>
+          <Chevron />
+        </Link>
       </section>
 
       <section className="sect" aria-labelledby="water">

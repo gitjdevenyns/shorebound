@@ -50,6 +50,8 @@ describe('owner console stays out of the reader app', () => {
 
   it('is built as its own entry', () => {
     const cfg = readFileSync(join(SRC, '..', 'vite.config.ts'), 'utf8');
-    expect(cfg).toMatch(/admin:\s*resolve\(__dirname,\s*'admin\.html'\)/);
+    // Either dirname spelling is fine; what matters is that admin.html is a
+    // build input of its own rather than a route inside the reader's app.
+    expect(cfg).toMatch(/admin:\s*resolve\((?:__dirname|import\.meta\.dirname),\s*'admin\.html'\)/);
   });
 });

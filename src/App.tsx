@@ -15,6 +15,7 @@ import Shops from './pages/Shops';
 import Privacy from './pages/Privacy';
 import Support from './pages/Support';
 import Care from './pages/Care';
+import Welcome from './pages/Welcome';
 import NotFound from './pages/NotFound';
 
 /**
@@ -49,6 +50,10 @@ export default function App() {
         <Route path="/privacy" element={<Page path="privacy" element={<Privacy />} />} />
         <Route path="/support" element={<Page path="support" element={<Support />} />} />
         <Route path="/care" element={<Page path="care" element={<Care />} />} />
+        {/* The marketing landing page. It lives inside the app shell rather
+            than on a separate site so the guide it describes is one tap away
+            and stays the single source of the numbers it quotes. */}
+        <Route path="/welcome" element={<Page path="welcome" element={<Welcome />} />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

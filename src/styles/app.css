@@ -159,3 +159,9 @@ html[data-theme="dark"] .leaflet-tile{filter:brightness(.78) saturate(.86) contr
 .prose .lede{font-size:var(--fs-h3);line-height:var(--lh-body);margin-bottom:var(--s4)}
 .prose ul{margin:0 0 var(--s3)}
 .prose li{margin-bottom:var(--s2);line-height:var(--lh-body)}
+
+/* Nav items that lead with an icon. Handle With Care and Photo ID both say
+   more with a mark than with their label alone — a hazard triangle and a
+   camera with a fish in it. */
+.appnav a{display:inline-flex;align-items:center;gap:6px}
+.navic{width:17px;height:17px;flex:none}

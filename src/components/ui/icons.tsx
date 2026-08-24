@@ -111,3 +111,36 @@ export function IconClarity({ className = 'ic2-svg' }: IconProps) {
     </svg>
   );
 }
+
+/**
+ * Camera with a fish in the frame. The whole explanation of the photo
+ * identifier, so the tile it sits in needs one line rather than a paragraph.
+ */
+export function IconCameraFish({ className = 'ic' }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor"
+      strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"
+      aria-hidden="true" focusable="false">
+      <path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2L8 5h8l1.5 2h2A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5Z" />
+      <path d="M8.5 13c1.6-2 3.8-2.6 5.4-1.6 1 .6 1.4 1.6 1.4 1.6s-.4 1-1.4 1.6c-1.6 1-3.8.4-5.4-1.6Z" />
+      <path d="m15.3 13 1.9-1.5v3Z" />
+      <circle cx="10.4" cy="12.4" r=".55" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+/**
+ * Hazard triangle. Handle With Care is the one section that exists because
+ * something can injure you, and a label alone does not carry that at a glance.
+ */
+export function IconDanger({ className = 'ic' }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor"
+      strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
+      aria-hidden="true" focusable="false">
+      <path d="M12 3.6 21.2 19.2a1.2 1.2 0 0 1-1 1.8H3.8a1.2 1.2 0 0 1-1-1.8Z" />
+      <path d="M12 9.6v4.2" />
+      <circle cx="12" cy="17.1" r=".95" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}

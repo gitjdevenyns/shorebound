@@ -299,3 +299,20 @@
   overflow-x:auto;margin-top:var(--s2);padding-bottom:2px}
 .shopcard-photos img{width:100%;height:96px;object-fit:cover;border-radius:var(--ra-sm)}
 .shopcard-cta{display:flex;gap:var(--s2);flex-wrap:wrap;margin-top:var(--s3)}
+
+/* ---------- START HERE ----------
+   A checklist, so it reads as rows rather than cards. The gear specs come
+   from the species data and are the thing to scan, so they get the weight. */
+.startgrid{display:grid;gap:var(--s2);margin:var(--s3) 0}
+.startrow{display:grid;gap:2px;padding:12px 14px;border:1px solid var(--l);
+  border-radius:var(--ra-md);background:var(--c)}
+.startrow b{font-family:var(--ff-display);font-size:var(--fs-h3);font-weight:800}
+.starth3{font-family:var(--ff-display);font-size:var(--fs-h2);font-weight:800;
+  letter-spacing:-.01em;margin:var(--s5) 0 var(--s2)}
+.startspots{list-style:none;margin:var(--s2) 0 0;padding:0;display:grid;gap:var(--s2)}
+.startspots li{display:grid;gap:2px;padding:12px 14px;border:1px solid var(--l);
+  border-radius:var(--ra-md);background:var(--c)}
+.startspots a{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);
+  color:inherit;text-decoration:none}
+.startspots b{font-family:var(--ff-display);font-size:var(--fs-h3);font-weight:800}
+.startspots .mono{flex:none;color:var(--m);font-size:var(--fs-xs)}

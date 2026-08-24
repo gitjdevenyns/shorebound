@@ -70,6 +70,7 @@ const STATIC_ROUTES = [
   '/shops',
   '/privacy',
   '/support',
+  '/welcome',
   '/nope/nothing-here',
 ];
 

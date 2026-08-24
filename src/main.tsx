@@ -7,6 +7,7 @@ import './styles/base.css';
 import './styles/home.css';
 import './styles/location.css';
 import './styles/pages.css';
+import './styles/welcome.css';
 import './styles/app.css';
 import App from './App';
 import { installUpdateRecovery } from './lib/appUpdate';

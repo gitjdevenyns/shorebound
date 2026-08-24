@@ -142,7 +142,7 @@ describe('the capture control', () => {
   it('explains itself instead of offering a dead button when unconfigured', () => {
     vi.mocked(isIdentifyConfigured).mockReturnValue(false);
     renderPage();
-    expect(screen.getByText(/not switched on in this build/i)).toBeInTheDocument();
+    expect(screen.getByText(/unavailable right now/i)).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /take a photo/i })).toBeNull();
     // The page still routes the reader somewhere useful.
     const hrefs = screen.getAllByRole('link').map((a) => a.getAttribute('href'));

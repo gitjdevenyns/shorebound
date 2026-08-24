@@ -148,7 +148,7 @@ export default function IdentifyFish() {
         <SectionTitle id="shoot-h">Take a photo</SectionTitle>
 
         {!configured ? (
-          <EmptyState title="Photo ID is not switched on in this build">
+          <EmptyState title="Photo ID is unavailable right now">
             <p>
               This copy of the guide has no identification service configured, so there is nothing
               to send a photo to. Everything else works, offline included.
@@ -427,7 +427,7 @@ function Failure({
   onRetry: () => void;
 }) {
   const TITLES: Record<typeof outcome.kind, string> = {
-    unavailable: 'Photo ID is not switched on in this build',
+    unavailable: 'Photo ID is unavailable right now',
     offline: 'No connection',
     'rate-limited': 'That is enough for now',
     'too-large': 'That photo was too large',

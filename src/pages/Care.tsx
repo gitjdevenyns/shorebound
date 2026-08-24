@@ -46,6 +46,83 @@ export default function Care() {
       </div>
 
       {/* ------------------------------------------------------------ habits */}
+      {/* Licences sit on this page rather than a settings screen because the
+          reader this guide is for is usually from out of state, and the free
+          shoreline licence Floridians rely on does not cover him. Finding that
+          out from an officer is the wrong way to find it out.
+
+          Everything quoted here is FWC's own wording, sourced in
+          docs/research. Fees and rules change, so every figure is dated and
+          every path ends at FWC rather than at us. */}
+      <section className="sect" aria-labelledby="licence-h">
+        <SectionTitle id="licence-h">Get a licence first</SectionTitle>
+
+        <Callout tone="warn" title="Visiting from out of state?">
+          Florida residents can fish from shore on a free licence. <strong>Non-residents
+          cannot.</strong> FWC is explicit: non-residents “must purchase a 3-day, 7-day or
+          annual non-resident saltwater fishing license when saltwater fishing in Florida,
+          unless covered by a charter or pier license.”
+        </Callout>
+
+        <div className="card card-pad mt3">
+          <p style={{ marginTop: 0 }}>
+            You need a <strong>saltwater fishing licence</strong> for almost everything in
+            this guide, including standing on a beach. Two extra permits catch people out,
+            and both apply <em>on top of</em> the licence:
+          </p>
+          <ul className="bullets">
+            <li>
+              <strong>Snook permit</strong> — required “including shoreline fishing, when
+              taking or attempting to take snook.” Snook is the headline fish here, so this
+              is the one most people need and fewest people have.
+            </li>
+            <li>
+              <strong>Shore-based shark permit</strong> — free, but required for anglers 16
+              and older when fishing for sharks from shore, jetties, bridges or piers. FWC
+              notes there are “no permit exemptions, even if exempt from fishing license
+              requirements.”
+            </li>
+          </ul>
+          <p className="mut xs">
+            Some piers hold a licence covering everyone fishing from them. Do not assume it —
+            FWC’s own records list both Green Bridge and the Palma Sola Causeway as
+            <strong> not</strong> providing one.
+          </p>
+        </div>
+
+        <div className="card card-pad mt3">
+          <span className="lab">Where to get one</span>
+          <p style={{ marginTop: 6 }}>
+            <a href="https://gooutdoorsflorida.com/" target="_blank" rel="noreferrer">
+              GoOutdoorsFlorida.com<span aria-hidden="true"> ↗</span>
+            </a>{' '}
+            sells every licence and permit online in a few minutes.
+          </p>
+          <p>
+            Easier on the water: FWC’s own{' '}
+            <a
+              href="https://myfwc.com/license/recreational/fish-hunt-fl-app/"
+              target="_blank" rel="noreferrer"
+            >
+              Fish&nbsp;|&nbsp;Hunt FL app<span aria-hidden="true"> ↗</span>
+            </a>{' '}
+            buys licences, carries them on your phone as proof, and holds your permits in one
+            place. Worth installing before you drive down.
+          </p>
+          <p className="mut xs">
+            Fees and rules change. Current prices and the full exemption list are on{' '}
+            <a
+              href="https://myfwc.com/license/recreational/saltwater-fishing/"
+              target="_blank" rel="noreferrer"
+            >
+              FWC’s saltwater licence page<span aria-hidden="true"> ↗</span>
+            </a>{' '}
+            — checked August 2026. We do not restate prices here, because a stale figure is
+            worse than none.
+          </p>
+        </div>
+      </section>
+
       <section className="sect" aria-labelledby="habits-h">
         <SectionTitle id="habits-h">Three habits cover almost all of it</SectionTitle>
         <div className="rule3">

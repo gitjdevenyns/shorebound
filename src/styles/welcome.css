@@ -1,0 +1,243 @@
+/* ==========================================================================
+   /welcome — the landing page.
+
+   Everything here is drawn from tokens.css. No new hues: the band colours are
+   documented steps of the blue ramp (--b900/--b800/--b700), the one accent is
+   --g400, and every surface below the hero is a theme semantic so the page
+   turns over with the rest of the app.
+
+   The page has one signature and one only: the tideline. A single tide cycle
+   drawn across the foot of the hero with its four stages named, because the
+   thing a displaced angler has to learn first is that the water moves and
+   that is the whole game. Everything under it is deliberately quiet —
+   hairlines, a mono margin, and a lot of air.
+   ========================================================================== */
+
+.wl{display:block;background:var(--bg)}
+
+/* Section rhythm. One rule, so a section never quietly disagrees with its
+   neighbour about padding. */
+.wl-band{padding:var(--s7) var(--s4)}
+.wl-band > * + *{margin-top:var(--s5)}
+@media (min-width:900px){
+  .wl-band{padding:var(--s9) var(--s7)}
+}
+
+/* The mono margin: eyebrows, ordinals, captions, credits. The page is
+   annotated the way a chart is annotated. */
+.wl-eyebrow{display:block;margin:0;font-family:var(--ff-mono);font-size:var(--fs-micro);
+  letter-spacing:.2em;text-transform:uppercase;color:var(--m)}
+.wl-note{font-family:var(--ff-mono);font-size:var(--fs-micro);letter-spacing:.04em;
+  line-height:1.6;color:var(--m)}
+
+.wl-h2{font-family:var(--ff-display);font-weight:800;letter-spacing:-.028em;line-height:1.02;
+  font-size:clamp(26px,6.2vw,40px);margin:var(--s2) 0 0;max-width:20ch}
+.wl-lede{margin:0;max-width:60ch;font-size:var(--fs-h3);line-height:var(--lh-body);color:var(--t)}
+.wl-p{margin:0;max-width:64ch;line-height:var(--lh-body)}
+.wl-p + .wl-p{margin-top:var(--s3)}
+
+/* ---------------------------------------------------------------- 1. HERO */
+
+.wl-hero{position:relative;isolation:isolate;overflow:hidden;color:var(--n05);
+  padding:var(--s7) var(--s4) 0;
+  background:linear-gradient(168deg,var(--b900) 0%,var(--b800) 58%,var(--b700) 128%)}
+.wl-hero .wl-eyebrow{color:var(--b300)}
+
+.wl-hero h1{font-family:var(--ff-display);font-weight:800;letter-spacing:-.04em;line-height:.95;
+  font-size:clamp(32px,8.4vw,62px);margin:var(--s3) 0 0;max-width:15ch;color:var(--n00)}
+/* One lime phrase on the page above the fold, and it is the phrase the whole
+   product answers. The tideline below is the same colour for the same reason:
+   lime marks the water. */
+.wl-hero h1 em{font-style:normal;color:var(--g400)}
+
+.wl-hero-sub{margin:var(--s4) 0 0;max-width:46ch;color:var(--b200);
+  font-size:var(--fs-h3);line-height:var(--lh-body)}
+
+.wl-cta{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s5)}
+/* The tideline moves underneath, so the ghost button carries a fill of its
+   own — contrast here is not allowed to depend on where the curve sits. */
+.wl-hero .btn-ghost{border-color:rgba(255,255,255,.42);color:var(--n00);background:rgba(3,21,48,.55)}
+.wl-hero .btn-ghost:hover{background:rgba(255,255,255,.16);color:var(--n00)}
+
+/* The fact line. Deliberately a caption and not a row of stat tiles: these are
+   five small checkable numbers, not a dashboard. */
+.wl-facts{display:flex;flex-wrap:wrap;gap:6px var(--s3);margin:var(--s5) 0 0;padding:0;list-style:none;
+  font-family:var(--ff-mono);font-size:var(--fs-micro);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--b200)}
+.wl-facts li{display:flex;align-items:center;gap:var(--s3)}
+.wl-facts li + li::before{content:"";width:3px;height:3px;border-radius:50%;background:var(--g400);flex:none}
+.wl-facts b{color:var(--n00);font-weight:700}
+
+/* ---- the signature: one tide cycle, four stages named ---- */
+.wl-tideline{margin-top:var(--s7);padding-bottom:var(--s5)}
+.wl-tideline svg{display:block;width:100%;height:96px}
+@media (min-width:900px){.wl-tideline svg{height:132px}}
+.wl-tideline .line{fill:none;stroke:var(--g400);stroke-width:2.5;stroke-linecap:round;
+  vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:0}
+.wl-tideline .mean{stroke:rgba(255,255,255,.16);stroke-width:1;vector-effect:non-scaling-stroke}
+.wl-tideline .dot{fill:var(--g400);stroke:var(--b900);stroke-width:3;vector-effect:non-scaling-stroke}
+
+.wl-stages{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s1);margin:var(--s2) 0 0;
+  padding:0;list-style:none;text-align:center;
+  font-family:var(--ff-mono);font-size:var(--fs-micro);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--b200)}
+.wl-tideline .wl-note{display:block;margin:var(--s4) 0 0;color:var(--b300);text-align:center}
+
+@media (prefers-reduced-motion:no-preference){
+  /* The load moment, once: the tide comes in from the west and the stages
+     mark themselves as it passes. pathLength=1 makes the dash arithmetic
+     independent of the rendered width. */
+  .wl-tideline .line{animation:wl-draw 1.9s cubic-bezier(.3,.9,.3,1) .15s both}
+  @keyframes wl-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+  .wl-tideline .dot{animation:wl-mark .45s ease-out both}
+  .wl-tideline .dot:nth-of-type(1){animation-delay:.55s}
+  .wl-tideline .dot:nth-of-type(2){animation-delay:.95s}
+  .wl-tideline .dot:nth-of-type(3){animation-delay:1.35s}
+  .wl-tideline .dot:nth-of-type(4){animation-delay:1.75s}
+  @keyframes wl-mark{from{opacity:0}to{opacity:1}}
+}
+
+@media (min-width:900px){
+  .wl-hero{padding:var(--s9) var(--s7) 0}
+  .wl-hero h1{letter-spacing:-.045em}
+  .wl-hero-sub{max-width:52ch}
+}
+
+/* ------------------------------------------------------- 2. SIX QUESTIONS */
+
+/* A real sequence — the order the questions get asked in, standing in a car
+   park — so it is an ordered list with a run line down the margin, not six
+   decorative cards with numbers stuck on them. */
+.wl-qs{list-style:none;margin:var(--s6) 0 0;padding:0}
+.wl-q{position:relative;display:grid;grid-template-columns:26px 1fr;column-gap:var(--s4);
+  padding:var(--s5) 0;border-top:1px solid var(--l)}
+.wl-q:first-child{border-top:0;padding-top:0}
+.wl-q::before{content:"";position:absolute;left:12px;top:0;bottom:0;width:1px;background:var(--l)}
+.wl-q:first-child::before{top:var(--s1)}
+.wl-q:last-child::before{bottom:auto;height:calc(var(--s5) + 13px)}
+
+.wl-qn{position:relative;z-index:1;align-self:start;
+  width:26px;height:26px;border-radius:var(--ra-pill);border:1px solid var(--l2);background:var(--bg);
+  display:grid;place-items:center;
+  font-family:var(--ff-mono);font-size:var(--fs-micro);color:var(--m)}
+.wl-qbody{min-width:0}
+.wl-q h3{font-family:var(--ff-display);font-weight:800;letter-spacing:-.022em;line-height:1.05;
+  font-size:clamp(19px,4.6vw,27px);margin:0}
+.wl-q p{margin:var(--s2) 0 0;max-width:58ch;line-height:var(--lh-body);color:var(--m)}
+.wl-q p strong{color:var(--t);font-weight:700}
+
+/* The sixth question is the one that hands over to the section below it, and
+   the run line ends there. Marked, not decorated. */
+.wl-q--care .wl-qn{border-color:var(--lime);color:var(--lime-text)}
+.wl-q--care h3{color:var(--t)}
+
+/* One researched line, quoted rather than described. */
+.wl-spec{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);margin:var(--s4) 0 0;
+  padding:var(--s3) var(--s4);background:var(--c2);border:1px solid var(--l);
+  border-left:3px solid var(--lime);border-radius:var(--ra-sm)}
+.wl-spec > div{display:grid;gap:1px}
+.wl-spec dt{font-family:var(--ff-mono);font-size:var(--fs-chart);letter-spacing:.12em;
+  text-transform:uppercase;color:var(--m)}
+.wl-spec dd{margin:0;font-family:var(--ff-mono);font-size:var(--fs-xs);color:var(--t)}
+
+/* ---------------------------------------------------------- 3. THE SAFETY */
+
+/* Weight here is content, not decoration: it is the longest section on the
+   page and the only one that quotes the shipping data verbatim. */
+/* Alternating ground, so the page reads as bands rather than one long column.
+   No new colour: --c is the card surface in both themes. */
+.wl-alt{background:var(--c);border-block:1px solid var(--l)}
+.wl-care{background:var(--c);border-top:3px solid var(--lime);border-bottom:1px solid var(--l)}
+.wl-care .wl-eyebrow{color:var(--lime-text)}
+.wl-care .wl-h2{max-width:16ch}
+
+.wl-hazards{display:grid;gap:var(--s3);grid-template-columns:1fr;margin:0;padding:0;list-style:none}
+@media (min-width:600px){.wl-hazards{grid-template-columns:1fr 1fr}}
+@media (min-width:900px){.wl-hazards{grid-template-columns:repeat(3,1fr)}}
+.wl-haz{display:grid;gap:var(--s2);align-content:start;padding:var(--s4);
+  background:var(--c2);border:1px solid var(--l);border-radius:var(--ra-md)}
+.wl-haz h3{font-family:var(--ff-display);font-size:var(--fs-h3);font-weight:800;margin:0}
+.wl-haz p{margin:0;font-size:var(--fs-sm);line-height:var(--lh-body);color:var(--m)}
+.wl-haz .chip{align-self:start}
+
+/* The claim is enforced by a test, so the test is the evidence. Same ground as
+   the hero band on purpose — this block and the tideline are the two places
+   the page shows you the water rather than describing it. */
+.wl-proof{display:grid;gap:var(--s4)}
+@media (min-width:900px){.wl-proof{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);align-items:start;gap:var(--s6)}}
+.wl-proof h3{font-family:var(--ff-display);font-weight:800;letter-spacing:-.02em;
+  font-size:clamp(19px,4.4vw,24px);margin:0 0 var(--s3);max-width:22ch}
+.wl-code{margin:0;overflow-x:auto;padding:var(--s4);border-radius:var(--ra-md);
+  background:var(--b900);border:1px solid var(--b800);
+  font-family:var(--ff-mono);font-size:var(--fs-xs);line-height:1.7;color:var(--b200)}
+.wl-code i{font-style:normal;color:var(--b400)}
+.wl-code b{font-weight:400;color:var(--g400)}
+
+/* ------------------------------------------------------------ 4. SCREENS */
+
+.wl-shots{display:grid;grid-auto-flow:column;grid-auto-columns:70%;gap:var(--s4);
+  margin:var(--s6) calc(var(--s4) * -1) 0;padding:0 var(--s4) var(--s3);
+  overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;align-items:start}
+.wl-shot{margin:0;scroll-snap-align:center}
+/* The ratio is declared rather than inferred so a lazy image reserves its own
+   space instead of collapsing the strip to nothing before it loads. `contain`
+   keeps that safe if a re-capture comes back at a different size: it letterboxes
+   onto the recessed surface rather than cropping the screen. */
+.wl-shot img{display:block;width:100%;height:auto;aspect-ratio:390/844;
+  object-fit:contain;object-position:top;background:var(--c2);
+  border:1px solid var(--l);border-radius:var(--ra-md)}
+.wl-shot figcaption{margin-top:var(--s3);font-family:var(--ff-mono);font-size:var(--fs-micro);
+  letter-spacing:.03em;line-height:1.6;color:var(--m)}
+.wl-shot figcaption b{display:block;color:var(--t);letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+
+@media (min-width:900px){
+  .wl-shots{grid-auto-flow:row;grid-template-columns:repeat(5,minmax(0,1fr));
+    overflow:visible;margin-inline:0;padding-inline:0;gap:var(--s3)}
+  /* The strip sits on the same curve as the hero: low, rising, high, falling,
+     low. It is the one place the signature is allowed to repeat. */
+  .wl-shot:nth-child(2),.wl-shot:nth-child(4){transform:translateY(calc(var(--s4) * -1))}
+  .wl-shot:nth-child(3){transform:translateY(calc(var(--s6) * -1))}
+}
+
+/* ------------------------------------------------------- 5. WHY NOT ANOTHER */
+
+.wl-why{display:grid;gap:var(--s7)}
+@media (min-width:900px){.wl-why{grid-template-columns:1fr 1fr;gap:var(--s7)}}
+.wl-why h3{font-family:var(--ff-display);font-weight:800;letter-spacing:-.02em;
+  font-size:clamp(19px,4.4vw,24px);margin:0 0 var(--s3);max-width:24ch}
+
+.wl-exhibits{display:grid;gap:var(--s5);margin:var(--s5) 0 0;padding:0;list-style:none}
+.wl-exhibit{margin:0;padding-left:var(--s4);border-left:3px solid var(--lime)}
+.wl-exhibit blockquote{margin:0;font-size:var(--fs-sm);line-height:var(--lh-body);color:var(--t)}
+.wl-exhibit figcaption{margin-top:var(--s2);font-family:var(--ff-mono);font-size:var(--fs-micro);
+  letter-spacing:.03em;color:var(--m)}
+
+/* --------------------------------------------------------------- 6. LIST */
+
+.wl-signup{background:var(--c3);border:1px solid var(--l);border-radius:var(--ra-lg);
+  padding:var(--s6) var(--s4)}
+@media (min-width:900px){.wl-signup{padding:var(--s7)}}
+.wl-form{display:flex;flex-wrap:wrap;gap:var(--s3);margin:var(--s4) 0 0;max-width:560px}
+.wl-field{flex:1 1 240px;display:grid;gap:6px}
+.wl-field label{font-family:var(--ff-mono);font-size:var(--fs-micro);letter-spacing:.14em;
+  text-transform:uppercase;color:var(--m)}
+.wl-input{min-height:var(--tap);padding:0 var(--s3);border-radius:var(--ra-md);
+  border:1px solid var(--l2);background:var(--c);color:var(--t);
+  font-family:var(--ff-body);font-size:var(--fs-body)}
+.wl-input::placeholder{color:var(--m-soft)}
+.wl-form .btn{align-self:end;flex:0 0 auto}
+.wl-said{margin:var(--s4) 0 0;max-width:60ch}
+.wl-said p{margin:0;font-size:var(--fs-sm);line-height:var(--lh-body);color:var(--t)}
+.wl-said p + p{margin-top:var(--s2);color:var(--m)}
+
+/* ----------------------------------------------------------- 7. DOWNLOAD */
+
+.wl-stores{display:flex;flex-wrap:wrap;gap:var(--s3);margin:var(--s5) 0 0;padding:0;list-style:none}
+/* Dashed is this design system's word for "empty slot" — the same treatment as
+   an unlicensed image plate. These links go nowhere and say so. */
+.wl-store{display:flex;align-items:center;gap:var(--s3);min-height:var(--tap);
+  padding:var(--s3) var(--s4);border:1px dashed var(--l2);border-radius:var(--ra-md);
+  background:var(--c2);color:var(--m);font-size:var(--fs-sm);font-weight:700;cursor:default}
+.wl-store:hover{color:var(--m);text-decoration:none;background:var(--c2)}
+.wl-store .tag{flex:none;padding:2px 8px;border:1px solid var(--l2);border-radius:var(--ra-pill);
+  font-family:var(--ff-mono);font-size:var(--fs-chart);letter-spacing:.12em;text-transform:uppercase}

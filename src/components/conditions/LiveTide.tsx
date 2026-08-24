@@ -240,7 +240,7 @@ export default function LiveTide({ location }: { location: Location }) {
 
         {status === 'unavailable' && (
           <p className="mut">
-            Live conditions are not enabled in this build. The tide stages and the
+            Live conditions are unavailable right now. The tide stages and the
             per-spot plans below do not need them.
           </p>
         )}

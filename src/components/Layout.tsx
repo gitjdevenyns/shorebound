@@ -1,8 +1,11 @@
 import { NavLink, Link, Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
+import type { ComponentType } from 'react';
 import { useTheme } from '../lib/theme';
 import { useOnline } from '../lib/network';
-import { IconCare, IconFish, IconHome, IconMark, IconSpots, IconWater } from './ui/icons';
+import {
+  IconCameraFish, IconDanger, IconFish, IconHome, IconMark, IconSpots, IconWater,
+} from './ui/icons';
 
 /**
  * Primary navigation. The design boards specify a five-slot tab bar
@@ -15,26 +18,33 @@ const TABS = [
   { to: '/locations', label: 'Spots', end: false, Icon: IconSpots },
   { to: '/tides', label: 'Water', end: false, Icon: IconWater },
   { to: '/fish', label: 'Fish', end: false, Icon: IconFish },
-  { to: '/care', label: 'Care', end: false, Icon: IconCare },
+  { to: '/care', label: 'Care', end: false, Icon: IconDanger },
 ];
 
-const DESKTOP_NAV = [
+/**
+ * Desktop nav.
+ *
+ * Two items carry an icon rather than a label alone. Handle With Care exists
+ * because several of these fish injure people, and a hazard triangle says that
+ * at a glance where four words do not. Photo ID is a camera with a fish in it,
+ * which explains the feature more directly than naming it does.
+ *
+ * `/tides` is deliberately not here. It used to sit beside `/water` as "Tides +
+ * Water" and "Read Water", which read as two entries for one thing. It is
+ * reached from every conditions card and from each spot page, which is where
+ * somebody actually wants it.
+ */
+const DESKTOP_NAV: Array<{
+  to: string; label: string; end: boolean; Icon?: ComponentType<{ className?: string }>;
+}> = [
   { to: '/', label: 'Home', end: true },
   { to: '/locations', label: 'Spots', end: false },
-  { to: '/tides', label: 'Tides + Water', end: false },
-  { to: '/water', label: 'Read Water', end: false },
-  { to: '/fish', label: 'Fish + Gear', end: false },
-  // Photo ID lives in the desktop nav and on Home, deliberately not in the
-  // five-slot tab bar — the design boards fix that bar at five, and a feature
-  // that costs money per tap is not one to put under a permanently visible
-  // thumb. Fish + Gear is its natural neighbour.
-  { to: '/id', label: 'Photo ID', end: false },
+  { to: '/water', label: 'Water', end: false },
+  { to: '/fish', label: 'Fish', end: false },
   { to: '/rigs', label: 'Rigs + Knots', end: false },
-  // Desktop nav only, like Photo ID: the tab bar is fixed at five slots
-  // by the design boards, and bait is something you look up before you
-  // leave rather than with a thumb on the water.
   { to: '/shops', label: 'Bait + Tackle', end: false },
-  { to: '/care', label: 'Handle With Care', end: false },
+  { to: '/id', label: 'Photo ID', end: false, Icon: IconCameraFish },
+  { to: '/care', label: 'Handle With Care', end: false, Icon: IconDanger },
 ];
 
 /** Move focus to the page heading on navigation so keyboard/SR users land in content. */
@@ -92,6 +102,7 @@ export default function Layout() {
               end={n.end}
               className={({ isActive }) => (isActive ? 'on' : undefined)}
             >
+              {n.Icon && <n.Icon className="navic" />}
               {n.label}
             </NavLink>
           ))}
