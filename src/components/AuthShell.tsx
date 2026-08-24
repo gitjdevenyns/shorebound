@@ -25,7 +25,7 @@ export function AuthShell({
           <img src="/assets/icon-mark.svg" alt="" width={40} height={40} />
           <span>
             <b>Shorebound</b>
-            <em>Go fish yo&rsquo;self &ndash; Florida Gulf Coast</em>
+            <em>Go Fish Yo&rsquo;Self &ndash; Florida Gulf Coast</em>
           </span>
         </Link>
         <h1>{title}</h1>

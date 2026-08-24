@@ -73,8 +73,8 @@ export default defineConfig({
         name: 'Shorebound',
         short_name: 'Shorebound',
         description:
-          "Shore fishing guide for Florida's Gulf coast — 25 researched spots, "
-          + 'live tide, and the rig for each one. Works offline.',
+          "Go Fish Yo'Self. Shore fishing guide for Florida's Gulf coast — "
+          + '25 researched spots, live tide, and the rig for each one. Works offline.',
         start_url: '/',
         scope: '/',
         display: 'standalone',

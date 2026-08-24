@@ -316,3 +316,26 @@
   color:inherit;text-decoration:none}
 .startspots b{font-family:var(--ff-display);font-size:var(--fs-h3);font-weight:800}
 .startspots .mono{flex:none;color:var(--m);font-size:var(--fs-xs)}
+
+
+/* ----------------------------------------------------- start-here artwork */
+/* The getting-started page was a wall of text. These are the five things a
+   first-timer is being asked to picture — a licence, an outfit, a tray of
+   terminal tackle, a live shrimp, and two hands holding a fish properly.
+   Sized by CSS: the drawings carry a viewBox and no intrinsic dimensions. */
+.startart{margin:var(--s4) 0;padding:0}
+.startart-svg{display:block;width:100%;height:auto;max-width:340px;margin:0 auto;
+  color:var(--t)}
+.startart-wide .startart-svg{max-width:460px}
+.startart figcaption{margin-top:var(--s2);text-align:center;font-size:var(--fs-xs);
+  color:var(--m);line-height:1.45;max-width:44ch;margin-left:auto;margin-right:auto}
+
+/* The shrimp runs alongside its paragraph rather than above it — it is the
+   single most-recommended bait in the guide and belongs next to the advice,
+   not floating over it. Stacks on a narrow phone. */
+.startbait{display:flex;align-items:flex-start;gap:var(--s3);margin-top:var(--s3)}
+.startbait-svg{flex:none;width:150px;height:auto;color:var(--t)}
+@media (max-width:479px){
+  .startbait{flex-direction:column;gap:var(--s2)}
+  .startbait-svg{width:210px;align-self:center}
+}

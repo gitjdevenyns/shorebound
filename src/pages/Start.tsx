@@ -6,6 +6,9 @@ import { rankNearby } from '../lib/nearby';
 import { useShopListings } from '../lib/useShopListings';
 import ShopCard from '../components/ShopCard';
 import { Callout, SectionTitle } from '../components/ui';
+import {
+  BaitShrimp, HandsOn, LicencePlate, RodRig, TerminalTackle,
+} from '../components/start/art';
 
 /**
  * Getting started — the one path through the guide for somebody who has
@@ -59,6 +62,9 @@ export default function Start() {
 
       {/* 1 ---------------------------------------------------------------- */}
       <SectionTitle id="s-licence">1 · Get a licence</SectionTitle>
+      <figure className="startart">
+        <LicencePlate className="startart-svg" />
+      </figure>
       <Callout tone="warn" title="Coming from out of state?">
         Florida residents fish from shore on a free licence. <strong>Non-residents do
         not</strong> — you need a 3-day, 7-day or annual saltwater licence before you cast.
@@ -83,6 +89,13 @@ export default function Start() {
 
       {/* 2 ---------------------------------------------------------------- */}
       <SectionTitle id="s-gear">2 · One setup covers most of it</SectionTitle>
+      <figure className="startart startart-wide">
+        <RodRig className="startart-svg" />
+        <figcaption>
+          One spinning outfit. The line runs off the spool, round the roller, and out
+          through the guides — that is the whole machine.
+        </figcaption>
+      </figure>
       <p className="mut">
         You probably own something close already. These are the specs the {fish.length}{' '}
         species pages actually call for, not a shopping list.
@@ -104,6 +117,14 @@ export default function Start() {
 
       {/* 3 ---------------------------------------------------------------- */}
       <SectionTitle id="s-tackle">3 · What to ask for at the counter</SectionTitle>
+      <figure className="startart">
+        <TerminalTackle className="startart-svg" />
+        <figcaption>
+          Circle hook, split shot, slider, jig head, paddletail. The circle hook&rsquo;s point
+          turns back toward the shank — that turn is what sets it in the corner of the jaw
+          instead of the gut.
+        </figcaption>
+      </figure>
       <div className="card card-pad">
         <p style={{ marginTop: 0 }}>
           <span className="lab">Hooks</span> 1/0–2/0 circle hooks for bait, 3/0–4/0 if you
@@ -117,11 +138,14 @@ export default function Start() {
           <span className="lab">Lures</span> Paddletails, a white jig head, and one silver
           spoon. Between them they cover most of what this guide names.
         </p>
-        <p className="mut">
-          <span className="lab">Bait</span> Ask for <strong>live shrimp</strong> first — it is
+        <div className="startbait">
+          <BaitShrimp className="startbait-svg" />
+          <p className="mut" style={{ margin: 0 }}>
+            <span className="lab">Bait</span> Ask for <strong>live shrimp</strong> first — it is
           named at more spots in this guide than anything else. <strong>Pilchards</strong> if
           you are after snook. Fiddler crabs for sheepshead, sand fleas off the beach.
-        </p>
+          </p>
+        </div>
       </div>
 
       {/* 4 ---------------------------------------------------------------- */}
@@ -189,6 +213,13 @@ export default function Start() {
         razor. Stingrays are under the sand you are wading on. Read this before you land
         something, not after.
       </Callout>
+      <figure className="startart">
+        <HandsOn className="startart-svg" />
+        <figcaption>
+          One hand under the pectoral girdle, well behind the gill plate; the other under the
+          tail wrist. Level, wet hands, and back in the water quickly.
+        </figcaption>
+      </figure>
       <Link className="btn btn-lime btn-block mt3" to="/care">
         How to handle what you catch
       </Link>

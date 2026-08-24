@@ -91,7 +91,7 @@ export default function Layout() {
           <span>
             <span className="name">Shorebound</span>
             <span className="lab lab-xs">
-              Go fish yo&rsquo;self &ndash; Florida Gulf Coast
+              Go Fish Yo&rsquo;Self &ndash; Florida Gulf Coast
             </span>
           </span>
         </Link>

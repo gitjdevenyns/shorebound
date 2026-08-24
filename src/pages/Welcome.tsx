@@ -316,15 +316,16 @@ export default function Welcome() {
     <div className="wl">
       {/* ---------------------------------------------------------- hero */}
       <section className="wl-hero" aria-labelledby="wl-title">
-        <p className="wl-eyebrow">Shore fishing · St. Petersburg → Boca Grande Pass</p>
+        <p className="wl-eyebrow">Go Fish Yo&rsquo;Self</p>
 
         <h1 id="wl-title">
           You already know how to fish. You just don&rsquo;t know <em>this water</em>.
         </h1>
 
         <p className="wl-hero-sub">
-          {locations.length} researched spots on Florida&rsquo;s Gulf coast, {onFoot.length}{' '}
-          of them reachable on foot. The tide stage each one actually fishes,
+          Nobody is taking you out on their boat and telling you where to cast.{' '}
+          {locations.length} researched spots on Florida&rsquo;s Gulf coast between St.
+          Petersburg and Boca Grande Pass, {onFoot.length} of them reachable on foot. The tide stage each one actually fishes,
           what you are standing over, and the rig for the fish that is there.
         </p>
 

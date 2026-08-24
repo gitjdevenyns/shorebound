@@ -247,3 +247,8 @@
 .wl-store .tag{flex:none;padding:2px 8px;border:1px solid var(--l2);border-radius:var(--ra-pill);
   font-family:var(--ff-mono);font-size:var(--fs-chart);letter-spacing:.12em;text-transform:uppercase}
 .wl-bad{color:var(--danger-text);font-weight:600}
+
+/* The tagline as the eyebrow: it is the position, not decoration, so it is
+   set like a statement rather than a category label. */
+.wl-hero .wl-eyebrow{font-family:var(--ff-display);font-size:var(--fs-h3);font-weight:800;
+  letter-spacing:.02em;text-transform:none;color:var(--lime-text)}
