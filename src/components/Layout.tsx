@@ -88,8 +88,8 @@ export default function Layout() {
           <img className="mark" src="/assets/icon-mark.svg" alt="" width={34} height={34} />
           <span>
             <span className="name">Shorebound</span>
-            <span className="lab lab-xs" style={{ display: 'block' }}>
-              Go fish yo&rsquo;self.
+            <span className="lab lab-xs">
+              Go fish yo&rsquo;self - Florida Gulf Coast
             </span>
           </span>
         </Link>

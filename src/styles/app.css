@@ -169,3 +169,10 @@ html[data-theme="dark"] .leaflet-tile{filter:brightness(.78) saturate(.86) contr
 /* Never let the brand lines wrap — a two-row appbar eats the top of
    every page, which is how the hero got clipped once before. */
 .appbar-brand .name,.appbar-brand .lab{white-space:nowrap}
+/* The coast made the tagline 35 characters. It must stay on one line (above),
+   and on a phone it has to clear the theme toggle, so it scales with the
+   viewport and carries tighter tracking than the label sheet's default.
+   Below ~350px no size is both clear of the toggle and legible, so the bar
+   keeps the name alone there. */
+.appbar-brand .lab{display:block;letter-spacing:.04em;font-size:clamp(7px,2.2vw,var(--fs-micro))}
+@media (max-width:349px){.appbar-brand .lab{display:none}}
