@@ -125,6 +125,11 @@ export default defineConfig({
           // every reader's device and make it available offline, which is both
           // wasted bytes and wrong: every action in there is a network write.
           // `src/test/admin.bundle.test.ts` asserts this stays true.
+          // Landing-page screenshots. They are marketing assets on /welcome,
+          // and precaching them put 1.6 MB onto every reader's device for
+          // images the guide itself never shows. They load normally over the
+          // network when somebody actually opens that page.
+          'screens/*.png',
           'admin.html',
           'assets/admin-*.js',
           'assets/admin-*.css',

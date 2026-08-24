@@ -165,3 +165,7 @@ html[data-theme="dark"] .leaflet-tile{filter:brightness(.78) saturate(.86) contr
    camera with a fish in it. */
 .appnav a{display:inline-flex;align-items:center;gap:6px}
 .navic{width:17px;height:17px;flex:none}
+
+/* Never let the brand lines wrap — a two-row appbar eats the top of
+   every page, which is how the hero got clipped once before. */
+.appbar-brand .name,.appbar-brand .lab{white-space:nowrap}

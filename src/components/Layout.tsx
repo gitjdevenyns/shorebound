@@ -4,7 +4,7 @@ import type { ComponentType } from 'react';
 import { useTheme } from '../lib/theme';
 import { useOnline } from '../lib/network';
 import {
-  IconCameraFish, IconDanger, IconFish, IconHome, IconMark, IconSpots, IconWater,
+  IconCameraFish, IconDanger, IconFish, IconHome, IconSpots, IconWater,
 } from './ui/icons';
 
 /**
@@ -83,13 +83,13 @@ export default function Layout() {
 
       <header className="appbar">
         <Link to="/" className="appbar-brand">
-          <span className="mark" aria-hidden="true">
-            <IconMark />
-          </span>
+          {/* The same file the app icon is rendered from, so the mark in the
+              bar and the icon on the home screen can never drift apart. */}
+          <img className="mark" src="/assets/icon-mark.svg" alt="" width={34} height={34} />
           <span>
             <span className="name">Shorebound</span>
             <span className="lab lab-xs" style={{ display: 'block' }}>
-              Fish it yourself · Florida Gulf coast
+              Fish it yourself
             </span>
           </span>
         </Link>
