@@ -120,8 +120,14 @@ function humanise(message: string): string {
   if (m.includes('password should be at least')) {
     return 'Passwords need to be at least eight characters.';
   }
+  // Two different limits wearing the same word, and telling them apart matters:
+  // one is about this person, the other is not about them at all.
+  if (m.includes('email rate limit') || m.includes('over_email_send_rate_limit')) {
+    return 'Sign-ups are temporarily paused — the confirmation email service has hit '
+      + 'its hourly limit. This is on our side, not yours. Try again in an hour.';
+  }
   if (m.includes('rate limit') || m.includes('too many')) {
-    return 'Too many attempts. Wait a minute and try again.';
+    return 'Too many attempts from this device. Wait a minute and try again.';
   }
   if (m.includes('failed to fetch') || m.includes('network')) {
     return 'No connection. This needs the internet — the rest of the guide does not.';

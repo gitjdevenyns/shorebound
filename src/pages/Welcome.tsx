@@ -607,14 +607,14 @@ export default function Welcome() {
       {/* ---------------------------------------------------------- sign-up */}
       <section className="wl-band" aria-labelledby="wl-early">
         <div className="wl-signup">
-          <p className="wl-eyebrow">Early access</p>
+          <p className="wl-eyebrow">Create your account</p>
           <h2 className="wl-h2" id="wl-early">
-            There is nothing to join yet
+            Free, and it opens the whole guide
           </h2>
           <p className="wl-lede">
-            The guide is being finished in public. When there is a real list,
-            this is where it will be — and until then this form does exactly
-            what it looks like it does, which is nothing.
+            Every spot, every species page, the rigs and the handling guidance. An email
+            address and a password is all it takes — no card, no phone number, and you can
+            delete the account yourself from your settings at any time.
           </p>
           <SignupForm />
         </div>

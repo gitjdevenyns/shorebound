@@ -87,86 +87,108 @@ is also the single most shareable thing in the product.
 
 ## Slide 4 — How many people are him: the US number
 
-**What is verified:**
+**He is the common case, not the niche one.** In 2022 there were **35.1 million
+freshwater anglers** in the US and **12.7 million saltwater anglers** — verbatim:
+"Saltwater fishing attracted 12.7 million anglers who enjoyed 104 million trips
+to saltwater on 123 million days"
+([USFWS, 2022 National Survey of Fishing, Hunting and Wildlife-Associated
+Recreation](https://www.fws.gov/sites/default/files/documents/Final_2022-National-Survey_101223-accessible-single-page.pdf)).
 
-- **201 million recreational fishing trips** were taken in the continental United
-  States and Hawai'i in **2022**
-  ([NOAA Fisheries](https://www.fisheries.noaa.gov/topic/recreational-fishing-data)).
-- In **2023**, recreational saltwater fishing generated **$145.4 billion in sales
-  impacts**, **$47.1 billion in income**, **$78.4 billion in value added**, and
-  supported **694,041 full- and part-time jobs** — a 7 percent decrease from 2022
-  ([NOAA Fisheries, Fisheries Economics of the United States](https://www.fisheries.noaa.gov/national/sustainable-fisheries/fisheries-economics-united-states)).
+**And saltwater fishing is overwhelmingly done from the shore.** From NOAA's
+2023 economic report, verbatim:
 
-**What is not verified, and is not estimated here:**
+> Anglers took 204 million saltwater fishing trips. […] Approximately 62 percent
+> of fishing trips were taken via shore.
 
-- **Number of US saltwater anglers — no credible figure found** in this research
-  pass. NOAA publishes participation through an interactive MRIP query tool
-  rather than as a citable headline number
-  ([query tool](https://www.fisheries.noaa.gov/data-tools/recreational-fisheries-statistics-queries)).
-- **Share of saltwater trips taken from shore, versus private boat and for-hire —
-  no credible figure found.** Same reason.
+> Expenditures on shore-based fishing trips had the greatest trip-related
+> economic impact (when compared to private boat or for-hire trips).
 
-**Speaker note:** Be straight about the shape of this slide: the market is
-unambiguously large and the one cut of it that matters most to us is the one we
-do not yet have. MRIP records effort by mode — shore, private/rental boat,
-party/charter — so the shore share is a real, obtainable number; it lives behind
-a query tool rather than in a report, and this pass could not pull it as a
-citable figure. If someone in the room wants that number before committing, say
-so plainly: it is a data request to NOAA MRIP, not a research project, and we
-will bring it rather than guess it now. Guessing it would be the exact failure
-this deck is written to avoid.
+Economic impacts of trip expenditures by mode, 2023 — jobs and sales impacts
+($ millions), NOAA Table 6:
+
+| Mode | Jobs | Sales impacts |
+|---|---|---|
+| **Shore** | **57,282** | **$11,911M** |
+| For-hire | 42,599 | $5,490M |
+| Private boat | 38,244 | $10,805M |
+
+Trip expenditure split: **shore 43.6%**, private boat 40.2%, for-hire 16.2%.
+
+All NOAA figures: [Fisheries Economics of the United States 2023, NMFS-F/SPO-254A,
+updated May 2026](https://www.fisheries.noaa.gov/s3/2026-07/feus-2023-spo254a.pdf)
+([summary page](https://www.fisheries.noaa.gov/national/sustainable-fisheries/fisheries-economics-united-states)).
+
+**Speaker note:** Two definitional traps, and name them before anyone else does.
+First, NOAA's 204 million and the Fish and Wildlife Service's 104 million are not
+in conflict — NOAA counts *angler-trips*, one angler for one day; FWS counts
+trips that may span several days. Never mix them in one sentence. Second, NOAA
+publishes no unique-angler count at all, so 12.7 million is a FWS person-count
+and 204 million is a NOAA trip-count, and they are different instruments. The
+honest read of the two tables together is this: the shore is where most saltwater
+fishing actually happens, and it is the *cheapest* mode — 62 percent of trips but
+43.6 percent of trip spend. If someone pushes on the wallet gap, concede it
+immediately. Our answer is not that shore anglers spend more; it is that nobody
+has built the tool they use, and the bait they buy is bought locally, which is
+the revenue line.
 
 ---
 
-## Slide 5 — Florida, and the visitor
+## Slide 5 — Florida, and specifically this coast
 
-**Florida is where the visitors are.**
+**West Florida is the single biggest recreational fishing market in the country.**
+From NOAA's 2023 report, verbatim:
 
-**143.3 million visitors in 2025** — a record, with 33.5 million in Q4 alone
-([VISIT FLORIDA / Office of the Governor, 20 February 2026](https://www.visitflorida.org/about-us/media/news-releases/article-details/?releaseId=21303)).
-
-**And this coast specifically is where the fishing economy is.** From NOAA's 2023
-economic report, on recreational saltwater fishing jobs and sales impacts,
-verbatim:
+> West Florida anglers took the most fishing trips (45 million trips), followed
+> by those in East Florida and North Carolina.
 
 > West Florida was the largest contributor by far, highlighting its major role in
 > the recreational fishing economy.
 
-([NOAA Fisheries](https://www.fisheries.noaa.gov/national/sustainable-fisheries/fisheries-economics-united-states))
+Jobs and sales impacts from recreational **trip** expenditures, 2023 (NOAA Table 7):
 
-**The state has already priced the customer we are describing.** Florida
-saltwater licence fees, current
-([FWC](https://myfwc.com/license/recreational/saltwater-fishing/)):
+| Region | Jobs | Sales impacts |
+|---|---|---|
+| **West Florida** | **30,844** | **$4,580M** |
+| North Carolina | 10,928 | $1,452M |
+| East Florida | 10,906 | $1,702M |
+| Texas | 8,615 | $1,238M |
+| California | 5,028 | $724M |
 
-| Licence | Price |
-|---|---|
-| Non-resident, 3-day | $17.00 |
-| Non-resident, 7-day | $30.00 |
-| Non-resident, annual | $47.00 |
-| Resident, annual | $17.00 |
-| Resident, shoreline-only | No cost |
+**West Florida is the largest row in that table — this app's 25 spots are inside
+it.**
+
+**The visitors are here too.** Florida recorded **143.3 million visitors in 2025**
+([VISIT FLORIDA / Office of the Governor, 20 February 2026](https://www.visitflorida.org/about-us/media/news-releases/article-details/?releaseId=21303)).
+
+**And Florida already sells this exact customer a product.** Saltwater licence
+fees, current ([FWC](https://myfwc.com/license/recreational/saltwater-fishing/)):
+non-resident **3-day $17.00**, **7-day $30.00**, annual $47.00; resident annual
+$17.00; resident shoreline-only **no cost**. FWC also reports **1.5 million
+recreational saltwater licences sold and $37.8 million in licence revenue in FY
+19/20**, with **2.4 million** people holding an active recreational licence
+([FWC](https://myfwc.com/conservation/value/saltwater-fishing/)).
 
 **What is not verified, and is not estimated here:**
 
-- **Number of saltwater anglers or saltwater trips in Florida — no credible
-  figure found** in this pass.
 - **Florida non-resident saltwater licence sales volume — no credible figure
-  found.**
+  found.** FWC does not publish a resident/non-resident split, and the USFWS
+  federal-aid licence tables carry no Florida saltwater breakout.
 - **Share of Florida visitors who fished — no credible figure found.** VISIT
-  FLORIDA's Visitor Study, which carries activity data, is behind a marketing
-  partner login
-  ([VISIT FLORIDA research](https://www.visitflorida.org/resources/research/visitor-study/)).
+  FLORIDA's published activity list (beach/waterfront 36%, culinary 23%,
+  shopping 21%) does not include fishing at any level, and the full Visitor Study
+  is behind a marketing-partner login.
 
-**Speaker note:** Two things to draw out of the licence table. First, the state
-sells a 3-day and a 7-day non-resident saltwater licence, which means Florida
-itself has built a product for a short-stay visiting angler — that is the
-customer, and the state's own pricing confirms he exists in volume. Second, the
-free shoreline-only licence is for **residents**; a visitor fishing from the
-beach still has to buy one. So the visiting shore angler is a distinct,
-identifiable, already-transacting segment, and non-resident licence sales would
-size it precisely. That number should be obtainable from FWC or from the USFWS
-federal aid licence tables, and it is the first thing to add to this deck. Do not
-put a placeholder there in the meantime.
+**Speaker note:** The licence table is the strongest slide in the deck for
+proving the customer exists. Florida sells a 3-day and a 7-day non-resident
+saltwater licence, which means the state itself has built a product for a
+short-stay visiting angler. And the free shoreline-only licence is for
+**residents** — a visitor fishing off the beach still buys one. So the visiting
+shore angler is a distinct, identifiable, already-transacting segment. One thing
+to refuse out loud if it comes up: FWC's own site also carries a "$9.2 billion"
+saltwater recreational impact figure, but the page states it derives from
+American Sportfishing Association / Southwick work based on **2011** survey data
+inflated to 2020. It is not a primary measurement and this deck does not use it.
+Saying that unprompted is worth more than the number would have been.
 
 ---
 
@@ -205,7 +227,9 @@ Across all six apps, verified against each product's own site and store listing:
 - **Zero provide in-app safe-handling and injury-avoidance guidance.**
 
 And a structural point, not a slur: a map built from where people logged catches
-inherits where people can *get to* — which is heavily boat-weighted water. An app
+inherits where people can *get to* — which is heavily boat-weighted water, while
+**62 percent of saltwater trips are taken from shore** ([NOAA FEUS
+2023](https://www.fisheries.noaa.gov/s3/2026-07/feus-2023-spo254a.pdf)). An app
 covering every water in the country has no room for what matters on one
 three-mile stretch. Local knowledge does not scale to fifty states, so it gets
 replaced by a model output.

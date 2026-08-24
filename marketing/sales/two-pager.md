@@ -22,11 +22,14 @@ knowledge, and the two things he is missing most are **where to stand** and
 
 The second one is your business.
 
-There are a lot of him. Florida had **143.3 million visitors in 2025**, a record
-([VISIT FLORIDA, 20 February 2026](https://www.visitflorida.org/about-us/media/news-releases/article-details/?releaseId=21303)),
-and NOAA's 2023 economic report says of recreational saltwater fishing that
-"West Florida was the largest contributor by far"
-([NOAA Fisheries](https://www.fisheries.noaa.gov/national/sustainable-fisheries/fisheries-economics-united-states)).
+There are a lot of him, and he is your walk-in customer rather than a boat owner.
+NOAA's 2023 economic report records that **West Florida anglers took the most
+fishing trips in the country — 45 million** — and that **about 62 percent of
+saltwater fishing trips are taken from shore** ([NOAA Fisheries, Fisheries
+Economics of the United States
+2023](https://www.fisheries.noaa.gov/s3/2026-07/feus-2023-spo254a.pdf)). Florida
+also had **143.3 million visitors in 2025**, a record ([VISIT FLORIDA, 20
+February 2026](https://www.visitflorida.org/about-us/media/news-releases/article-details/?releaseId=21303)).
 Note also that Florida's no-cost shoreline-only licence is for **residents** — a
 visitor fishing off the beach buys a licence, at $17 for three days or $30 for
 seven ([FWC](https://myfwc.com/license/recreational/saltwater-fishing/)). He is
