@@ -24,6 +24,36 @@ function walk(dir: string, out: string[] = []): string[] {
   return out;
 }
 
+/**
+ * The owner-only actions on the admin-users Edge Function — approving an
+ * account, changing somebody's address, deleting them, sending a reset — are
+ * enforced server-side, so a reader who found the endpoint still could not use
+ * it. But they should also not be DISCOVERABLE from the reader's bundle:
+ * shipping the vocabulary of the owner's tools to every visitor tells them
+ * exactly what to go and try.
+ *
+ * The one function the app legitimately calls for the signed-in user is
+ * delete-account, which acts only on the caller's own token.
+ */
+const OWNER_ONLY = ['admin-users', 'confirm_user', 'set_email', 'delete_user', 'admin_set_tier',
+  'admin_list_users', 'admin_signup_stats', 'admin_set_display_name'];
+
+describe('owner-only actions are not named in the reader app', () => {
+  it('keeps the owner vocabulary out of files the app entry can reach', () => {
+    const offenders: string[] = [];
+    for (const f of walk(SRC)) {
+      const text = readFileSync(f, 'utf8');
+      for (const token of OWNER_ONLY) {
+        if (text.includes(token)) offenders.push(`${f.split('/src/')[1]} names "${token}"`);
+      }
+    }
+    expect(
+      offenders,
+      `Owner-only actions must live only in src/admin:\n${offenders.join('\n')}`,
+    ).toEqual([]);
+  });
+});
+
 describe('owner console stays out of the reader app', () => {
   it('is imported by nothing the app entry can reach', () => {
     const offenders: string[] = [];

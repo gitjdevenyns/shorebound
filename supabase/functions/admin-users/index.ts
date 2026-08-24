@@ -124,6 +124,12 @@ Deno.serve(async (req) => {
     // different claim from "this address was proven reachable". Both end with
     // email_confirmed_at set, so the audit row is the only thing that
     // distinguishes them afterwards — which is why one is written.
+    if (subject === actor.id) {
+      // You are signed in, so you are already confirmed. Refusing is about the
+      // shape of the endpoint, not this call: no action here should accept the
+      // caller as its own subject.
+      return json({ error: 'You cannot approve your own account.' }, 400);
+    }
     const { data: target } = await admin.auth.admin.getUserById(subject);
     if (!target?.user) return json({ error: 'No such account' }, 404);
     if (target.user.email_confirmed_at) {
