@@ -12,6 +12,7 @@ import Water from './pages/Water';
 import Tides from './pages/Tides';
 import Rigs from './pages/Rigs';
 import Shops from './pages/Shops';
+import Start from './pages/Start';
 import Privacy from './pages/Privacy';
 import Support from './pages/Support';
 import Care from './pages/Care';
@@ -45,6 +46,7 @@ export default function App() {
         <Route path="/tides" element={<Page path="tides" element={<Tides />} />} />
         <Route path="/rigs" element={<Page path="rigs" element={<Rigs />} />} />
         <Route path="/shops" element={<Page path="shops" element={<Shops />} />} />
+        <Route path="/start" element={<Page path="start" element={<Start />} />} />
         {/* Reachable inside the app, not only from a marketing site:
             App Store guideline 5.1.1(i) requires the policy in both places. */}
         <Route path="/privacy" element={<Page path="privacy" element={<Privacy />} />} />

@@ -89,7 +89,7 @@ export default function Layout() {
           <span>
             <span className="name">Shorebound</span>
             <span className="lab lab-xs" style={{ display: 'block' }}>
-              Tampa Bay → Boca Grande
+              Fish it yourself · Florida Gulf coast
             </span>
           </span>
         </Link>
@@ -143,6 +143,8 @@ export default function Layout() {
           buried settings screen does not qualify. */}
       <footer className="appfoot">
         <nav aria-label="Legal and support">
+          <Link to="/start">Start here</Link>
+          <Link to="/welcome">About</Link>
           <Link to="/privacy">Privacy</Link>
           <Link to="/support">Support</Link>
           <Link to="/shops">Bait &amp; tackle</Link>

@@ -68,6 +68,7 @@ const STATIC_ROUTES = [
   '/rigs',
   '/care',
   '/shops',
+  '/start',
   '/privacy',
   '/support',
   '/welcome',

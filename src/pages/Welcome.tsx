@@ -78,7 +78,10 @@ function Tideline() {
         <line className="mean" x1="0" y1={CURVE_H / 2} x2={CURVE_W} y2={CURVE_H / 2} />
         <path className="line" d={tidePath()} pathLength={1} />
         {marks.map((m) => (
-          <circle key={m.x} className="dot" cx={m.x} cy={m.y} r="7" />
+          <g className="mark" key={m.x}>
+            <line className="tick" x1={m.x} y1={m.y} x2={m.x} y2={CURVE_H} />
+            <line className="cap" x1={m.x} y1={m.y} x2={m.x} y2={m.y + 0.01} />
+          </g>
         ))}
       </svg>
       <ol className="wl-stages">
@@ -233,7 +236,7 @@ const SCREENS = [
     file: 'shops.png',
     title: 'Bait and tackle',
     alt: 'Shorebound bait and tackle directory showing shop hours and the source each listing was checked against',
-    caption: 'Hours we could confirm first-hand, and the listings where we could not, said plainly.',
+    caption: 'Hours we could confirm first-party, the ones we could not, and which shops pay to stand out.',
   },
 ];
 
@@ -453,10 +456,9 @@ export default function Welcome() {
               {'it('}
               <b>{"'keeps Handle With Care free'"}</b>
               {', () => {\n'}
-              {"  const care = CAPABILITIES.find((c) => c.id === "}
+              {"  expect(DEFAULT_MATRIX["}
               <b>{"'care.full'"}</b>
-              {');\n'}
-              {'  expect(care?.free).toBe(true);\n'}
+              {'].free).toBe(true);\n'}
               {'});'}
             </code>
           </pre>

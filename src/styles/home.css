@@ -41,13 +41,6 @@
 .hero .btn-ghost{border-color:rgba(255,255,255,.4);color:#fff;background:rgba(3,21,48,.6)}
 .hero .btn-ghost:hover{background:rgba(255,255,255,.16);color:#fff}
 
-/* Legend for the plate. The drawing is decorative, so this line is where the
-   drawing is explained — and where it is admitted to be a schematic. */
-.hero-key{display:inline-flex;align-items:center;gap:8px;margin:0;max-width:44ch;
-  font-family:var(--ff-mono);font-size:var(--fs-micro);line-height:var(--lh-body);letter-spacing:.02em;color:#c5dcff;
-  background:rgba(3,21,48,.9);border:1px solid rgba(255,255,255,.22);border-radius:8px;padding:5px 9px}
-.hero-key .swatch{width:16px;height:2px;flex:none;border-radius:2px;background:var(--g400)}
-
 @media (prefers-reduced-motion:no-preference){
   /* Load: the waterline sweeps in from the west, once. */
   .hero-wipe{transform-origin:0 0;animation:tidewipe 1.5s cubic-bezier(.22,1,.36,1) .25s both}

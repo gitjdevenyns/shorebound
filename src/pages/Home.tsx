@@ -25,7 +25,7 @@ import {
   tideLevel,
 } from '../components/location/art';
 import { zonesFor } from '../components/location/zones';
-import { IconCameraFish } from '../components/ui/icons';
+import { IconCameraFish, IconWater } from '../components/ui/icons';
 
 /**
  * Home (design board 01). The first fold answers one question — go where, on
@@ -267,6 +267,13 @@ export default function Home() {
   // turned, the card must stop claiming the tide is prime there.
   const isPrime = stage ? pick.tide_playbook.prime_stages.includes(stage) : false;
 
+  // Station records read "NOAA Desoto Point 8726273". The eyebrow wants the
+  // place only — the id is provenance and belongs on the conditions card.
+  const stationPlace = (conditions.data?.station_name ?? pick.tide_station.name ?? '')
+    .replace(/^NOAA\s+/i, '')
+    .replace(/\s+\d{6,}$/, '')
+    .trim();
+
   // Drives the hero's live contour. Null whenever there is no snapshot, and
   // the hero says so rather than drawing an unlabelled guess.
   const level =
@@ -276,14 +283,25 @@ export default function Home() {
 
   return (
     <>
-      {/* The hero is a chart, not a banner. Every hairline in it is a depth
-          contour through a generated bathymetry, and the one lime contour is
-          the water's edge at the tide the reference station is predicting
-          right now — so the picture moves through the day with the thing the
-          whole guide is about. It is labelled as a schematic, because it is
-          one: no location on this coast has been surveyed for this drawing.
-          With no live snapshot the plate still draws, at a mid tide, and the
-          caption says that instead of implying a reading. */}
+      {/*
+        The hero answers rather than pitches.
+
+        It used to be a poster — a slogan about reading the water over an
+        ambient chart — which described the app instead of doing anything. But
+        this guide knows the tide at a real station right now and which of its
+        25 spots fishes that tide, so the front page can just say so. A person
+        opening this at half five in the morning wants a place to drive to, not
+        a value proposition.
+
+        The chart stays as the backdrop, and the lime contour is still the
+        water's edge at the live tide, so the picture moves through the day
+        with the thing the guide is about. It is a schematic, not a survey of
+        anywhere; nothing on the page claims otherwise.
+
+        The pitch is the FALLBACK, for the case where there is no reading to
+        give — offline, or a station that has not refreshed. Selling is what
+        this page does when it cannot help.
+      */}
       <section className="hero">
         <HeroChart level={level} />
         <div className="hero-scrim" aria-hidden="true" />
@@ -294,41 +312,75 @@ export default function Home() {
               <>
                 <span className="dot" aria-hidden="true" />
                 <span className="now">{STAGE_CHIP[stage]}</span>
-                <span className="at">{pick.region} station</span>
+                <span className="at">{stationPlace}</span>
               </>
             ) : (
               <span className="at">Shore fishing guide · Florida Gulf coast</span>
             )}
           </p>
-          {/* The reader is an accomplished angler who has never fished salt.
-              Not a beginner — displaced. The headline has to say that in his
-              own terms, or it reads as an app for people who cannot fish. */}
-          <h1 className="rise">
-            <span className="hl-a">You know how to fish.</span>
-            <span className="hl-b">
-              You just don't know <em>this</em> water.
-            </span>
-          </h1>
-          <p className="hero-sub">
-            {locations.length} spots from St. Petersburg to Boca Grande Pass — where to
-            stand, which tide to stand there on, what to throw, and how to hold what
-            you catch without it hurting you.
-          </p>
-          <div className="hero-cta">
-            <Link className="btn btn-lime" to="/locations">
-              Find a spot
-            </Link>
-            <Link className="btn btn-ghost" to="/care">
-              What will hurt you
-            </Link>
-          </div>
-          <p className="hero-key">
-            <span className="swatch" aria-hidden="true" />
-            {level === null
-              ? 'Not a chart of this spot — the lime line sits at mid tide.'
-              : 'Not a chart of this spot — the lime line is the tide right now.'}
-          </p>
+
+          {stage ? (
+            <>
+              <h1 className="rise">
+                <span className="hl-a">Fish {pick.name.split(' / ')[0]}.</span>
+                <span className="hl-b">
+                  {isPrime ? (
+                    <>It is <em>prime</em> on this tide.</>
+                  ) : (
+                    <>Best of the {locations.length} right now.</>
+                  )}
+                </span>
+              </h1>
+              <p className="hero-sub">
+                {pick.tide_playbook[stage]}
+              </p>
+              <div className="hero-cta">
+                <Link className="btn btn-lime" to={`/locations/${pick.slug}`}>
+                  Take me there
+                </Link>
+                <Link className="btn btn-ghost" to="/locations">
+                  All {locations.length} spots
+                </Link>
+              </div>
+            </>
+          ) : (
+            <>
+              <h1 className="rise">
+                <span className="hl-a">You know how to fish.</span>
+                <span className="hl-b">
+                  You just don&rsquo;t know <em>this</em> water.
+                </span>
+              </h1>
+              <p className="hero-sub">
+                {locations.length} spots from St. Petersburg to Boca Grande Pass — where to
+                stand, which tide to stand there on, what to throw, and how to hold what you
+                catch without it hurting you.
+              </p>
+              <div className="hero-cta">
+                <Link className="btn btn-lime" to="/locations">
+                  Find a spot
+                </Link>
+                <Link className="btn btn-ghost" to="/care">
+                  What will hurt you
+                </Link>
+              </div>
+            </>
+          )}
         </div>
+      </section>
+
+      {/* First trip on this coast is a different job from picking tonight's
+          spot, and the reader this guide is for is often on his first. */}
+      <section className="sect" aria-labelledby="startline">
+        <h2 className="vh" id="startline">New to salt water</h2>
+        <Link className="idtile" to="/start" aria-label="Start here — licence, gear and bait">
+          <IconWater className="ic" />
+          <span>
+            <b>First time in salt water?</b>
+            <em>Licence, gear, bait, and where to go first</em>
+          </span>
+          <Chevron />
+        </Link>
       </section>
 
       <section className="sect" aria-labelledby="nearyou">
@@ -344,7 +396,7 @@ export default function Home() {
       </section>
 
       <section className="sect" aria-labelledby="gohere">
-        <SectionTitle id="gohere">Go here now</SectionTitle>
+        <SectionTitle id="gohere">{pick.name}, in detail</SectionTitle>
         <div className="rec">
           {/* The recommendation used to open with a photo plate, but no location
               has a licensed photograph, so it always rendered as an empty

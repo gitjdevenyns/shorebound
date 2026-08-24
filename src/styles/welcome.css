@@ -15,10 +15,11 @@
 
 .wl{display:block;background:var(--bg)}
 
-/* Section rhythm. One rule, so a section never quietly disagrees with its
-   neighbour about padding. */
+/* Section rhythm. Stated on each element rather than as a `> * + *` flow rule:
+   that rule has the same specificity as the element resets below it and quietly
+   lost to whichever happened to be declared last, which is exactly the class of
+   bug that leaves two paragraphs welded together on one section and not another. */
 .wl-band{padding:var(--s7) var(--s4)}
-.wl-band > * + *{margin-top:var(--s5)}
 @media (min-width:900px){
   .wl-band{padding:var(--s9) var(--s7)}
 }
@@ -31,10 +32,11 @@
   line-height:1.6;color:var(--m)}
 
 .wl-h2{font-family:var(--ff-display);font-weight:800;letter-spacing:-.028em;line-height:1.02;
-  font-size:clamp(26px,6.2vw,40px);margin:var(--s2) 0 0;max-width:20ch}
-.wl-lede{margin:0;max-width:60ch;font-size:var(--fs-h3);line-height:var(--lh-body);color:var(--t)}
-.wl-p{margin:0;max-width:64ch;line-height:var(--lh-body)}
+  font-size:clamp(26px,6.2vw,40px);margin:var(--s3) 0 0;max-width:20ch}
+.wl-lede{margin:var(--s4) 0 0;max-width:60ch;font-size:var(--fs-h3);line-height:var(--lh-body);color:var(--t)}
+.wl-p{margin:var(--s4) 0 0;max-width:64ch;line-height:var(--lh-body)}
 .wl-p + .wl-p{margin-top:var(--s3)}
+.wl-band > .wl-note{display:block;margin:var(--s4) 0 0;max-width:70ch}
 
 /* ---------------------------------------------------------------- 1. HERO */
 
@@ -62,10 +64,13 @@
 /* The fact line. Deliberately a caption and not a row of stat tiles: these are
    five small checkable numbers, not a dashboard. */
 .wl-facts{display:flex;flex-wrap:wrap;gap:6px var(--s3);margin:var(--s5) 0 0;padding:0;list-style:none;
-  font-family:var(--ff-mono);font-size:var(--fs-micro);letter-spacing:.12em;text-transform:uppercase;
+  font-family:var(--ff-mono);font-size:var(--fs-micro);letter-spacing:.08em;text-transform:uppercase;
   color:var(--b200)}
+/* The separator trails its own item rather than leading the next one, so a
+   wrapped line never opens with a stray bullet pretending to be a list. */
 .wl-facts li{display:flex;align-items:center;gap:var(--s3)}
-.wl-facts li + li::before{content:"";width:3px;height:3px;border-radius:50%;background:var(--g400);flex:none}
+.wl-facts li:not(:last-child)::after{content:"";width:3px;height:3px;border-radius:50%;
+  background:var(--g400);flex:none}
 .wl-facts b{color:var(--n00);font-weight:700}
 
 /* ---- the signature: one tide cycle, four stages named ---- */
@@ -75,7 +80,11 @@
 .wl-tideline .line{fill:none;stroke:var(--g400);stroke-width:2.5;stroke-linecap:round;
   vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:0}
 .wl-tideline .mean{stroke:rgba(255,255,255,.16);stroke-width:1;vector-effect:non-scaling-stroke}
-.wl-tideline .dot{fill:var(--g400);stroke:var(--b900);stroke-width:3;vector-effect:non-scaling-stroke}
+/* Stage marks are vertical leaders down to their label, not dots: the band is
+   drawn with preserveAspectRatio="none", which turns a circle into an ellipse
+   at every width but leaves a vertical line vertical. */
+.wl-tideline .tick{stroke:var(--g400);stroke-width:1.5;vector-effect:non-scaling-stroke;opacity:.55}
+.wl-tideline .cap{stroke:var(--g400);stroke-width:7;stroke-linecap:round;vector-effect:non-scaling-stroke}
 
 .wl-stages{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s1);margin:var(--s2) 0 0;
   padding:0;list-style:none;text-align:center;
@@ -89,11 +98,11 @@
      independent of the rendered width. */
   .wl-tideline .line{animation:wl-draw 1.9s cubic-bezier(.3,.9,.3,1) .15s both}
   @keyframes wl-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
-  .wl-tideline .dot{animation:wl-mark .45s ease-out both}
-  .wl-tideline .dot:nth-of-type(1){animation-delay:.55s}
-  .wl-tideline .dot:nth-of-type(2){animation-delay:.95s}
-  .wl-tideline .dot:nth-of-type(3){animation-delay:1.35s}
-  .wl-tideline .dot:nth-of-type(4){animation-delay:1.75s}
+  .wl-tideline .mark{animation:wl-mark .45s ease-out both}
+  .wl-tideline .mark:nth-of-type(1){animation-delay:.55s}
+  .wl-tideline .mark:nth-of-type(2){animation-delay:.95s}
+  .wl-tideline .mark:nth-of-type(3){animation-delay:1.35s}
+  .wl-tideline .mark:nth-of-type(4){animation-delay:1.75s}
   @keyframes wl-mark{from{opacity:0}to{opacity:1}}
 }
 
@@ -151,19 +160,19 @@
 .wl-care .wl-eyebrow{color:var(--lime-text)}
 .wl-care .wl-h2{max-width:16ch}
 
-.wl-hazards{display:grid;gap:var(--s3);grid-template-columns:1fr;margin:0;padding:0;list-style:none}
+.wl-hazards{display:grid;gap:var(--s3);grid-template-columns:1fr;margin:var(--s6) 0 0;padding:0;list-style:none}
 @media (min-width:600px){.wl-hazards{grid-template-columns:1fr 1fr}}
 @media (min-width:900px){.wl-hazards{grid-template-columns:repeat(3,1fr)}}
 .wl-haz{display:grid;gap:var(--s2);align-content:start;padding:var(--s4);
   background:var(--c2);border:1px solid var(--l);border-radius:var(--ra-md)}
 .wl-haz h3{font-family:var(--ff-display);font-size:var(--fs-h3);font-weight:800;margin:0}
 .wl-haz p{margin:0;font-size:var(--fs-sm);line-height:var(--lh-body);color:var(--m)}
-.wl-haz .chip{align-self:start}
+.wl-haz .chip{justify-self:start;height:auto;padding:4px 11px;white-space:normal}
 
 /* The claim is enforced by a test, so the test is the evidence. Same ground as
    the hero band on purpose — this block and the tideline are the two places
    the page shows you the water rather than describing it. */
-.wl-proof{display:grid;gap:var(--s4)}
+.wl-proof{display:grid;gap:var(--s4);margin:var(--s7) 0 0}
 @media (min-width:900px){.wl-proof{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);align-items:start;gap:var(--s6)}}
 .wl-proof h3{font-family:var(--ff-display);font-weight:800;letter-spacing:-.02em;
   font-size:clamp(19px,4.4vw,24px);margin:0 0 var(--s3);max-width:22ch}
@@ -193,15 +202,11 @@
 @media (min-width:900px){
   .wl-shots{grid-auto-flow:row;grid-template-columns:repeat(5,minmax(0,1fr));
     overflow:visible;margin-inline:0;padding-inline:0;gap:var(--s3)}
-  /* The strip sits on the same curve as the hero: low, rising, high, falling,
-     low. It is the one place the signature is allowed to repeat. */
-  .wl-shot:nth-child(2),.wl-shot:nth-child(4){transform:translateY(calc(var(--s4) * -1))}
-  .wl-shot:nth-child(3){transform:translateY(calc(var(--s6) * -1))}
 }
 
 /* ------------------------------------------------------- 5. WHY NOT ANOTHER */
 
-.wl-why{display:grid;gap:var(--s7)}
+.wl-why{display:grid;gap:var(--s7);margin:var(--s6) 0 0}
 @media (min-width:900px){.wl-why{grid-template-columns:1fr 1fr;gap:var(--s7)}}
 .wl-why h3{font-family:var(--ff-display);font-weight:800;letter-spacing:-.02em;
   font-size:clamp(19px,4.4vw,24px);margin:0 0 var(--s3);max-width:24ch}
@@ -217,7 +222,7 @@
 .wl-signup{background:var(--c3);border:1px solid var(--l);border-radius:var(--ra-lg);
   padding:var(--s6) var(--s4)}
 @media (min-width:900px){.wl-signup{padding:var(--s7)}}
-.wl-form{display:flex;flex-wrap:wrap;gap:var(--s3);margin:var(--s4) 0 0;max-width:560px}
+.wl-form{display:flex;flex-wrap:wrap;gap:var(--s3);margin:var(--s5) 0 0;max-width:560px}
 .wl-field{flex:1 1 240px;display:grid;gap:6px}
 .wl-field label{font-family:var(--ff-mono);font-size:var(--fs-micro);letter-spacing:.14em;
   text-transform:uppercase;color:var(--m)}
