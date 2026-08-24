@@ -156,3 +156,19 @@ export function IconUser({ className = 'ic' }: IconProps) {
     </svg>
   );
 }
+
+/**
+ * Settings. A real gear outline — eight teeth computed on a tip/root radius
+ * pair rather than a circle with bumps, so it still reads as a cog at the 18px
+ * it is actually drawn at.
+ */
+export function IconCog({ className = 'ic' }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor"
+      strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"
+      aria-hidden="true" focusable="false">
+      <path d="M9.71 4.28 L10.21 1.86 A10.30 10.30 0 0 1 13.79 1.86 L14.29 4.28 A8.05 8.05 0 0 1 15.84 4.93 L17.91 3.56 A10.30 10.30 0 0 1 20.44 6.09 L19.07 8.16 A8.05 8.05 0 0 1 19.72 9.71 L22.14 10.21 A10.30 10.30 0 0 1 22.14 13.79 L19.72 14.29 A8.05 8.05 0 0 1 19.07 15.84 L20.44 17.91 A10.30 10.30 0 0 1 17.91 20.44 L15.84 19.07 A8.05 8.05 0 0 1 14.29 19.72 L13.79 22.14 A10.30 10.30 0 0 1 10.21 22.14 L9.71 19.72 A8.05 8.05 0 0 1 8.16 19.07 L6.09 20.44 A10.30 10.30 0 0 1 3.56 17.91 L4.93 15.84 A8.05 8.05 0 0 1 4.28 14.29 L1.86 13.79 A10.30 10.30 0 0 1 1.86 10.21 L4.28 9.71 A8.05 8.05 0 0 1 4.93 8.16 L3.56 6.09 A10.30 10.30 0 0 1 6.09 3.56 L8.16 4.93 Z" />
+      <circle cx="12" cy="12" r="3.15" />
+    </svg>
+  );
+}

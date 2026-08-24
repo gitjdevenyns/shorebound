@@ -5,7 +5,7 @@ import type { ComponentType } from 'react';
 import { useTheme } from '../lib/theme';
 import { useOnline } from '../lib/network';
 import {
-  IconCameraFish, IconDanger, IconFish, IconHome, IconSpots, IconUser, IconWater,
+  IconCameraFish, IconCog, IconDanger, IconFish, IconHome, IconSpots, IconWater,
 } from './ui/icons';
 
 /**
@@ -114,9 +114,8 @@ export default function Layout() {
           {/* Only when there is an account to reach. A build with no backend,
               and a visitor who has not signed in, get no dead link. */}
           {status === 'in' && (
-            <Link className="iconbtn" to="/settings" aria-label="Your account settings">
-              <IconUser className="ic" />
-              <span className="acct-label">Account</span>
+            <Link className="cogbtn" to="/settings" aria-label="Settings">
+              <IconCog className="ic" />
             </Link>
           )}
           <button

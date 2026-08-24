@@ -176,5 +176,11 @@ html[data-theme="dark"] .leaflet-tile{filter:brightness(.78) saturate(.86) contr
    keeps the name alone there. */
 .appbar-brand .lab{display:block;letter-spacing:.04em;font-size:clamp(7px,2.2vw,var(--fs-micro))}
 @media (max-width:349px){.appbar-brand .lab{display:none}}
-/* The account link only ever needs its label where there is room for it. */
-@media (max-width:519px){.acct-label{display:none}}
+/* Settings: the glyph alone. A full 44px tap target, but the target lives in
+   the padding — painting it as a pill made a small icon look like a blob. */
+.cogbtn{display:inline-flex;align-items:center;justify-content:center;
+  width:var(--tap);height:var(--tap);margin-right:calc(var(--s2) * -1);
+  color:var(--m);background:none;border:0;border-radius:var(--ra-pill)}
+.cogbtn:hover{color:var(--t);text-decoration:none}
+.cogbtn .ic{width:18px;height:18px}
+.cogbtn:focus-visible{outline:2px solid var(--accent);outline-offset:-6px}
