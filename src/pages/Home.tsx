@@ -323,8 +323,7 @@ export default function Home() {
             {stage ? (
               <>
                 <span className="dot" aria-hidden="true" />
-                <span className="now">{STAGE_CHIP[stage]}</span>
-                <span className="at">{stationPlace}</span>
+                <span className="now">Where to fish right now</span>
               </>
             ) : (
               <span className="at">Shore fishing guide · Florida Gulf coast</span>
@@ -348,7 +347,7 @@ export default function Home() {
                 {pickMiles !== null && (
                   <><b>{pickMiles < 10 ? pickMiles.toFixed(1) : Math.round(pickMiles)} miles away.</b>{' '}</>
                 )}
-                {pick.tide_playbook[stage]}
+                {STAGE_CHIP[stage]} at {stationPlace}. {pick.tide_playbook[stage]}
               </p>
               <div className="hero-cta">
                 <Link className="btn btn-lime" to={`/locations/${pick.slug}`}>
@@ -376,9 +375,9 @@ export default function Home() {
                 </span>
               </h1>
               <p className="hero-sub">
-                Tell me and I will pick the closest of the {locations.length} spots that
-                fishes this tide. Your location stays on your phone — it is never sent
-                anywhere.
+                Reading from {stationPlace}. Tell me where you are and I will pick the
+                closest of the {locations.length} spots that fishes this tide — your location
+                never leaves your phone.
               </p>
               <div className="hero-cta">
                 <button type="button" className="btn btn-lime" onClick={geo.request}>
