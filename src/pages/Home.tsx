@@ -14,7 +14,7 @@ import type { ConditionsResult } from '../lib/conditions';
 import { Callout, ErrorState, FreshnessNote, Plate, SectionTitle, Skeleton } from '../components/ui';
 import LazyMap from '../components/LazyMap';
 import NearYou from '../components/NearYou';
-import { useGeolocation } from '../lib/geo';
+import { useGeolocation, milesBetween } from '../lib/geo';
 import { rankNearby } from '../lib/nearby';
 import {
   Chevron,
@@ -251,8 +251,20 @@ export default function Home() {
       ? (nearbyConditions.data?.station_name ?? nearest?.tide_station.name ?? null)
       : null;
 
-  const pick = pickRecommendation(seedStage, locations);
+  // The pick is location-aware whenever it can be.
+  //
+  // It used to be chosen by tide stage alone, which meant the front page told
+  // somebody in Naples to fish Emerson Point — confidently naming a spot
+  // ninety miles away. rankNearby already weighs distance against the tide the
+  // spot is researched to fish, so with a position in hand it is the better
+  // answer; without one we fall back to tide alone and the hero says plainly
+  // that it does not know where you are rather than guessing.
+  const pick =
+    (geo.coords
+      ? rankNearby(locations, geo.coords, { stage: seedStage, limit: 1 })[0]?.location
+      : null) ?? pickRecommendation(seedStage, locations);
   const pickZones = zonesFor(pick);
+  const pickMiles = geo.coords ? milesBetween(geo.coords, pick) : null;
 
   // Everything the page then *reports* comes from the picked spot's own
   // station. Tide times shift along this coast by better than an hour between
@@ -319,7 +331,8 @@ export default function Home() {
             )}
           </p>
 
-          {stage ? (
+          {stage && geo.coords ? (
+            /* We know the tide AND where he is standing: name the spot. */
             <>
               <h1 className="rise">
                 <span className="hl-a">Fish {pick.name.split(' / ')[0]}.</span>
@@ -327,11 +340,14 @@ export default function Home() {
                   {isPrime ? (
                     <>It is <em>prime</em> on this tide.</>
                   ) : (
-                    <>Best of the {locations.length} right now.</>
+                    <>Closest good water right now.</>
                   )}
                 </span>
               </h1>
               <p className="hero-sub">
+                {pickMiles !== null && (
+                  <><b>{pickMiles < 10 ? pickMiles.toFixed(1) : Math.round(pickMiles)} miles away.</b>{' '}</>
+                )}
                 {pick.tide_playbook[stage]}
               </p>
               <div className="hero-cta">
@@ -343,7 +359,39 @@ export default function Home() {
                 </Link>
               </div>
             </>
+          ) : stage ? (
+            /* We know the tide but not where he is. Naming a spot here would
+               be a guess dressed as an answer — it could be ninety miles off.
+               Ask instead, and say what the answer buys.
+
+               Deliberately a button rather than an automatic prompt: an
+               unrequested permission sheet gets dismissed on reflex and the
+               dismissal is sticky, so asking badly once costs the feature for
+               good. Asked in context, with the reason attached, it converts. */
+            <>
+              <h1 className="rise">
+                <span className="hl-a">{STAGE_CHIP[stage]}.</span>
+                <span className="hl-b">
+                  Where are <em>you</em>?
+                </span>
+              </h1>
+              <p className="hero-sub">
+                Tell me and I will pick the closest of the {locations.length} spots that
+                fishes this tide. Your location stays on your phone — it is never sent
+                anywhere.
+              </p>
+              <div className="hero-cta">
+                <button type="button" className="btn btn-lime" onClick={geo.request}>
+                  {geo.status === 'asking' ? 'Finding you…' : 'Find my closest spot'}
+                </button>
+                <Link className="btn btn-ghost" to="/locations">
+                  All {locations.length} spots
+                </Link>
+              </div>
+            </>
           ) : (
+            /* No reading at all — offline, or a station that has not
+               refreshed. Only now does the page fall back to selling. */
             <>
               <h1 className="rise">
                 <span className="hl-a">You know how to fish.</span>
@@ -449,7 +497,7 @@ export default function Home() {
                   Best window here is <b>{pick.tide_playbook.best_window.toLowerCase()}</b>.{' '}
                 </>
               )}
-              Targets: {pick.targets.map((t) => t.species_label.toLowerCase()).join(', ')}.
+              Most likely here: {pick.targets.map((t) => t.species_label.toLowerCase()).join(', ')}.
             </div>
           </div>
           <div className="pad" style={{ paddingBottom: 'var(--s4)' }}>
@@ -470,7 +518,7 @@ export default function Home() {
       <section aria-labelledby="species">
         <div className="sect" style={{ paddingBottom: 0 }}>
           <SectionTitle id="species" to="/fish" linkLabel={`All ${fish.length}`}>
-            Target species
+            Most-targeted species
           </SectionTitle>
         </div>
         <div className="hscroll">

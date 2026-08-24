@@ -89,7 +89,7 @@ export default function Layout() {
           <span>
             <span className="name">Shorebound</span>
             <span className="lab lab-xs" style={{ display: 'block' }}>
-              Fish it yourself
+              Go fish yo&rsquo;self.
             </span>
           </span>
         </Link>

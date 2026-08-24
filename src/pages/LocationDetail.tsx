@@ -456,6 +456,10 @@ export default function LocationDetail() {
 
       <section className="sect" aria-labelledby="playbook">
         <SectionTitle id="playbook">Species playbook</SectionTitle>
+        <p className="mut" style={{ marginTop: 0 }}>
+          The species most worth fishing for here, in the order most anglers work them — not a list
+          of everything that swims past. Expect company you did not plan on.
+        </p>
         {loc.targets.length > 0 ? (
           <div className="stack g4">
             {loc.targets.map((t) => (
@@ -467,7 +471,7 @@ export default function LocationDetail() {
             ))}
           </div>
         ) : (
-          <p className="mut">No target species are recorded for this spot yet.</p>
+          <p className="mut">No species research is recorded for this spot yet.</p>
         )}
         <p className="mut xs" style={{ marginTop: 'var(--s3)' }}>
           Tackle sizes are starting points, not rules — structure and current can call for

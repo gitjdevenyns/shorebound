@@ -27,12 +27,14 @@ export default function FishList() {
   return (
     <>
       <div className="sect">
-        <div className="lab lab-blue">Target species</div>
+        <div className="lab lab-blue">Most-targeted species</div>
         <h1 style={{ margin: '4px 0 8px' }}>Know it, rig for it, put it back</h1>
         <p className="mut">
-          The inshore targets for this coast, from the ones everybody comes for to the ones you will
-          actually catch first. Every page opens on identification, then habitat, then the tackle,
-          then how to release it in shape to swim away.
+          The species inshore anglers on this coast actually fish for — the ones everybody comes
+          for and the ones you will most likely catch first. It is not the whole list. This water
+          holds far more than this, and you will hook things that are on no page here. Every page
+          opens on identification, then habitat, then the tackle, then how to release it in shape to
+          swim away.
         </p>
       </div>
 
