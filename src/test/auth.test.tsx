@@ -75,6 +75,10 @@ describe('signed in', () => {
 
   it('offers a way to reach account settings', () => {
     renderAt('/');
-    expect(screen.getByRole('link', { name: /account settings/i })).toBeTruthy();
+    const cog = screen.getByRole('link', { name: /^settings$/i });
+    // The control is a bare glyph, so the accessible name is the only name it
+    // has. If that regresses, the settings page becomes unreachable for anyone
+    // not using a mouse and the failure is silent.
+    expect(cog.getAttribute('href')).toBe('/settings');
   });
 });
