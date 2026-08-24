@@ -28,7 +28,14 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, content-type',
+  // supabase-js attaches `apikey` and `x-client-info` to every invoke, and
+  // newer clients add `x-supabase-api-version`. A preflight that does not
+  // name them is rejected by the browser BEFORE the request is sent, which
+  // surfaces as "Failed to send a request to the Edge Function" — a message
+  // that points at the function when the function was never reached.
+  // identify-fish had this right; these two were written without checking it.
+  'Access-Control-Allow-Headers':
+    'authorization, x-client-info, apikey, content-type, x-supabase-api-version',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
 };
 
