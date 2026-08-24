@@ -106,6 +106,28 @@ Deno.serve(async (req) => {
     return json({ ok: true, message: `Reset link sent to ${email}.` });
   }
 
+  if (action === 'confirm_user') {
+    // Approve an account by hand, instead of waiting on the confirmation
+    // email. Email stays the default path — this is the escape hatch for when
+    // it fails, which it does: the address bounces, the link lands in spam, the
+    // send quota is exhausted, or the person signed up at a shop counter with
+    // somebody standing next to them.
+    //
+    // What this asserts is "the owner vouches for this person", which is a
+    // different claim from "this address was proven reachable". Both end with
+    // email_confirmed_at set, so the audit row is the only thing that
+    // distinguishes them afterwards — which is why one is written.
+    const { data: target } = await admin.auth.admin.getUserById(subject);
+    if (!target?.user) return json({ error: 'No such account' }, 404);
+    if (target.user.email_confirmed_at) {
+      return json({ ok: true, message: 'That account was already confirmed.' });
+    }
+    const { error } = await admin.auth.admin.updateUserById(subject, { email_confirm: true });
+    if (error) return json({ error: error.message }, 500);
+    await audit({ email: target.user.email, by: 'owner approval' });
+    return json({ ok: true, message: `${target.user.email} approved — they can sign in now.` });
+  }
+
   if (action === 'set_email') {
     const email = typeof body.email === 'string' ? body.email.trim() : '';
     if (!email || !email.includes('@')) return json({ error: 'A valid email is required' }, 400);

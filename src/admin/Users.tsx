@@ -46,6 +46,7 @@ export default function Users() {
   const [busy, setBusy] = useState<string | null>(null);
   const [note, setNote] = useState<{ tone: 'good' | 'bad'; text: string } | null>(null);
   const [open, setOpen] = useState<string | null>(null);
+  const [pendingOnly, setPendingOnly] = useState(false);
   const [draftName, setDraftName] = useState('');
   const [draftEmail, setDraftEmail] = useState('');
 
@@ -123,6 +124,13 @@ export default function Users() {
     return { message: payload.message ?? 'Done.' };
   };
 
+  // Approving by hand is the exception, not the route. Email confirmation
+  // stays the default for everyone who signs up; this exists for when that
+  // path fails — a bounced address, a link in spam, an exhausted send quota,
+  // or somebody signing up at a shop counter with the owner standing there.
+  const approve = (a: Account) =>
+    call(() => invokeFn({ action: 'confirm_user', user_id: a.id }), `ok-${a.id}`);
+
   const sendReset = (a: Account) =>
     call(
       () =>
@@ -143,6 +151,8 @@ export default function Users() {
   };
 
   const paidCount = useMemo(() => rows.filter((r) => r.tier === 'paid').length, [rows]);
+  const pending = useMemo(() => rows.filter((r) => !r.email_confirmed_at), [rows]);
+  const shown = pendingOnly ? pending : rows;
 
   if (!configured) {
     return <p className="adm-note">No Supabase config in this build — nothing to show.</p>;
@@ -177,8 +187,24 @@ export default function Users() {
       </div>
 
       <p className="adm-note">
-        Showing {rows.length} {rows.length === 1 ? 'account' : 'accounts'}
+        Showing {shown.length} {shown.length === 1 ? 'account' : 'accounts'}
         {paidCount > 0 && <> · {paidCount} on paid</>}
+        {pending.length > 0 && (
+          <>
+            {' · '}
+            <button type="button" className="adm-link" onClick={() => setPendingOnly((v) => !v)}>
+              {pendingOnly
+                ? 'show everyone'
+                : `${pending.length} awaiting confirmation`}
+            </button>
+          </>
+        )}
+      </p>
+      <p className="adm-note adm-fine">
+        Accounts confirm themselves by email — that stays the default and nothing here changes it.
+        Approving one by hand says <em>you</em> vouch for the person, which is a different claim
+        from the address having been proven reachable. Both are recorded, and which one happened is
+        kept in the audit log.
       </p>
 
       <table className="adm-table">
@@ -192,14 +218,27 @@ export default function Users() {
           </tr>
         </thead>
         <tbody>
-          {rows.map((a) => (
+          {shown.map((a) => (
             <tr key={a.id}>
               <td>
                 <b>{a.email ?? '—'}</b>
                 <div className="adm-sub">
                   {a.display_name || <em>no name set</em>}
                   {a.is_admin && <span className="adm-pill">owner</span>}
-                  {!a.email_confirmed_at && <span className="adm-pill adm-pill-warn">unconfirmed</span>}
+                  {!a.email_confirmed_at && (
+                    <>
+                      <span className="adm-pill adm-pill-warn">awaiting confirmation</span>
+                      <button
+                        type="button"
+                        className="adm-approve"
+                        disabled={busy === `ok-${a.id}`}
+                        onClick={() => void approve(a)}
+                        title="Confirm this account yourself instead of waiting for the email"
+                      >
+                        {busy === `ok-${a.id}` ? 'Approving…' : 'Approve'}
+                      </button>
+                    </>
+                  )}
                 </div>
               </td>
               <td>

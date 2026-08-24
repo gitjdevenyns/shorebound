@@ -135,3 +135,12 @@
 .adm-note{color:var(--m);font-size:var(--fs-sm)}
 /* The table is wide by nature; it scrolls inside itself, never the page. */
 .adm-pane{overflow-x:auto}
+.adm-approve{appearance:none;margin-left:8px;padding:2px 9px;border-radius:var(--ra-pill);
+  border:1px solid var(--lime-text);background:none;color:var(--lime-text);cursor:pointer;
+  font-family:var(--ff-body);font-size:var(--fs-micro);font-weight:800;letter-spacing:.05em;
+  text-transform:uppercase}
+.adm-approve:hover{background:var(--lime);color:var(--lime-ink);border-color:var(--lime)}
+.adm-approve:disabled{opacity:.55;cursor:default}
+.adm-link{appearance:none;background:none;border:0;padding:0;cursor:pointer;color:var(--link);
+  font:inherit;text-decoration:underline;text-underline-offset:2px}
+.adm-fine{max-width:66ch;font-size:var(--fs-xs);line-height:1.5;margin-top:2px}
