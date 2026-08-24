@@ -1,0 +1,24 @@
+{
+  // Cloudflare Workers static-assets deploy. Not a Worker in the usual sense —
+  // there is no server code here and no `main`. The whole app is the contents
+  // of dist/, and Cloudflare serves it straight from the edge.
+  //
+  // This exists because Cloudflare no longer offers a Pages project for new
+  // sites. `_headers` and `_redirects` are supported natively here, so the
+  // caching and security rules in public/ carry over unchanged.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "shorebound",
+  "compatibility_date": "2026-08-23",
+  "assets": {
+    "directory": "./dist",
+
+    // A hard refresh on /locations/emerson-point must boot the app rather than
+    // 404 — the router only exists once index.html has loaded. This returns
+    // 200 with index.html for anything that is not a real file, so the URL the
+    // reader typed survives into the address bar and into the router.
+    //
+    // Real assets still win: /assets/*, /admin.html and the icons are matched
+    // before this ever applies.
+    "not_found_handling": "single-page-application"
+  }
+}
