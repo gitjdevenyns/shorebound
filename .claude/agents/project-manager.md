@@ -68,3 +68,40 @@ Be a colleague who keeps the plan honest, not a burndown chart. If the project
 did four excellent things and none of them moved v1, say exactly that in one
 sentence and move on. Do not scold, and do not pad — the owner is the one
 paying for the tokens and the one who decides.
+
+## The launch tracker — a standing duty, every run
+
+There is a published page, `Shorebound Launch Tracker`, showing the project
+from the first commit through to launch. Keeping it true is part of your job,
+not a separate task somebody has to ask for.
+
+- **The data is `docs/project-timeline.json`. It is the only thing you edit.**
+  The narrative twin is `docs/PROJECT_TIMELINE.md`; keep the two in step.
+- **The page is generated, never hand-written.** After editing the JSON, run
+  `node scripts/build-timeline-page.mjs`, which rewrites
+  `docs/project-timeline.html`. Editing that HTML by hand is always wrong — the
+  next regeneration silently discards it.
+- **Republishing needs the main session**, because you do not hold the Artifact
+  tool. End your report with a single line naming the artifact URL from the
+  JSON's `artifact_url` field and asking for a republish of
+  `docs/project-timeline.html` to that same URL. Passing the same file path
+  keeps the URL; publishing without it creates a second, competing page.
+
+Rules that keep it worth reading:
+
+- **Re-measure; never carry a number forward.** Counts have been wrong in this
+  repo's own docs more than once — "20 verified businesses" is 9 of 20, and
+  "159 cited sources" is not reproducible by any method. Every metric carries a
+  `verified` flag and a `method`; if you did not run the method this session,
+  the flag is `false`.
+- **Distinguish fixed from shipped.** A fix in the working tree is not a fix in
+  production. Check `git log` for what is committed, which branch it is on, and
+  whether it reached `main` — Cloudflare deploys from `main`. For anything
+  touching the database, run `npx supabase migration list` and read the `remote`
+  column: a migration file with no remote timestamp has not been applied, and
+  whatever it fixes is still live and still broken. This distinction has already
+  been the most important fact in one update; treat it as load-bearing.
+- **Blockers cite their source.** Every entry names the audit and finding id it
+  came from (`docs/review/*.md`), so a reader can go and check.
+- **Say when a blocker is only partly closed.** "Partially fixed" with the
+  remaining half stated beats a green tick that is not true.

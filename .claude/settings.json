@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash",
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep",
+      "WebFetch",
+      "WebSearch",
+      "NotebookEdit"
+    ]
+  },
+  "env": {
+    "CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION": "1000"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "grep -q 'docs/project-timeline\\.json' && node /home/johnd/projects/gcf-app/GCF/scripts/build-timeline-page.mjs 2>&1 || true",
+            "timeout": 30,
+            "statusMessage": "Rebuilding the launch tracker page"
+          }
+        ]
+      }
+    ]
+  }
+}

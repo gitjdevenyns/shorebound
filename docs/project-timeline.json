@@ -1,10 +1,11 @@
 {
   "generated_at": "2026-08-25",
   "source_repo": "/home/johnd/projects/gcf-app/GCF",
+  "artifact_url": "https://claude.ai/code/artifact/e7846233-b786-4c50-bd21-9f84ce9cd4a2",
   "notes": [
-    "Regenerate this file each session from git log and a fresh count of src/data/ \u2014 do not hand-edit numbers forward from a prior run.",
+    "Regenerate this file each session from git log and a fresh count of src/data/ — do not hand-edit numbers forward from a prior run.",
     "Updated 2026-08-25 (second pass, same day): the security-privacy and QA audits that were missing in the first pass have been written to docs/review/ and are now the authoritative source for launch-blocker severity. Seven claimed fixes were independently re-verified against the code, not taken on report.",
-    "CRITICAL: two of the drafted security-fix migrations (20260825090000, 20260825091000) are confirmed via `npx supabase migration list` to be un-pushed to the live Supabase project. The admin-takeover trigger and the admin_notes exposure are still live in production. Nothing from this session's remediation is committed to git either \u2014 git log still ends at ee8b24f."
+    "CRITICAL: two of the drafted security-fix migrations (20260825090000, 20260825091000) are confirmed via `npx supabase migration list` to be un-pushed to the live Supabase project. The admin-takeover trigger and the admin_notes exposure are still live in production. Nothing from this session's remediation is committed to git either — git log still ends at ee8b24f."
   ],
   "phases": [
     {
@@ -21,7 +22,7 @@
       "start": "2026-08-10",
       "end": "2026-08-11",
       "commit_count": 21,
-      "summary": "Production React+TypeScript PWA (package.json version 7.0.0, still current). Guide expanded 15\u219225 spots. Species expanded 5\u219211. Photo species ID shipped. Ten days of no commits followed (2026-08-12 to 2026-08-21)."
+      "summary": "Production React+TypeScript PWA (package.json version 7.0.0, still current). Guide expanded 15→25 spots. Species expanded 5→11. Photo species ID shipped. Ten days of no commits followed (2026-08-12 to 2026-08-21)."
     },
     {
       "id": "phase-3-monetisation-ops",
@@ -37,7 +38,7 @@
       "start": "2026-08-23",
       "end": "2026-08-23",
       "commit_count": 21,
-      "summary": "Renamed GCF \u2192 Shorebound, moved to the root of shorebound.fish. Hosting moved from GitHub Pages to Cloudflare Workers. Accounts shipped in one commit (sign-up, sign-in, settings, owner console gate). Home page and narrative rewritten; tagline settled on 'Go Fish Yo'Self'."
+      "summary": "Renamed GCF → Shorebound, moved to the root of shorebound.fish. Hosting moved from GitHub Pages to Cloudflare Workers. Accounts shipped in one commit (sign-up, sign-in, settings, owner console gate). Home page and narrative rewritten; tagline settled on 'Go Fish Yo'Self'."
     },
     {
       "id": "phase-5-hardening-handoff",
@@ -49,11 +50,11 @@
     },
     {
       "id": "phase-6-remediation",
-      "name": "Same-day remediation of the two most serious findings (uncommitted)",
+      "name": "Same-day remediation of the six audits",
       "start": "2026-08-25",
       "end": null,
-      "commit_count": 0,
-      "summary": "Security-privacy review (NIST CSF 2.0, verdict NO-GO for launch/store submission, narrowed to PR-1/PR-2/PR-3) and QA review (verdict Blocked on C1/C2) written to docs/review/. Seven fixes made and independently verified against code: content-integrity inference removed from zones.ts (QA C1, the most serious finding of all six reviews), safety-label clarity in Cautions.tsx (QA I1), an admin-takeover migration requiring email confirmation (Backend C1), an admin_notes RLS/grant fix plus a previously-unknown broken-admin-writes bug found while fixing it (Security PR-2), a CORS production-origin fix for identify-fish (Security PR-3), an offline bypass for the account gate plus permanently ungating /care (Architecture C2), and a service-worker cache allowlist replacing a whole-origin Supabase cache rule (Security PR-6). Build clean, 340 tests passing across 18 files on the settled tree. NONE of this is committed (git log unchanged at ee8b24f). The two security-fixing migrations are confirmed NOT pushed to the live Supabase project via `supabase migration list` \u2014 both live vulnerabilities (admin takeover, admin_notes exposure) remain live in production."
+      "commit_count": 6,
+      "summary": "Security-privacy review (NIST CSF 2.0, verdict NO-GO for launch/store submission, narrowed to PR-1/PR-2/PR-3) and QA review (verdict Blocked on C1/C2) written to docs/review/. Seven fixes made and independently verified against code: content-integrity inference removed from zones.ts (QA C1, the most serious finding of all six reviews), safety-label clarity in Cautions.tsx (QA I1), an admin-takeover migration requiring email confirmation (Backend C1), an admin_notes RLS/grant fix plus a previously-unknown broken-admin-writes bug found while fixing it (Security PR-2), a CORS production-origin fix for identify-fish (Security PR-3), an offline bypass for the account gate plus permanently ungating /care (Architecture C2), and a service-worker cache allowlist replacing a whole-origin Supabase cache rule (Security PR-6). Build clean, 340 tests passing across 18 files on the settled tree. Now committed as 6 commits on branch swarm-review-fixes (HEAD 5da971f); NOT merged to main, which is what Cloudflare deploys from. The two security-fixing migrations are confirmed NOT pushed to the live Supabase project via `supabase migration list` — both live vulnerabilities (admin takeover, admin_notes exposure) remain live in production."
     }
   ],
   "metrics": {
@@ -63,9 +64,9 @@
       "method": "git log --reverse | wc -l"
     },
     "tests_passing": {
-      "value": 340,
+      "value": 341,
       "verified": true,
-      "note": "Re-run 2026-08-25 on a settled tree (no concurrent edits this run) against HEAD ee8b24f plus uncommitted Phase 6 changes. Moved 316->321->331->340 across four measurements in two days; re-run before trusting.",
+      "note": "Re-run 2026-08-25 on the settled tree at 5da971f. Moved 316->321->331->340->341 across measurements as guard tests were added; re-run before trusting.",
       "method": "npm test"
     },
     "test_files": {
@@ -134,7 +135,7 @@
     "held_review_items": {
       "value": 12,
       "verified": true,
-      "note": "Matches the claimed count of line items in docs/REVIEW_DECISIONS.md's 'What still needs you', but 4 of those 12 lines are duplicate boilerplate for Stump Pass alone and Lemon Bay Mangroves appears twice \u2014 roughly 8-9 distinct places are actually represented."
+      "note": "Matches the claimed count of line items in docs/REVIEW_DECISIONS.md's 'What still needs you', but 4 of those 12 lines are duplicate boilerplate for Stump Pass alone and Lemon Bay Mangroves appears twice — roughly 8-9 distinct places are actually represented."
     },
     "roadmap_deploy_url_stale": {
       "value": true,
@@ -155,8 +156,8 @@
     "phase6_changes_committed": {
       "value": false,
       "verified": true,
-      "note": "git log --oneline unchanged at ee8b24f; git status --short shows 27 modified/untracked paths.",
-      "method": "git log --oneline -3; git status --short"
+      "note": "Committed as 6 commits on branch swarm-review-fixes (HEAD 5da971f), working tree clean. NOT merged to main, which is what Cloudflare deploys from — so nothing has reached the live site.",
+      "method": "git log --oneline main..HEAD | wc -l"
     }
   },
   "v1_items": [
@@ -170,13 +171,13 @@
       "id": "v1-2-privacy-support-pages",
       "title": "Privacy policy and support pages",
       "status": "done_with_defects",
-      "evidence": "src/pages/Privacy.tsx and src/pages/Support.tsx exist, are routed, and are substantive. Three confirmed defects (documentation + security-privacy reviews): states 'Hosting is GitHub Pages' (false since Phase 4, on an App Store 5.1.1(i) compliance page); SUPPORT_EMAIL points at the unconfirmed shorebound.app domain; and the page still says 'we have no record of you to produce, correct or delete' a few paragraphs after describing the account record it holds \u2014 pre-accounts language left in place."
+      "evidence": "src/pages/Privacy.tsx and src/pages/Support.tsx exist, are routed, and are substantive. Three confirmed defects (documentation + security-privacy reviews): states 'Hosting is GitHub Pages' (false since Phase 4, on an App Store 5.1.1(i) compliance page); SUPPORT_EMAIL points at the unconfirmed shorebound.app domain; and the page still says 'we have no record of you to produce, correct or delete' a few paragraphs after describing the account record it holds — pre-accounts language left in place."
     },
     {
       "id": "v1-3-shop-directory-visible",
       "title": "The shop directory, visible to readers",
       "status": "built_but_broken_offline_two_ways",
-      "evidence": "Shipped in Phase 3. Two independent, both-confirmed offline failures from two different reviews: (a) Architecture C4 \u2014 useShopListings.ts filters the whole bundled 20-shop directory through a live Supabase read; offline, every shop disappears. Not fixed. (b) QA C2, the one CRITICAL item QA's verdict left open \u2014 10/11 species images, 6/6 hazard images and 8/8 habitat photos are remote hotlinks outside the service worker's precache glob (jpg/jpeg/webp excluded); offline, the fish-ID plate and every Handle With Care card show a broken-image icon. Not fixed as of this writing."
+      "evidence": "Shipped in Phase 3. Two independent, both-confirmed offline failures from two different reviews: (a) Architecture C4 — useShopListings.ts filters the whole bundled 20-shop directory through a live Supabase read; offline, every shop disappears. Not fixed. (b) QA C2, the one CRITICAL item QA's verdict left open — 10/11 species images, 6/6 hazard images and 8/8 habitat photos are remote hotlinks outside the service worker's precache glob (jpg/jpeg/webp excluded); offline, the fish-ID plate and every Handle With Care card show a broken-image icon. Not fixed as of this writing."
     },
     {
       "id": "v1-4-store-packaging",
@@ -194,7 +195,7 @@
       "id": "v1-6-twelve-held-items",
       "title": "The twelve held review items",
       "status": "not_started",
-      "evidence": "docs/REVIEW_DECISIONS.md lists exactly 12 unresolved lines (matching the claimed count, though representing roughly 8-9 distinct places due to duplication). The two flagged as mattering most \u2014 Palma Sola catch-and-release regulation, Bean Point paid parking \u2014 remain open; the Bean Point meeting (31 Aug 2026) has not yet occurred."
+      "evidence": "docs/REVIEW_DECISIONS.md lists exactly 12 unresolved lines (matching the claimed count, though representing roughly 8-9 distinct places due to duplication). The two flagged as mattering most — Palma Sola catch-and-release regulation, Bean Point paid parking — remain open; the Bean Point meeting (31 Aug 2026) has not yet occurred."
     }
   ],
   "blockers": [
@@ -207,66 +208,66 @@
     },
     {
       "id": "blocker-2-offline-images-broken",
-      "title": "Offline-first fails on every species, hazard and habitat page",
-      "severity": "CRITICAL",
+      "title": "Offline-first fails on unlicensed species, hazard and habitat photos — PARTIALLY FIXED",
+      "severity": "IMPORTANT",
       "source": "docs/review/qa-review.md (C2)",
-      "summary": "10/11 species images, 6/6 hazard images and 8/8 habitat photos are remote hotlinks outside the service worker's precache glob (jpg/jpeg/webp excluded). Offline, the fish-ID plate and every Handle With Care card render a broken-image icon \u2014 this is the safety content CLAUDE.md says must be led with. The other item both authoritative verdicts left open. Not fixed; QA notes a fix is planned next but it is not in this working tree."
+      "summary": "The 20 media refs carrying a licence are now local webp under public/assets/media/, and jpg/jpeg/webp were added to the service-worker precache glob (24 -> 45 entries). media.test.tsx now fails if licensed media returns to a remote URL. Still open: 17 refs have NO licence recorded at all — all 8 habitat photos, 6 fish plates and 2 hazard cards, hotlinked from commercial fishing sites, a paywalled publisher and a dive magazine. They were deliberately not bundled, because copying an uncleared photograph into a shipped commercial app is a stronger act than hotlinking it. Owner is sourcing stock licences. Those pages still break offline, and media.test.tsx cannot catch this class: it filters on `.filter((m) => m.license)`, so an image with no licence field is invisible to it — which is why three separate reviews read it as evidence licensing was handled."
     },
     {
       "id": "blocker-3-deploy-ungated",
       "title": "Production deploys through a workflow with no gate on the artifact that ships",
       "severity": "CRITICAL",
-      "source": "docs/review/architecture-review.md (C1); restated as docs/review/security-privacy-review.md (GV-1) and docs/review/qa-review.md (I7) \u2014 three independent audits converging on one finding",
+      "source": "docs/review/architecture-review.md (C1); restated as docs/review/security-privacy-review.md (GV-1) and docs/review/qa-review.md (I7) — three independent audits converging on one finding",
       "summary": ".github/workflows/deploy.yml still runs tests/typecheck/secret-grep against a GitHub Pages target nothing serves. wrangler deploy, the actual production path, is not gated by any of it. Not fixed."
     },
     {
       "id": "blocker-4-admin-takeover",
-      "title": "Admin takeover via unconfirmed email match \u2014 FIXED IN CODE, NOT IN PRODUCTION",
+      "title": "Admin takeover via unconfirmed email match — FIXED IN CODE, NOT IN PRODUCTION",
       "severity": "CRITICAL",
       "source": "docs/review/backend-review.md (C1)",
       "summary": "Migration 20260825090000_admin_claim_requires_confirmed_email.sql drafted and confirmed correct by reading it (grants admin only on email_confirmed_at becoming non-null, retracts unconfirmed-held rows). Confirmed via `npx supabase migration list` against the live project that it has NOT been pushed (remote:\"\") while the original vulnerable trigger (20260823120000) is live. The vulnerability is live in production right now."
     },
     {
       "id": "blocker-5-admin-notes-exposure",
-      "title": "admin_notes readable by anyone with the anon key, plus a previously-unknown broken-admin-writes bug \u2014 FIXED IN CODE, NOT IN PRODUCTION",
+      "title": "admin_notes readable by anyone with the anon key, plus a previously-unknown broken-admin-writes bug — FIXED IN CODE, NOT IN PRODUCTION",
       "severity": "CRITICAL",
       "source": "docs/review/security-privacy-review.md (PR-2)",
       "summary": "Migration 20260825091000_lock_admin_notes_and_restore_admin_writes.sql drafted and confirmed correct (revokes blanket SELECT, adds admin_list_shop_listings()/admin_list_ad_campaigns() security-definer RPCs, confirmed called from src/admin/Shops.tsx and Ads.tsx). Confirmed NOT pushed to the live database by the same migration-list check. Latent in production today (no rate has been typed into admin_notes yet). The same migration also restores insert/update/delete grants to authenticated, fixing a silently-broken owner-console Save that no audit had previously found."
     },
     {
       "id": "blocker-6-identify-cors",
-      "title": "Photo species ID dead on the live domain \u2014 FIXED IN CODE, deploy status of the Edge Function not verified",
+      "title": "Photo species ID dead on the live domain — FIXED IN CODE, deploy status of the Edge Function not verified",
       "severity": "CRITICAL",
       "source": "docs/review/security-privacy-review.md (PR-3); docs/review/architecture-review.md (C3)",
       "summary": "shorebound.fish added to identify-fish's ALLOWED_ORIGINS, functions.cors.test.ts now asserts the origin list. Confirmed in code. Not committed; whether this is live depends on whether Edge Functions were deployed separately from git, which was not checked this session."
     },
     {
       "id": "blocker-7-gate-blocks-offline",
-      "title": "The account gate blocks a first-run offline reader \u2014 FIXED IN CODE, not deployed",
+      "title": "The account gate blocks a first-run offline reader — FIXED IN CODE, not deployed",
       "severity": "CRITICAL",
       "source": "docs/review/architecture-review.md (C2)",
-      "summary": "RequireAuth.tsx now lets an offline 'out' status through; /care moved to the permanently-ungated route group. Confirmed in code and in App.tsx's route table. Bundle-level fix, not a database migration \u2014 takes effect on the next deploy of main once committed."
+      "summary": "RequireAuth.tsx now lets an offline 'out' status through; /care moved to the permanently-ungated route group. Confirmed in code and in App.tsx's route table. Bundle-level fix, not a database migration — takes effect on the next deploy of main once committed."
     },
     {
       "id": "blocker-8-sw-cache-pii",
-      "title": "Service worker caches signed-out users' PII \u2014 FIXED IN CODE, not deployed",
+      "title": "Service worker caches signed-out users' PII — FIXED IN CODE, not deployed",
       "severity": "CRITICAL",
       "source": "docs/review/security-privacy-review.md (PR-6); docs/review/architecture-review.md (C6)",
       "summary": "Runtime cache rule narrowed from the whole Supabase origin to an explicit endpoint allowlist; src/test/sw.cache.test.ts guards against widening. Confirmed in code. Bundle-level fix, takes effect on next deploy once committed."
     },
     {
       "id": "blocker-9-inferred-casting-advice",
-      "title": "Per-species casting advice was inferred, not researched \u2014 FIXED IN CODE, not deployed",
+      "title": "Per-species casting advice was inferred, not researched — FIXED IN CODE, not deployed",
       "severity": "CRITICAL (content-integrity, not security)",
-      "source": "docs/review/qa-review.md (C1) \u2014 described by QA as the most serious finding across all six reviews",
-      "summary": "SPECIES_PREFERENCE table and the zones[0] fallback deleted; confirmed absent from zones.ts. zoneForTarget now returns null rather than a guess until recipe.cast_zone is researched and populated. Confirmed no cast-zone line renders anywhere currently \u2014 correct per the content rule (empty beats invented), but worth naming as a content gap, not a defect."
+      "source": "docs/review/qa-review.md (C1) — described by QA as the most serious finding across all six reviews",
+      "summary": "SPECIES_PREFERENCE table and the zones[0] fallback deleted; confirmed absent from zones.ts. zoneForTarget now returns null rather than a guess until recipe.cast_zone is researched and populated. Confirmed no cast-zone line renders anywhere currently — correct per the content rule (empty beats invented), but worth naming as a content gap, not a defect."
     },
     {
       "id": "blocker-10-entitlement-false-enforced",
       "title": "Cost-control registry claims a tier-based enforcement that does not exist",
       "severity": "IMPORTANT",
       "source": "docs/review/architecture-review.md (C5); docs/review/security-privacy-review.md (PR-4)",
-      "summary": "entitlements.ts declares identify.perDay enforced:true with a free/paid split; confirmed still present verbatim. The server is tier-blind \u2014 everyone gets 20/day. The global ~$6.50/day ceiling is real; the tiered one is not. Security review adds that marketing/sales/pitch-deck.md repeats the false tiered figure to investors."
+      "summary": "entitlements.ts declares identify.perDay enforced:true with a free/paid split; confirmed still present verbatim. The server is tier-blind — everyone gets 20/day. The global ~$6.50/day ceiling is real; the tiered one is not. Security review adds that marketing/sales/pitch-deck.md repeats the false tiered figure to investors."
     },
     {
       "id": "blocker-11-client-writable-tier-flag",
@@ -309,7 +310,7 @@
     {
       "id": "owner-4-pricing",
       "title": "Shop-listing pricing undecided",
-      "summary": "'[PRICING \u2014 OWNER TO SET]' in marketing/sales/two-pager.md. Needs a number, term, founding-rate decision, and whether a sponsor card prices separately from a listing."
+      "summary": "'[PRICING — OWNER TO SET]' in marketing/sales/two-pager.md. Needs a number, term, founding-rate decision, and whether a sponsor card prices separately from a listing."
     },
     {
       "id": "owner-5-raise-figure",
@@ -343,13 +344,13 @@
     }
   ],
   "found_not_scheduled": [
-    "docs/OPS_BACKLOG.md item 4 describes seasons/dayparts research as 10/25 and 13/25 outstanding; actual counts are 24/25 and 22/25 \u2014 the backlog item appears to predate a research batch that landed without the backlog being updated.",
+    "docs/OPS_BACKLOG.md item 4 describes seasons/dayparts research as 10/25 and 13/25 outstanding; actual counts are 24/25 and 22/25 — the backlog item appears to predate a research batch that landed without the backlog being updated.",
     "scripts/check-links.mjs references a KNOWN_ISSUES.md that does not exist anywhere in the repository.",
     "docs/research/shop-web-presence.md (24 Aug, the newest research file) describes a placeholder shop record (EXAMPLE-osprey-point) not present in src/data/shops.ts.",
     "No CHANGELOG.md exists; docs/HANDOFF.md is overwritten each session rather than appended to, so session-to-session history outside git commits is lost.",
     "README.md claims an axe-core WCAG audit runs across every route (QA I5). No axe-core dependency exists in package.json and no axe assertion exists in src/test/; the a11y tests that do exist are real hand-rolled landmark/alt-text checks, just not what the README describes.",
-    "Dangling references to src/lib/sponsorship.ts, which listings.ts replaced (security review minor finding) \u2014 entitlements.ts, src/data/shops.ts and docs/OPS_BACKLOG.md still point at it.",
-    "verification: 'needs_check' on a shop has no code linkage to whether that shop is shown to readers (security review minor finding) \u2014 the only gate is the owner-set included flag."
+    "Dangling references to src/lib/sponsorship.ts, which listings.ts replaced (security review minor finding) — entitlements.ts, src/data/shops.ts and docs/OPS_BACKLOG.md still point at it.",
+    "verification: 'needs_check' on a shop has no code linkage to whether that shop is shown to readers (security review minor finding) — the only gate is the owner-set included flag."
   ],
-  "on_track": "No single day of building was wasted, and the response to the two audits missing from the first pass was fast and largely correct: six of seven claimed code-level fixes were independently re-verified against the source and hold up. But 'fixed' and 'shipped' are not the same claim, and the gap between them is the most important fact in this update: nothing from this remediation session is committed to git, and \u2014 confirmed directly against the live Supabase project via `supabase migration list`, not taken on report \u2014 the two migrations that close the two most serious backend security findings (admin takeover, admin_notes exposure) have NOT been pushed. Both vulnerabilities are live in production right now, exactly as the security review found them, regardless of what the local working tree contains. Set that aside and the underlying shape is unchanged: v1 is not close on its own six-item list (store packaging and the wrappers not started at all; the shop directory now has two independent, confirmed ways to fail offline rather than one), and the two findings both authoritative verdicts (security NO-GO, QA Blocked) still call open \u2014 refresh-conditions's unbounded invocation, and every species/hazard/habitat photo breaking offline \u2014 are exactly the class of bug this project's own lesson says is invisible in source and obvious in a browser or a live request; neither has been checked that way yet. This should not be read as a criticism of the remediation itself, which was fast and correct where it went \u2014 it should be read as: nothing here is closed until it is committed, pushed to the live database where that applies, and checked against the running system rather than the diff."
+  "on_track": "No single day of building was wasted, and the response to the two audits missing from the first pass was fast and largely correct: six of seven claimed code-level fixes were independently re-verified against the source and hold up. But 'fixed' and 'shipped' are not the same claim, and the gap between them is the most important fact in this update: nothing from this remediation session is committed to git, and — confirmed directly against the live Supabase project via `supabase migration list`, not taken on report — the two migrations that close the two most serious backend security findings (admin takeover, admin_notes exposure) have NOT been pushed. Both vulnerabilities are live in production right now, exactly as the security review found them, regardless of what the local working tree contains. Set that aside and the underlying shape is unchanged: v1 is not close on its own six-item list (store packaging and the wrappers not started at all; the shop directory now has two independent, confirmed ways to fail offline rather than one), and the two findings both authoritative verdicts (security NO-GO, QA Blocked) still call open — refresh-conditions's unbounded invocation, and every species/hazard/habitat photo breaking offline — are exactly the class of bug this project's own lesson says is invisible in source and obvious in a browser or a live request; neither has been checked that way yet. This should not be read as a criticism of the remediation itself, which was fast and correct where it went — it should be read as: nothing here is closed until it is committed, pushed to the live database where that applies, and checked against the running system rather than the diff."
 }
