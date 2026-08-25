@@ -38,9 +38,25 @@ https://shorebound.fish
 - **Owner console**: `/admin` (not `/admin.html` — Cloudflare 307s that).
   Admin is granted by having an account with the seeded owner address; the
   trigger attaches it on sign-up.
-- **Agents** now live in `GCF/.claude/agents/` and register on session start.
-  `architect` and `ui-design` are new, both on Opus; `ops-lead` and
-  `marketing-creative` lifted to Opus; `project-manager` stays on Sonnet.
+- **Agents.** The owner's existing swarm (built for `lookio-app`) was copied into
+  `GCF/.claude/agents/` at the end of this session. It had never been present
+  before that, which is why nothing custom registered all session — every
+  "agent" run was a `general-purpose` spawn with a typed brief.
+
+  Reconciled: `architect` (theirs) and `architect-shorebound` (mine, renamed
+  from a colliding `name: architect`); `ui-designer` (theirs) and `ui-design`
+  (mine); `product-marketing` (theirs, lifted to Opus) and `marketing-creative`
+  (mine). **Three pairs of near-duplicates still to merge** — theirs are
+  generic and wired into the architect's delegation list, mine carry the
+  Shorebound-specific rules. Next session should fold mine into theirs and
+  delete the duplicates rather than leave both.
+
+- **Claude Design MCP.** `claude-design` is configured at user level in
+  `~/.claude.json` (`https://api.anthropic.com/v1/design/mcp`) but is not
+  connected in this project — run `/mcp` to authenticate it. The `ui-designer`
+  agent's `mcp__claude-design__*` tools do nothing until it is. This is what
+  "get Claude Designer to do it" has meant all along; every design in this
+  session was done by hand instead.
 - **`ops-lead` has never run.** It is designed for autonomous work between
   sessions and would create `docs/OPS_LOG.md` on its first run.
 - **Web search** is capped per session. Raised to 1000 in
