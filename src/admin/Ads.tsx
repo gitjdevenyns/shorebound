@@ -33,7 +33,11 @@ export default function Ads() {
     if (!isSupabaseConfigured()) { setMsg('Supabase is not configured — nothing can be saved.'); return; }
     const cp = getSupabaseClient(); if (!cp) return;
     const supabase = await cp;
-    const { data, error } = await supabase.from('ad_campaigns').select('*').order('created_at', { ascending: false });
+    // Reads through the security definer function rather than the table: the
+    // column grants on ad_campaigns exclude admin_notes from anon and
+    // authenticated, so `select('*')` is refused. Ordering is inside the
+    // function.
+    const { data, error } = await supabase.rpc('admin_list_ad_campaigns');
     if (error) setMsg(error.message);
     else { setItems((data ?? []) as Draft[]); setMsg(null); }
   }, []);
