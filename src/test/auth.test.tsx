@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import App from '../App';
 import { AUTH_STORAGE_KEY } from '../lib/supabase';
+import { __resetOfflineGrace } from '../components/RequireAuth';
 
 /**
  * The gate, from the signed-out side.
@@ -22,6 +23,10 @@ function renderAt(path: string) {
 
 beforeEach(() => {
   window.localStorage.removeItem(AUTH_STORAGE_KEY);
+  // The offline pass-through latch is module-scoped and outlives a render, so
+  // it has to be cleared between tests or one offline case silently unlocks
+  // every gated assertion after it.
+  __resetOfflineGrace();
 });
 
 const GATED = ['/', '/locations', '/fish', '/id', '/water', '/tides', '/rigs', '/shops', '/start'];
@@ -83,6 +88,22 @@ describe('signed out', () => {
         ).not.toMatch(/sign in/i);
       });
     }
+
+    it('does not throw the reader out when the signal comes back mid-read', () => {
+      // The bug this guards: `useOnline()` is live, so re-checking it on every
+      // render redirected a reader who was already reading — at the water, one
+      // bar returning, page lost. Passing through offline has to latch.
+      const { unmount } = renderAt('/locations');
+      expect(screen.getByRole('heading', { level: 1 }).textContent).not.toMatch(/sign in/i);
+      unmount();
+
+      Object.defineProperty(window.navigator, 'onLine', { configurable: true, get: () => true });
+      renderAt('/locations');
+      expect(
+        screen.getByRole('heading', { level: 1 }).textContent,
+        'signal returning redirected a reader who was already through the gate',
+      ).not.toMatch(/sign in/i);
+    });
 
     it('still gates once the connection is back', () => {
       Object.defineProperty(window.navigator, 'onLine', {

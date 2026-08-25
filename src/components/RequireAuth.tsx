@@ -40,7 +40,27 @@ import { useOnline } from '../lib/network';
  * connection could not have signed up in this moment regardless, so the funnel
  * loses nothing real: the gate still stands on every online launch, which is
  * every launch where signing up is actually possible.
+ *
+ * WHY THE LATCH
+ *
+ * `useOnline()` is live, so without this the first check was re-run on every
+ * render: a reader let through at the pass was thrown to a sign-in form the
+ * instant one bar of signal came back — mid-page, losing where he was. That is
+ * the same brick, just delayed, and it would arrive at the least forgivable
+ * moment. So passing through offline latches for the life of the page: once the
+ * guide is open it stays open.
+ *
+ * The latch is module-scoped and deliberately not persisted. A reload is a new
+ * launch, and if that launch has a connection the gate stands again — which is
+ * exactly the sentence above, kept true.
  */
+let offlineGrace = false;
+
+/** Test seam: the latch outlives a component, so a suite must be able to clear it. */
+export function __resetOfflineGrace() {
+  offlineGrace = false;
+}
+
 export default function RequireAuth({ children }: { children: ReactElement }) {
   const { status } = useAuth();
   const online = useOnline();
@@ -54,7 +74,9 @@ export default function RequireAuth({ children }: { children: ReactElement }) {
     );
   }
 
-  if (status === 'out' && online) {
+  if (status === 'out' && !online) offlineGrace = true;
+
+  if (status === 'out' && online && !offlineGrace) {
     const next = `${location.pathname}${location.search}`;
     return <Navigate to={`/signin?next=${encodeURIComponent(next)}`} replace />;
   }
