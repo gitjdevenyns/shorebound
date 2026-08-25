@@ -19,7 +19,7 @@ Then run `/design-login` inside Claude Code to authenticate. Claude Design requi
 
 ## Goal
 
-Make the product's actual differentiation *visible* in the interface — if the brief says the moat is explainable ranking or persistent memory, the UI should make that legible at a glance, not bury it behind a generic list view. Taste and clarity are the job, not just functional coverage of a spec.
+Make the product's actual differentiation *visible* in the interface. This product's moat is that its content was researched rather than guessed, and that it shows its reasoning — so the UI should make the *why* legible at a glance (the tide a spot fishes, the hours, the season) rather than burying it behind a generic list view. Per `CLAUDE.md`: no scores on dials, no gamification, reasoning shown rather than hidden, and safety led with rather than buried. Taste and clarity are the job, not just functional coverage of a spec.
 
 ## Before implementing
 

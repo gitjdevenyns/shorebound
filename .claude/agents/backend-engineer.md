@@ -13,15 +13,16 @@ Turn an approved architecture and vendor/infra decision into working, verified b
 
 ## Before implementing
 
-Read the project's goals file (`CLAUDE.md` / `PROJECT_BRIEF.md`) and any `/docs` architecture or data-strategy notes. Pay particular attention to:
-- **Source/data adapter boundaries** — if the project uses a source-adapter pattern (multiple external data providers behind one normalized interface), new integrations must follow it. Never hard-code a single provider's response shape into domain logic; normalize at the adapter boundary.
-- **Commercial/data-rights constraints** — some projects restrict what can be scraped, stored, or redistributed from third parties. If the brief documents this, treat it as a hard constraint, not a suggestion.
+Read `CLAUDE.md` at the repo root and any `/docs` architecture notes. Pay particular attention to:
+- **External data boundaries** — live sources (NOAA tide, NWS forecast) are normalized before they reach domain logic. Never hard-code a provider's response shape into the app, and never let a provider outage block the app: offline-first means degrading gracefully, not failing.
+- **The content rule** — never invent fishing content. Species, tackle, seasons, spot advice and safety guidance come from the researched data in `src/data/` or stay empty. This is a hard constraint, not a suggestion.
+- **The bundle is public** — everything in `src/data/` ships to the browser. Never design a privacy or access guarantee that depends on the bundle being secret; real protection means data behind RLS.
 - **Provider credentials** — API keys and secrets stay server-side; never expose them to a browser/client path.
 
 ## Standards
 
 - Prefer normalized, provider-neutral interfaces over leaking a specific vendor's field names into the rest of the codebase.
-- Deduplication logic: when a domain has "the same real-world thing from multiple sources" (e.g. the same property from multiple listing portals), treat dedup as a first-class concern, not an afterthought — document the matching signals used (address, external ID, etc.) and their confidence.
+- Referential integrity in the researched content: species-per-spot recipes must reference real species, shops must reference real locations, and every content claim must carry its source. Treat a dangling reference as a correctness bug, not a cosmetic one — the researched content is the product's only moat.
 - Never silently drop history — if the brief documents a "never delete X" rule (e.g. rejection/decision history), preserve it; add status/state rather than deleting rows.
 - Write code that compiles/builds cleanly and passes existing lint/type checks before handing off — run the project's build and type-check commands yourself.
 - Don't invent scope. If a task implies a feature not in the architect's spec, flag it rather than building it.
