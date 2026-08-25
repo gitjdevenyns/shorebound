@@ -1,0 +1,78 @@
+ src/styles/app.css      | 50 +++++++++++++++++++++++++++++++++----------------
+ src/styles/location.css |  3 ++-
+ 2 files changed, 36 insertions(+), 17 deletions(-)
+diff --git a/src/styles/app.css b/src/styles/app.css
+index 6efad35..ec394d2 100644
+--- a/src/styles/app.css
++++ b/src/styles/app.css
+@@ -98,22 +98,40 @@
+   padding:var(--s4);text-align:center;font-size:var(--fs-sm);color:var(--m)}
+ .linkish{background:none;border:0;padding:0;font:inherit;color:var(--link);cursor:pointer;
+   text-decoration:underline}
+-.leaflet-container{background:var(--c2);font-family:var(--ff-body)}
+-/* Leaflet ships its own type stack and it was reaching the screen: the zoom
+-   controls rendered in a monospace fallback and the layer switcher and
+-   attribution in Helvetica Neue, so three foreign faces appeared on every
+-   screen with a map. `.leaflet-container` alone does not reach them — the
+-   controls set font-family on themselves. */
+-.leaflet-control,.leaflet-control a,.leaflet-bar a,
+-.leaflet-control-layers,.leaflet-control-layers label,
+-.leaflet-control-attribution,.leaflet-control-attribution a{
+-  font-family:var(--ff-body)}
+-.leaflet-control-zoom a{font-family:var(--ff-display);font-weight:800;font-size:var(--fs-h1)}
+-.leaflet-control-layers label{font-size:var(--fs-sm)}
+-.leaflet-control-attribution{background:var(--c) !important;color:var(--m) !important;font-size:var(--fs-micro)}
+-.leaflet-control-attribution a{color:var(--link) !important}
+-html[data-theme="dark"] .leaflet-tile{filter:brightness(.78) saturate(.86) contrast(1.05)}
+-.leaflet-bar a{background:var(--c) !important;color:var(--t) !important;border-color:var(--l) !important}
++/* MapLibre, like Leaflet before it, ships its own type stack and it reaches
++   the screen: the controls set font-family on themselves, so the container
++   rule alone does not catch them and foreign faces appear on every screen
++   with a map. */
++.maplibregl-map{background:var(--c2);font-family:var(--ff-body)}
++.maplibregl-ctrl,.maplibregl-ctrl button,.maplibregl-ctrl-attrib,
++.maplibregl-ctrl-attrib a,.maplibregl-popup-content{font-family:var(--ff-body)}
++.maplibregl-ctrl-group{background:var(--c) !important;border:1px solid var(--l) !important;
++  border-radius:var(--ra-sm) !important;box-shadow:none !important}
++.maplibregl-ctrl-group button{background:var(--c) !important;color:var(--t) !important;
++  border-color:var(--l) !important;width:34px;height:34px}
++.maplibregl-ctrl-group button+button{border-top:1px solid var(--l) !important}
++.maplibregl-ctrl-group button .maplibregl-ctrl-icon{filter:var(--map-ctrl-icon,none)}
++/* The street/satellite toggle: a real control, so it is sized as one rather
++   than squeezed into an icon button. 44px tall for a wet thumb. */
++.maptoggle{background:var(--c);color:var(--t);border:0;padding:0 var(--s2);height:44px;
++  min-width:88px;font:inherit;font-size:var(--fs-sm);font-weight:600;cursor:pointer}
++.maptoggle:hover{background:var(--c2)}
++.maplibregl-ctrl-attrib{background:var(--c) !important;color:var(--m) !important;
++  font-size:var(--fs-micro)}
++.maplibregl-ctrl-attrib a{color:var(--link) !important}
++.maplibregl-popup-content{background:var(--c);color:var(--t);border:1px solid var(--l);
++  border-radius:var(--ra-sm);box-shadow:none}
++.maplibregl-popup-content a{color:var(--link)}
++.maplibregl-popup-tip{border-top-color:var(--c) !important;border-bottom-color:var(--c) !important}
++/* Vector tiles are drawn, not photographed, so the dark theme no longer needs
++   a brightness filter over raster imagery — the basemap is already a light,
++   low-contrast style. The filter stays for the satellite layer, which IS
++   raster and is otherwise glaring against a dark page. */
++html[data-theme="dark"] .maplibregl-canvas{filter:brightness(.88) saturate(.92)}
++/* The brand pin. Built in MapView as a DOM element so it survives a style
++   swap between street and satellite. */
++.mappin{width:16px;height:16px;border-radius:50%;background:var(--lime);
++  border:2.5px solid var(--c);box-shadow:0 0 0 1px var(--l);cursor:pointer}
+ 
+ /* ---------- LISTS ---------- */
+ .plainlist{list-style:none;margin:0;padding:0}
+diff --git a/src/styles/location.css b/src/styles/location.css
+index 902b384..2cef00b 100644
+--- a/src/styles/location.css
++++ b/src/styles/location.css
+@@ -14,7 +14,8 @@
+    above Leaflet's panes so the type never fights the tiles. */
+ .lochero>.map.lochero-map{position:absolute;inset:0;width:100%;height:100%;
+   border:0;border-radius:0;background:transparent;z-index:0}
+-.lochero>.map.lochero-map .leaflet-container{cursor:default}
++.lochero>.map.lochero-map .maplibregl-map,
++.lochero>.map.lochero-map .maplibregl-canvas{cursor:default}
+ .lochero .cap{z-index:2}
+ .lochero .inner{position:relative;z-index:2;padding:var(--s5) var(--s4) var(--s4);width:100%;
+   background:linear-gradient(0deg,rgba(3,21,48,.92),rgba(3,21,48,.35) 62%,rgba(3,21,48,0))}
