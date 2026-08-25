@@ -72,6 +72,23 @@ describe('image licensing', () => {
     }
   });
 
+  it('bundles every licensed image, so it survives offline', () => {
+    // The identification photographs were remote hotlinks, and jpg/webp were
+    // missing from the precache glob — so with no connection every species page
+    // and all six Handle With Care cards rendered broken-image icons. On those
+    // pages the photograph IS the content, which made this a failure of the
+    // app's first hard constraint rather than a cosmetic one.
+    //
+    // Licensed media is now local. This fails if any of it goes back to a
+    // remote URL, which no service worker config could rescue.
+    for (const { where, media } of LICENSED) {
+      expect(
+        media.url.startsWith('/assets/'),
+        `${where}: "${media.url}" is remote — it will render as a broken image offline`,
+      ).toBe(true);
+    }
+  });
+
   it('credits every CC-licensed image by name, as the licence requires', () => {
     // CC BY and CC BY-SA require attribution to the creator; a bare "CC BY-SA
     // 4.0" with no name does not satisfy the licence.

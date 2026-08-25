@@ -90,7 +90,7 @@ export const FISH: Fish[] = [
         // The v6 hotlink (fishingweather.app) now answers 403 to every request,
         // browser user-agent and referer included, so this hero rendered blank.
         // Replaced with a verified public-domain USFWS photograph.
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Red_Drum_Fish.jpg/1280px-Red_Drum_Fish.jpg',
+        url: '/assets/media/red_drum_fish.webp',
         alt: 'Red drum held horizontally over marsh water: coppery bronze back, white belly and the black spot at the base of the tail',
         source_url: 'https://commons.wikimedia.org/wiki/File:Red_Drum_Fish.jpg',
         license:
@@ -164,7 +164,7 @@ export const FISH: Fish[] = [
         // across the corner: no lateral profile, no dorsal filament, no tail,
         // and all rights reserved. Replaced with a verified CC BY-SA aquarium
         // photograph that shows every mark the ID list points at.
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Megalops_atlanticus_by_DaijuAzuma.jpg/1280px-Megalops_atlanticus_by_DaijuAzuma.jpg',
+        url: '/assets/media/megalops_atlanticus_by_daijuazuma.webp',
         alt: 'Adult tarpon in clear water, whole fish in lateral profile facing right: plate-like silver scales, upturned mouth with a jutting lower jaw, single dorsal fin and a deeply forked tail',
         source_url:
           'https://commons.wikimedia.org/wiki/File:Megalops_atlanticus_by_DaijuAzuma.jpg',
@@ -293,14 +293,14 @@ export const FISH: Fish[] = [
     name: 'Sheepshead',
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Archosargus_probatocephalus_-_Str%C3%A4flings-Meerbrasse_54181265.jpg/1280px-Archosargus_probatocephalus_-_Str%C3%A4flings-Meerbrasse_54181265.jpg',
+        url: '/assets/media/archosargus_probatocephalus_-_str-flings-meerbrasse_54181265.webp',
         alt: 'Sheepshead lying on grass in left profile: five dark vertical bars down a silver body, blunt snout with protruding incisors, and a row of stout spines along the dorsal fin',
         source_url:
           'https://commons.wikimedia.org/wiki/File:Archosargus_probatocephalus_-_Str%C3%A4flings-Meerbrasse_54181265.jpg',
         license: 'CC BY 4.0 — Dominic, via Wikimedia Commons',
       },
       {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Sheepshead_Fish_-_Archosargus_probatocephalus.jpg/1280px-Sheepshead_Fish_-_Archosargus_probatocephalus.jpg',
+        url: '/assets/media/sheepshead_fish_-_archosargus_probatocephalus.webp',
         alt: 'Close-up of a sheepshead at the surface with its mouth open, showing the broad human-like incisors at the front of both jaws',
         source_url:
           'https://commons.wikimedia.org/wiki/File:Sheepshead_Fish_-_Archosargus_probatocephalus.jpg',
@@ -334,13 +334,13 @@ export const FISH: Fish[] = [
     name: 'Ladyfish',
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Elops_saurus_%28FDA_057%29.jpg/960px-Elops_saurus_%28FDA_057%29.jpg',
+        url: '/assets/media/elops_saurus_-fda_057-.webp',
         alt: 'Ladyfish reference photograph in left profile: slender silver body in fine scales, large eye, mouth at the very tip of the head, a single small dorsal fin set well back and a deeply forked tail. A red specimen tag is clipped through the jaw',
         source_url: 'https://commons.wikimedia.org/wiki/File:Elops_saurus_(FDA_057).jpg',
         license: 'Public domain (U.S. Food and Drug Administration, via Wikimedia Commons)',
       },
       {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Ladyfish_Tampa_Bay_2016.jpg/1280px-Ladyfish_Tampa_Bay_2016.jpg',
+        url: '/assets/media/ladyfish_tampa_bay_2016.webp',
         alt: 'Hooked ladyfish being led through clear green shallows at Fort De Soto, Tampa Bay, with the fishing line running up out of frame',
         source_url: 'https://commons.wikimedia.org/wiki/File:Ladyfish_Tampa_Bay_2016.jpg',
         license: 'CC BY-SA 4.0 — Mike Cline, via Wikimedia Commons',
@@ -373,13 +373,13 @@ export const FISH: Fish[] = [
     name: 'Black Drum',
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Pogonias_cromis_%28FDA_122%29.jpg/960px-Pogonias_cromis_%28FDA_122%29.jpg',
+        url: '/assets/media/pogonias_cromis_-fda_122-.webp',
         alt: 'Black drum reference photograph in left profile: high arched grey back, blunt down-turned snout, a pale fringe of barbels under the chin and a clean tail base with no black spot',
         source_url: 'https://commons.wikimedia.org/wiki/File:Pogonias_cromis_(FDA_122).jpg',
         license: 'Public domain (U.S. Food and Drug Administration, via Wikimedia Commons)',
       },
       {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Black_drumNAB_3.17.jpg/1280px-Black_drumNAB_3.17.jpg',
+        url: '/assets/media/black_drumnab_3.17.webp',
         alt: 'Black drum nosing down onto the bottom with its chin barbels touching the substrate, showing the head-down feeding posture',
         source_url: 'https://commons.wikimedia.org/wiki/File:Black_drumNAB_3.17.jpg',
         license: 'CC BY 2.0 — lwolfartist, via Wikimedia Commons',
@@ -412,13 +412,13 @@ export const FISH: Fish[] = [
     name: 'Florida Pompano',
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Trachinotus_carolinus_%28FDA_236%29.jpg/960px-Trachinotus_carolinus_%28FDA_236%29.jpg',
+        url: '/assets/media/trachinotus_carolinus_-fda_236-.webp',
         alt: 'Florida pompano reference photograph in left profile: deep compressed silver body, gently sloping forehead, small mouth, yellow wash on the belly and throat and a deeply forked tail',
         source_url: 'https://commons.wikimedia.org/wiki/File:Trachinotus_carolinus_(FDA_236).jpg',
         license: 'Public domain (U.S. Food and Drug Administration, via Wikimedia Commons)',
       },
       {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Trachinotus_carolinus_325760204.jpg/1280px-Trachinotus_carolinus_325760204.jpg',
+        url: '/assets/media/trachinotus_carolinus_325760204.webp',
         alt: 'Florida pompano held flat in an open hand on a sand beach, showing the pan-shaped silver body and yellow underside of a surf-caught fish',
         source_url: 'https://commons.wikimedia.org/wiki/File:Trachinotus_carolinus_325760204.jpg',
         license: 'CC BY 4.0 — geosesarma, via Wikimedia Commons',
@@ -451,14 +451,14 @@ export const FISH: Fish[] = [
     name: 'Spanish Mackerel',
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Scomberomorus_maculatus_%28FDA_088%29.jpg/960px-Scomberomorus_maculatus_%28FDA_088%29.jpg',
+        url: '/assets/media/scomberomorus_maculatus_-fda_088-.webp',
         alt: 'Spanish mackerel reference photograph in left profile: slim silver body scattered with round golden-yellow spots, triangular teeth showing in the open jaw, a dark first dorsal fin and a lateral line that slopes gently to the tail',
         source_url:
           'https://commons.wikimedia.org/wiki/File:Scomberomorus_maculatus_(FDA_088).jpg',
         license: 'Public domain (U.S. Food and Drug Administration, via Wikimedia Commons)',
       },
       {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Scomberomorus_maculatus_Florida.jpg/1280px-Scomberomorus_maculatus_Florida.jpg',
+        url: '/assets/media/scomberomorus_maculatus_florida.webp',
         alt: 'Spanish mackerel held horizontally by the tail in Florida with an orange dehooking tool at the jaw, showing the sharp triangular teeth and the gold spots scattered along a silver flank',
         source_url: 'https://commons.wikimedia.org/wiki/File:Scomberomorus_maculatus_Florida.jpg',
         license: 'CC BY-SA 4.0 — naokitakebayashi, via Wikimedia Commons',
@@ -491,13 +491,13 @@ export const FISH: Fish[] = [
     name: 'Jack Crevalle',
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Caranx_hippos_%28FDA_129%29.jpg/960px-Caranx_hippos_%28FDA_129%29.jpg',
+        url: '/assets/media/caranx_hippos_-fda_129-.webp',
         alt: 'Crevalle jack reference photograph in left profile: deep body with a steep blunt forehead, black spot on the gill cover, black spot at the base of the pectoral fin and a yellow deeply forked tail',
         source_url: 'https://commons.wikimedia.org/wiki/File:Caranx_hippos_(FDA_129).jpg',
         license: 'Public domain (U.S. Food and Drug Administration, via Wikimedia Commons)',
       },
       {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Atlantic_Crevalle_Jack%2C_Indian_River%2C_Hutchinson_Island%2C_FL%2C_US_imported_from_iNaturalist_photo_184824501.jpg/1280px-Atlantic_Crevalle_Jack%2C_Indian_River%2C_Hutchinson_Island%2C_FL%2C_US_imported_from_iNaturalist_photo_184824501.jpg',
+        url: '/assets/media/atlantic_crevalle_jack-_indian_river-_hutchinson_island-_fl-_us_imported_from_inaturalist_photo_184824501.webp',
         alt: 'Large crevalle jack held up in two hands by an angler standing on a Florida inlet seawall at dusk, showing the blunt steep forehead, deep silver body and yellow forked tail of a shore-caught fish',
         source_url:
           'https://commons.wikimedia.org/wiki/File:Atlantic_Crevalle_Jack,_Indian_River,_Hutchinson_Island,_FL,_US_imported_from_iNaturalist_photo_184824501.jpg',
