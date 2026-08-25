@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeEach } from 'vitest';
+import { describe, expect, it, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import App from '../App';
@@ -24,8 +24,13 @@ beforeEach(() => {
   window.localStorage.removeItem(AUTH_STORAGE_KEY);
 });
 
-const GATED = ['/', '/locations', '/fish', '/id', '/water', '/tides', '/rigs', '/shops', '/start', '/care'];
-const PUBLIC = ['/welcome', '/privacy', '/support', '/signin', '/signup', '/forgot'];
+const GATED = ['/', '/locations', '/fish', '/id', '/water', '/tides', '/rigs', '/shops', '/start'];
+
+// `/care` is deliberately NOT gated. It is the page that says which of these
+// fish will injure you and what to do when one has; `entitlements.ts` marks it
+// NEVER GATE THIS. If it ever reappears in GATED, that is a regression with a
+// person on the other end of it.
+const PUBLIC = ['/welcome', '/privacy', '/support', '/signin', '/signup', '/forgot', '/care'];
 
 describe('signed out', () => {
   for (const path of GATED) {
@@ -49,6 +54,44 @@ describe('signed out', () => {
     renderAt('/locations/emerson-point');
     const link = screen.getByRole('link', { name: /create one/i }) as HTMLAnchorElement;
     expect(link.getAttribute('href')).toContain('next=%2Flocations%2Femerson-point');
+  });
+
+  describe('and offline', () => {
+    // navigator.onLine is read once at mount by useOnline(), so overriding the
+    // property before render is enough and no event dispatch is needed.
+    beforeEach(() => {
+      Object.defineProperty(window.navigator, 'onLine', {
+        configurable: true,
+        get: () => false,
+      });
+    });
+
+    afterEach(() => {
+      Object.defineProperty(window.navigator, 'onLine', {
+        configurable: true,
+        get: () => true,
+      });
+    });
+
+    for (const path of GATED) {
+      it(`opens ${path} rather than stranding the reader on a form`, () => {
+        renderAt(path);
+        expect(
+          screen.getByRole('heading', { level: 1 }).textContent,
+          `${path} redirected to sign-in with no connection — the sign-up it ` +
+            `demands cannot be completed, so the guide is bricked at the water`,
+        ).not.toMatch(/sign in/i);
+      });
+    }
+
+    it('still gates once the connection is back', () => {
+      Object.defineProperty(window.navigator, 'onLine', {
+        configurable: true,
+        get: () => true,
+      });
+      renderAt('/locations');
+      expect(screen.getByRole('heading', { level: 1 }).textContent).toMatch(/sign in/i);
+    });
   });
 
   it('refuses an off-site next, which would make sign-in a phishing hop', () => {
