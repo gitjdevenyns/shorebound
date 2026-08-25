@@ -267,31 +267,41 @@ export function zonesForStage(zones: Zone[], stage: TideStage): Zone[] {
 }
 
 /**
- * Which structure a species is most likely to be working, given the zones
- * this location actually has. Ordered general preferences per species — the
- * first kind present wins, otherwise the location's first zone.
+ * Which zone a species works at THIS location — from the researched recipe
+ * only, never inferred.
+ *
+ * This used to guess. A hand-written SPECIES_PREFERENCE table ordered the
+ * structure kinds each species "prefers", the first kind present won, and when
+ * the species was not in the table the function returned `zones[0]` — whichever
+ * structure happened to sit at index 0 of the location's array. Seven of the
+ * 104 recipes resolved that way, and the other 97 came from the uncited table.
+ *
+ * Either way the result rendered in `TargetRecipe` as an unhedged imperative
+ * ("Point tip. Cast up-current of the tip...") in the same visual register as
+ * the researched tackle beside it. A structure tactic stated generally is
+ * honest — that is what `look` and `cast` are, and the page discloses it. But
+ * "this species works that structure at this spot" is a species-by-location
+ * claim, and CLAUDE.md is unambiguous: no spot advice from general knowledge,
+ * and an unresearched field stays empty.
+ *
+ * So the join key is now `recipe.cast_zone`, the field the schema already
+ * reserved for it (`data/types.ts:136`). No recipe populates it yet, so no cast
+ * line renders today — `TargetRecipe` guards on null and simply omits it. When
+ * research fills `cast_zone`, the line comes back, sourced.
+ *
+ * `zones.test.ts` fails if this function ever returns a zone for a recipe with
+ * no `cast_zone`, which is what stops the inference growing back.
  */
-const SPECIES_PREFERENCE: Array<[RegExp, ZoneKind[]]> = [
-  [/snook/, ['point', 'pass', 'bridge', 'lights', 'mangrove', 'cut', 'seam', 'surf', 'dock', 'seawall', 'channel', 'oyster', 'grass', 'potholes', 'flat', 'drain']],
-  [/red(fish)?|drum/, ['oyster', 'drain', 'mangrove', 'grass', 'potholes', 'flat', 'dock', 'seawall', 'point', 'cut', 'surf', 'seam', 'bridge', 'channel', 'pass', 'lights']],
-  [/trout/, ['potholes', 'grass', 'flat', 'drain', 'seam', 'channel', 'oyster', 'point', 'surf', 'cut', 'mangrove', 'dock', 'seawall', 'bridge', 'pass', 'lights']],
-  [/tarpon/, ['pass', 'channel', 'bridge', 'cut', 'surf', 'point', 'seam', 'lights', 'mangrove', 'dock', 'seawall', 'oyster', 'flat', 'grass', 'potholes', 'drain']],
-  [/snapper/, ['bridge', 'dock', 'lights', 'mangrove', 'seawall', 'oyster', 'channel', 'pass', 'point', 'cut', 'seam', 'surf', 'grass', 'potholes', 'flat', 'drain']],
-  [/sheepshead/, ['bridge', 'dock', 'seawall', 'oyster', 'lights', 'channel', 'mangrove', 'point', 'pass', 'cut', 'seam', 'surf', 'grass', 'potholes', 'flat', 'drain']],
-  [/pompano/, ['surf', 'cut', 'pass', 'seam', 'channel', 'flat', 'potholes', 'grass', 'point', 'oyster', 'bridge', 'dock', 'seawall', 'lights', 'mangrove', 'drain']],
-  [/mackerel/, ['pass', 'cut', 'seam', 'channel', 'surf', 'bridge', 'point', 'flat', 'lights', 'dock', 'seawall', 'oyster', 'grass', 'potholes', 'mangrove', 'drain']],
-  [/jack|crevalle/, ['pass', 'channel', 'seam', 'bridge', 'cut', 'dock', 'seawall', 'surf', 'point', 'lights', 'flat', 'oyster', 'grass', 'potholes', 'mangrove', 'drain']],
-];
-
 export function zoneForTarget(zones: Zone[], target: TargetRecipe): Zone | null {
-  if (zones.length === 0) return null;
-  const label = target.species_label.toLowerCase();
-  const prefs = SPECIES_PREFERENCE.find(([re]) => re.test(label))?.[1];
-  if (prefs) {
-    for (const kind of prefs) {
-      const hit = zones.find((z) => z.kind === kind);
-      if (hit) return hit;
-    }
-  }
-  return zones[0];
+  const wanted = target.cast_zone?.trim().toLowerCase();
+  if (!wanted || zones.length === 0) return null;
+
+  return (
+    zones.find(
+      (z) =>
+        z.kind === wanted ||
+        z.title.toLowerCase() === wanted ||
+        z.sources.some((s) => s.toLowerCase() === wanted),
+    ) ?? null
+  );
 }

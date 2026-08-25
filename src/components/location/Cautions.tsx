@@ -81,11 +81,17 @@ const PADDLE_CAUTION: Caution = {
   body: 'Wind, tide and traffic all matter more from a kayak. Check the forecast for the whole session, not the launch, and be visible in low light.',
 };
 
+// No month range here. "From roughly June to September" was a season claim
+// from general knowledge, on a page whose seasons are otherwise researched and
+// cited — exactly what the content rule forbids. The exposure itself is a fact
+// about the structure you are standing on, not about the calendar, so that is
+// all this says now. It is also no longer pushed onto bridge spots, which the
+// body was never describing.
 const STORM_CAUTION: Caution = {
   id: 'storm',
   tone: 'default',
-  title: 'Afternoon storms build fast',
-  body: 'From roughly June to September, open flats, beaches and piers have no cover and the cell arrives quicker than the walk back. Watch the sky, not the bite.',
+  title: 'Open water has no cover',
+  body: 'On an open flat, beach or pier the walk back is long and there is nothing to shelter under. Watch the sky, not the bite.',
 };
 
 export default function Cautions({ loc, zones }: { loc: Location; zones: Zone[] }) {
@@ -100,29 +106,53 @@ export default function Cautions({ loc, zones }: { loc: Location; zones: Zone[] 
   };
 
   for (const zone of zones) push(BY_KIND[zone.kind]);
-  if (
-    loc.access.includes('wade') ||
-    kinds.has('potholes') ||
-    kinds.has('grass') ||
-    kinds.has('flat')
-  )
-    push(WADE_CAUTION);
+
+  // Wade advice needs a way into the water. The old condition fired on any
+  // grass/flat/pothole zone regardless of access, so pier-only spots told a
+  // reader standing on concrete to shuffle their feet for rays — visibly wrong
+  // to the accomplished angler this guide is for, and the fastest way to spend
+  // the credibility the researched content buys.
+  //
+  // Documented wade access is the clear case. 'shore' is kept alongside it
+  // because a shore angler on a flat can and does step in, and dropping a real
+  // ray warning to tidy up a false one would be the worse trade. Pier-, bridge-
+  // and boat-only spots no longer get it.
+  const onFoot = loc.access.includes('wade') || loc.access.includes('shore');
+  const wadeableWater = kinds.has('potholes') || kinds.has('grass') || kinds.has('flat') || kinds.has('surf');
+  if (loc.access.includes('wade') || (onFoot && wadeableWater)) push(WADE_CAUTION);
+
   if (loc.access.includes('kayak') || loc.access.includes('boat')) push(PADDLE_CAUTION);
-  push(STORM_CAUTION);
+
+  // Only where the body is actually true. There is no 'beach' access value in
+  // the data — open beach shows up as a surf zone.
+  if (loc.access.includes('pier') || kinds.has('flat') || kinds.has('surf')) push(STORM_CAUTION);
 
   return (
     <div className="stack g3">
-      {loc.safety.length > 0 ? (
-        loc.safety.map((s) => (
-          <Callout key={s} tone="warn">
-            {s}
-          </Callout>
-        ))
-      ) : (
+      {/*
+        Researched first, and labelled as such. These two groups used to render
+        as identical warn Callouts with nothing between them, and the line
+        saying which was which appeared only on the four spots that had no
+        researched safety at all — so on the other 21, general rules read as
+        checked facts about that shoreline. The generic ones even carry bold
+        titles, which made them look the more authoritative of the two.
+      */}
+      {loc.safety.length > 0 && (
+        <>
+          <p className="mut xs">Checked for this spot:</p>
+          {loc.safety.map((s) => (
+            <Callout key={s} tone="warn">
+              {s}
+            </Callout>
+          ))}
+        </>
+      )}
+
+      {cautions.length > 0 && (
         <p className="mut">
-          No caveats specific to this spot have been documented and checked yet. What follows
-          are general rules for this kind of water and this kind of access — they are not a
-          substitute for looking at the place when you get there.
+          {loc.safety.length > 0
+            ? 'Beyond that, general rules for this kind of water and this kind of access — not checked against this particular spot, and no substitute for looking at the place when you get there.'
+            : 'No caveats specific to this spot have been documented and checked yet. What follows are general rules for this kind of water and this kind of access — they are not a substitute for looking at the place when you get there.'}
         </p>
       )}
 
