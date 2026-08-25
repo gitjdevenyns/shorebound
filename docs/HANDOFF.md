@@ -1,5 +1,7 @@
 # Handoff — 24 August 2026
 
+**Starting a new session? Read `docs/NEXT_SESSION.md` first — it has the kickoff.**
+
 Session ended cleanly. Build green, 316 tests passing, everything pushed to
 `main`. Cloudflare deploys from `main` on push; the live site is
 https://shorebound.fish
@@ -86,6 +88,7 @@ https://shorebound.fish
 - Build cost and effort estimate — 8868d92a-7aef-407b-bd47-24eac968eb9a
 - Shop listing comparison, basic vs paid — 7c8ec41d-cff0-4662-a4b9-15a93e61b4b2
 - Bait shop site demo — ba2626e8-a021-455e-be74-731dc29ac958
+- Bait shop web audit — c3eb9bb0-8016-4f2a-aa30-5a1a2ac567d9
 
 All at `https://claude.ai/code/artifact/<id>`.
 
