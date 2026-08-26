@@ -1,0 +1,439 @@
+<title>Thirteen Agents, One Architect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#f6f7f9; --surface:#ffffff; --raised:#eef1f5;
+  --ink:#101720; --muted:#5c6875; --rule:#dbe1e8;
+  --acc:#1b46c2; --acc-soft:#e8edfb;
+  --crit:#a81f18; --crit-bg:#fbecea;
+  --warn:#7d5200; --warn-bg:#fbf3e3;
+  --ok:#0f5c39;  --ok-bg:#e7f3ec;
+  --dsp:"Newsreader",ui-serif,Georgia,serif;
+  --body:"Instrument Sans",ui-sans-serif,system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0a0e14; --surface:#111823; --raised:#18212f;
+  --ink:#e7edf5; --muted:#94a3b4; --rule:#222e3f;
+  --acc:#7fa2ff; --acc-soft:#15203a;
+  --crit:#ff8a7d; --crit-bg:#2a1411;
+  --warn:#e2a752; --warn-bg:#261c09;
+  --ok:#5cc492;  --ok-bg:#0c2419;
+}}
+:root[data-theme="dark"]{
+  --paper:#0a0e14; --surface:#111823; --raised:#18212f;
+  --ink:#e7edf5; --muted:#94a3b4; --rule:#222e3f;
+  --acc:#7fa2ff; --acc-soft:#15203a;
+  --crit:#ff8a7d; --crit-bg:#2a1411;
+  --warn:#e2a752; --warn-bg:#261c09;
+  --ok:#5cc492;  --ok-bg:#0c2419;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);
+  font-size:16.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:940px;margin:0 auto;padding:clamp(30px,6vw,74px) clamp(18px,5vw,40px) 110px}
+h1,h2,h3{font-family:var(--dsp);text-wrap:balance;margin:0;font-weight:600;letter-spacing:-.011em}
+a{color:var(--acc)}
+p{text-wrap:pretty}
+code,.mono{font-family:var(--mono);font-size:.86em}
+code{background:var(--raised);border:1px solid var(--rule);border-radius:3px;padding:1px 5px;
+  overflow-wrap:anywhere}
+
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+
+/* masthead */
+header{border-bottom:2px solid var(--ink);padding-bottom:30px;margin-bottom:48px}
+h1{font-size:clamp(34px,6.2vw,62px);line-height:1.04;margin:14px 0 16px}
+.standfirst{font-size:clamp(17px,2.2vw,20px);color:var(--muted);max-width:60ch;
+  font-family:var(--dsp);font-style:italic}
+.byline{margin-top:24px;font-family:var(--mono);font-size:12px;color:var(--muted);
+  display:flex;gap:18px;flex-wrap:wrap}
+
+section{margin-top:64px;scroll-margin-top:20px}
+.snum{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--acc);display:block;margin-bottom:10px}
+h2{font-size:clamp(24px,3.6vw,34px);line-height:1.15;margin-bottom:8px}
+.lede{color:var(--muted);max-width:66ch;margin:0 0 26px}
+
+/* findings */
+.find{background:var(--surface);border:1px solid var(--rule);border-left:4px solid var(--crit);
+  border-radius:3px;padding:19px 22px;margin-bottom:12px}
+.find h3{font-size:19px;margin-bottom:7px;font-family:var(--body);font-weight:600;letter-spacing:0}
+.find p{margin:0;color:var(--muted);font-size:15.4px;max-width:78ch}
+.find .ev{display:block;margin-top:11px;font-family:var(--mono);font-size:11.5px;color:var(--muted);opacity:.9}
+
+/* agent cards */
+.agents{display:grid;gap:12px}
+@media(min-width:760px){.agents{grid-template-columns:1fr 1fr}}
+.agent{background:var(--surface);border:1px solid var(--rule);border-radius:3px;padding:18px 20px;
+  display:flex;flex-direction:column;gap:9px}
+.agent.none{border-style:dashed;background:transparent}
+.agent-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.agent-n{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--ink)}
+.tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;
+  padding:2px 7px;border-radius:2px;white-space:nowrap}
+.tag-ran{background:var(--ok-bg);color:var(--ok)}
+.tag-none{background:var(--warn-bg);color:var(--warn)}
+.agent dl{margin:0;display:grid;gap:7px}
+.agent dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--muted)}
+.agent dd{margin:0;font-size:14.6px;color:var(--muted);line-height:1.55}
+.agent dd b{color:var(--ink);font-weight:600}
+
+/* callouts */
+.note{background:var(--acc-soft);border:1px solid var(--acc);border-radius:3px;padding:18px 22px;
+  margin:22px 0}
+.note h3{font-family:var(--body);font-size:17px;font-weight:600;letter-spacing:0;margin-bottom:6px}
+.note p{margin:0;font-size:15.4px;max-width:76ch}
+
+.pair{display:grid;gap:12px}
+@media(min-width:760px){.pair{grid-template-columns:1fr 1fr}}
+.block{background:var(--surface);border:1px solid var(--rule);border-radius:3px;padding:18px 20px}
+.block h3{font-family:var(--body);font-size:16.5px;font-weight:600;letter-spacing:0;margin-bottom:6px}
+.block p{margin:0;font-size:15px;color:var(--muted)}
+
+/* figure */
+figure{margin:0 0 26px;background:var(--surface);border:1px solid var(--rule);border-radius:3px;
+  padding:24px 20px}
+figure svg{display:block;width:100%;max-width:100%;height:auto}
+figcaption{margin-top:16px;font-size:14px;color:var(--muted);text-align:center;max-width:70ch;
+  margin-left:auto;margin-right:auto}
+
+ul.clean{margin:0;padding-left:1.15em}
+ul.clean li{margin-bottom:9px;color:var(--muted);max-width:76ch}
+ul.clean li b{color:var(--ink);font-weight:600}
+
+footer{margin-top:76px;padding-top:24px;border-top:1px solid var(--rule);
+  font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.8}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Capability proposal &middot; AI-assisted engineering</div>
+  <h1>Thirteen agents, one architect, and a product that fought back</h1>
+  <p class="standfirst">An AI agent swarm run with the discipline of a review board — what it found in 48 hours on a live product, how it is organised, and the things I have learned not to trust it with.</p>
+  <div class="byline">
+    <span>John Devenyns</span><span>26 August 2026</span><span>Every claim cites a file</span>
+  </div>
+</header>
+
+<section>
+  <span class="snum">01 &middot; What it found</span>
+  <h2>In 48 hours, on a product that was already live</h2>
+  <p class="lede">Four findings, stated flat. Each is written up with a file and a line number, and the repository is available on request.</p>
+
+  <div class="find">
+    <h3>Anyone who signed up first with the owner's published email became the administrator</h3>
+    <p>A database trigger granted admin on account creation and never checked whether the address had been confirmed. The address is hardcoded in a public repository. Full owner console: read every account, reset any password, delete any account. The project's own handover notes instructed turning email confirmation <em>off</em> to unblock sign-ups — doing so would have made it a one-step takeover.</p>
+    <span class="ev">backend-review.md &middot; C1 &middot; fixed in migration 20260825090000</span>
+  </div>
+
+  <div class="find">
+    <h3>Private advertiser rates and contacts were readable by anyone</h3>
+    <p>The migration revoked writes on the table and never revoked reads, and row-level security is row-scoped, not column-scoped. Confirmed by issuing the request with the public key that ships in the browser bundle: 200 OK, nine rows. The same missing grant had also silently broken the owner console's save — one mistake producing two opposite symptoms, and no audit had caught the second.</p>
+    <span class="ev">security-privacy-review.md &middot; PR-2 &middot; verified against production</span>
+  </div>
+
+  <div class="find">
+    <h3>The core screen was inventing its own content</h3>
+    <p>An uncited hand-written table decided which piece of structure each species &ldquo;is most likely to be working&rdquo;, and where a species was missing from that table the code returned the first item in an array. Seven of the product's 104 recipes resolved that way, printed to the reader as an instruction — on a product whose entire commercial claim is that its content was researched rather than guessed.</p>
+    <span class="ev">qa-review.md &middot; C1 &middot; all 104 enumerated, 7 identified by name</span>
+  </div>
+
+  <div class="find">
+    <h3>The app bricked itself offline</h3>
+    <p>An account gate wrapped every content route. Install it, drive to the water, lose signal, and the product was a sign-in form that could not be completed — with the entire guide already cached on the device. It also gated the safety pages, which the code itself marks <code>NEVER GATE THIS</code>.</p>
+    <span class="ev">architecture-review.md &middot; C2</span>
+  </div>
+</section>
+
+<section>
+  <span class="snum">02 &middot; The specimen</span>
+  <h2>The product is the proof, not the pitch</h2>
+  <p class="lede">Shorebound is a researched, offline-first shore-fishing guide for a stretch of Florida's Gulf coast. It is live, with a database, four serverless functions, twelve migrations and a revenue plan. Small enough to audit completely; real enough that the findings cost something.</p>
+  <p class="lede">It is the specimen. It is not what I am selling. Everything after this is method, and the method is what transfers.</p>
+</section>
+
+<section>
+  <span class="snum">03 &middot; Orchestration</span>
+  <h2>One architect, specialists in parallel, a human at the gate</h2>
+  <p class="lede">Reviewers are read-only by design. They find problems and write them up; they do not fix them. Nothing reaches production without a person.</p>
+
+  <figure>
+    <svg viewBox="0 0 1080 500" role="img" aria-label="The human approves and deploys; the architect reads the brief and fans work out to six specialist agents in parallel; every specialist returns a written report, never code; security escalates to human specialists outside the system, which no agent can close.">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="currentColor"></path>
+        </marker>
+        <marker id="ara" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#1b46c2"></path>
+        </marker>
+      </defs>
+
+      <rect x="350" y="14" width="200" height="52" rx="3" fill="none" stroke="currentColor" stroke-width="2"></rect>
+      <text x="450" y="38" text-anchor="middle" font-size="15" font-weight="600" fill="currentColor">Human</text>
+      <text x="450" y="55" text-anchor="middle" font-size="11" fill="currentColor" opacity=".7">approves &#183; deploys</text>
+
+      <line x1="424" y1="66" x2="424" y2="102" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"></line>
+      <text x="416" y="89" text-anchor="end" font-size="10.5" fill="currentColor" opacity=".75">brief</text>
+      <line x1="476" y1="102" x2="476" y2="66" stroke="#1b46c2" stroke-width="1.5" marker-end="url(#ara)"></line>
+      <text x="484" y="89" font-size="10.5" fill="#1b46c2">decides</text>
+
+      <rect x="330" y="102" width="240" height="56" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"></rect>
+      <text x="450" y="127" text-anchor="middle" font-size="15" font-weight="600" fill="currentColor">architect</text>
+      <text x="450" y="144" text-anchor="middle" font-size="10.5" fill="currentColor" opacity=".7">reads brief + roadmap, scopes, delegates</text>
+
+      <line x1="450" y1="158" x2="450" y2="188" stroke="currentColor" stroke-width="1.5"></line>
+      <line x1="80" y1="188" x2="820" y2="188" stroke="currentColor" stroke-width="1.5"></line>
+      <text x="450" y="180" text-anchor="middle" font-size="10.5" fill="currentColor" opacity=".75">six lanes, in parallel</text>
+
+      <g font-size="11.5" fill="currentColor">
+        <line x1="80"  y1="188" x2="80"  y2="220" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"></line>
+        <rect x="20" y="220" width="120" height="40" rx="3" fill="none" stroke="currentColor"></rect>
+        <text x="80" y="245" text-anchor="middle">architecture</text>
+
+        <line x1="228" y1="188" x2="228" y2="220" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"></line>
+        <rect x="168" y="220" width="120" height="40" rx="3" fill="none" stroke="currentColor"></rect>
+        <text x="228" y="245" text-anchor="middle">backend</text>
+
+        <line x1="376" y1="188" x2="376" y2="220" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"></line>
+        <rect x="316" y="220" width="120" height="40" rx="3" fill="none" stroke="currentColor"></rect>
+        <text x="376" y="245" text-anchor="middle">QA</text>
+
+        <line x1="524" y1="188" x2="524" y2="220" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"></line>
+        <rect x="464" y="220" width="120" height="40" rx="3" fill="none" stroke="currentColor"></rect>
+        <text x="524" y="245" text-anchor="middle">tests</text>
+
+        <line x1="672" y1="188" x2="672" y2="220" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"></line>
+        <rect x="612" y="220" width="120" height="40" rx="3" fill="none" stroke="currentColor"></rect>
+        <text x="672" y="245" text-anchor="middle">docs</text>
+
+        <line x1="820" y1="188" x2="820" y2="220" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"></line>
+        <rect x="760" y="220" width="120" height="40" rx="3" fill="none" stroke="#1b46c2" stroke-width="2"></rect>
+        <text x="820" y="245" text-anchor="middle">security</text>
+      </g>
+
+      <line x1="880" y1="240" x2="906" y2="240" stroke="#1b46c2" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ara)"></line>
+      <rect x="912" y="214" width="156" height="52" rx="3" fill="none" stroke="#1b46c2" stroke-dasharray="5 4"></rect>
+      <text x="990" y="234" text-anchor="middle" font-size="11" fill="#1b46c2">lawyer &#183; pen tester</text>
+      <text x="990" y="250" text-anchor="middle" font-size="9.5" fill="#1b46c2" opacity=".85">outside the system</text>
+      <text x="990" y="284" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".6">no agent can close this loop</text>
+
+      <line x1="80"  y1="260" x2="80"  y2="306" stroke="#1b46c2" stroke-width="1.5"></line>
+      <line x1="228" y1="260" x2="228" y2="306" stroke="#1b46c2" stroke-width="1.5"></line>
+      <line x1="376" y1="260" x2="376" y2="306" stroke="#1b46c2" stroke-width="1.5"></line>
+      <line x1="524" y1="260" x2="524" y2="306" stroke="#1b46c2" stroke-width="1.5"></line>
+      <line x1="672" y1="260" x2="672" y2="306" stroke="#1b46c2" stroke-width="1.5"></line>
+      <line x1="820" y1="260" x2="820" y2="306" stroke="#1b46c2" stroke-width="1.5"></line>
+      <line x1="80" y1="306" x2="820" y2="306" stroke="#1b46c2" stroke-width="1.5"></line>
+      <line x1="450" y1="306" x2="450" y2="338" stroke="#1b46c2" stroke-width="1.5" marker-end="url(#ara)"></line>
+      <text x="462" y="326" font-size="10.5" fill="#1b46c2">written reports, never code</text>
+
+      <rect x="300" y="338" width="300" height="46" rx="3" fill="none" stroke="#1b46c2" stroke-width="2"></rect>
+      <text x="450" y="359" text-anchor="middle" font-size="13" font-weight="600" fill="#1b46c2">human adjudicates</text>
+      <text x="450" y="375" text-anchor="middle" font-size="10" fill="#1b46c2" opacity=".85">convergence = evidence &#183; contradiction = the interesting part</text>
+
+      <rect x="20" y="420" width="180" height="42" rx="3" fill="none" stroke="currentColor" stroke-dasharray="5 4" opacity=".45"></rect>
+      <text x="110" y="439" text-anchor="middle" font-size="11.5" fill="currentColor" opacity=".55">unattended agent</text>
+      <text x="110" y="454" text-anchor="middle" font-size="10" fill="currentColor" opacity=".55">never run</text>
+      <line x1="200" y1="441" x2="292" y2="441" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 4" opacity=".4"></line>
+      <text x="302" y="445" font-size="10.5" fill="currentColor" opacity=".55">drawn because it is part of the truth</text>
+    </svg>
+    <figcaption>Specialists never grade their own work and never see each other's reports before filing. When two lanes reach the same finding independently, that convergence is evidence. When they contradict each other, a person decides.</figcaption>
+  </figure>
+
+  <div class="note">
+    <h3>The discipline is in the brief, not the tooling</h3>
+    <p>Every agent is handed the same four things before it runs: the product's hard constraints, the record of mistakes already made, an explicit instruction to cite file and line, and a stated boundary on what it may not touch. Reviewers are told they may not fix. That is what turns fifteen chat sessions into a review board.</p>
+  </div>
+</section>
+
+<section>
+  <span class="snum">04 &middot; The roster</span>
+  <h2>Thirteen agents, and what each actually did</h2>
+  <p class="lede">Role, function, and evidence. Every agent below did real work on this product. Two further agents exist that have never executed; they are described in the limits section rather than given a card here.</p>
+
+  <div class="agents">
+
+    <div class="agent">
+      <div class="agent-h"><span class="agent-n">architect</span><span class="tag tag-ran">ran</span></div>
+      <dl>
+        <dt>Role</dt><dd>The hub, and the highest-context seat. Decides what gets built and why; explicitly told to stay out of implementation it can delegate.</dd>
+        <dt>Function</dt><dd>Reads brief, roadmap and past mistakes before proposing. Produces system design and a scoped task breakdown, then delegates. May not pick a vendor from memory.</dd>
+        <dt>Did</dt><dd><b>Whole-system review against five hard constraints.</b> Six critical findings — including the offline gate, and that the twenty-shop directory (the only revenue line) filtered through a live network read, so an advertiser bought exposure that vanished when the reader lost signal.</dd>
+      </dl>
+    </div>
+
+    <div class="agent">
+      <div class="agent-h"><span class="agent-n">backend-engineer</span><span class="tag tag-ran">ran</span></div>
+      <dl>
+        <dt>Role</dt><dd>Implements what the architect specs; does not redesign it. Flags a spec that does not survive contact with the code.</dd>
+        <dt>Function</dt><dd>Schema, migrations, row-level security, serverless functions. Audits authorization at every entry point.</dd>
+        <dt>Did</dt><dd><b>Found both production vulnerabilities</b> — the unconfirmed-email admin grant and the readable advertiser rates — by reading twelve migrations in timestamp order and asking who could call what.</dd>
+      </dl>
+    </div>
+
+    <div class="agent">
+      <div class="agent-h"><span class="agent-n">security-privacy-reviewer</span><span class="tag tag-ran">ran</span></div>
+      <dl>
+        <dt>Role</dt><dd>Verifies the product's own trust commitments are true in code, not just in marketing. Standing gate before any launch milestone.</dd>
+        <dt>Function</dt><dd>Organises findings against NIST CSF 2.0 rather than an ad-hoc bug list, so gaps are visible and prioritised.</dd>
+        <dt>Did</dt><dd><b>Two reports.</b> A NO-GO verdict for store submission, with the advertiser-data exposure confirmed against production. Then a supply-chain audit of a third-party package I had installed — byte-verifying what actually executed, and finding a path-traversal write in it.</dd>
+      </dl>
+    </div>
+
+    <div class="agent">
+      <div class="agent-h"><span class="agent-n">qa-reviewer</span><span class="tag tag-ran">ran</span></div>
+      <dl>
+        <dt>Role</dt><dd>Read-only. Finds problems and unverified claims; never fixes them. Verifies every claim another agent makes rather than accepting it.</dd>
+        <dt>Function</dt><dd>Runs the build and the suite itself. Hunts specifically for tests that would pass if the feature were deleted.</dd>
+        <dt>Did</dt><dd><b>Found the invented content</b> in the core screen, enumerated all 104 recipes and named the seven resolving by array index. Also found the identification photographs were remote hotlinks excluded from the offline cache.</dd>
+      </dl>
+    </div>
+
+    <div class="agent">
+      <div class="agent-h"><span class="agent-n">test-engineer</span><span class="tag tag-ran">ran</span></div>
+      <dl>
+        <dt>Role</dt><dd>Makes regressions impossible to ship silently. Concentrates coverage where breakage costs most, not where testing is easiest.</dd>
+        <dt>Function</dt><dd>Maps the untested surface and ranks gaps by what breaking would actually cost.</dd>
+        <dt>Did</dt><dd><b>Found the entire live-data parsing layer had zero tests</b> — 533 lines including timezone handling across daylight-saving boundaries — behind a suite of 316 passing tests.</dd>
+      </dl>
+    </div>
+
+    <div class="agent">
+      <div class="agent-h"><span class="agent-n">documentation-writer</span><span class="tag tag-ran">ran</span></div>
+      <dl>
+        <dt>Role</dt><dd>Keeps documentation from drifting behind the build.</dd>
+        <dt>Function</dt><dd>Marks every factual claim CONFIRMED or DRIFTED against the repository.</dd>
+        <dt>Did</dt><dd><b>Disproved two numbers the product was selling itself on.</b> &ldquo;20 verified businesses&rdquo; was 9 verified of 20; &ldquo;159 cited sources&rdquo; could not be reproduced by any counting method. It also reported that it had no shell that session and said which checks it therefore could not run.</dd>
+      </dl>
+    </div>
+
+    <div class="agent">
+      <div class="agent-h"><span class="agent-n">project-manager</span><span class="tag tag-ran">ran</span></div>
+      <dl>
+        <dt>Role</dt><dd>Guards scope and reports honest status. It says no to good ideas.</dd>
+        <dt>Function</dt><dd>Re-measures rather than carrying numbers forward; every metric carries a verified flag and the method used.</dd>
+        <dt>Did</dt><dd><b>Established that &ldquo;fixed&rdquo; and &ldquo;shipped&rdquo; are different claims.</b> Seven fixes were reported done; it queried the live database directly and found two had never been applied. Also built the launch tracker, generated from data so a stale number has nowhere to hide.</dd>
+      </dl>
+    </div>
+
+    <div class="agent">
+      <div class="agent-h"><span class="agent-n">ui-design</span><span class="tag tag-ran">ran</span></div>
+      <dl>
+        <dt>Role</dt><dd>The visual work — layout, typography, illustration. Verifies its own output in a real browser at real viewport sizes before reporting.</dd>
+        <dt>Function</dt><dd>Designs in a live design surface, not in prose. Screenshots before it claims.</dd>
+        <dt>Did</dt><dd><b>Eight design files</b> — a 16-slide deck, a duplex one-pager, a three-sheet sales proposal, a welcome page at desktop and phone, alternative first screens, and three distinct interface directions for comparison. It preserved two deliberate blanks it was told not to fill.</dd>
+      </dl>
+    </div>
+
+    <div class="agent">
+      <div class="agent-h"><span class="agent-n">infra-cost-strategist</span><span class="tag tag-ran">ran</span></div>
+      <dl>
+        <dt>Role</dt><dd>Keeps running costs proportionate to revenue. Researches and recommends; never signs anything.</dd>
+        <dt>Function</dt><dd>Costs options at realistic scale and checks commercial terms before price — a cheap vendor that cannot legally support the use case is not an option.</dd>
+        <dt>Did</dt><dd><b>Commissioned by the architect</b> to settle a basemap question. Found the map was both dated and unlicensed for commercial use, and that the free-forever option was also the only one satisfying the offline requirement.</dd>
+      </dl>
+    </div>
+
+    <div class="agent">
+      <div class="agent-h"><span class="agent-n">marketing-creative</span><span class="tag tag-ran">ran</span></div>
+      <dl>
+        <dt>Role</dt><dd>Content production under a binding claims policy. Drafts only; never publishes without approval.</dd>
+        <dt>Function</dt><dd>Distinguishes the product's own voice, which may be rewritten, from researched content, which may only be quoted.</dd>
+        <dt>Did</dt><dd><b>Found the owner's spoken tone-direction had been pasted in as finished copy</b> — including a maintainer's work order rendering under every species photograph in production. It refused to touch safety text and reported it instead.</dd>
+      </dl>
+    </div>
+
+    <div class="agent">
+      <div class="agent-h"><span class="agent-n">ui-designer</span><span class="tag tag-ran">ran</span></div>
+      <dl>
+        <dt>Role</dt><dd>Interface implementation — screens, components, flows.</dd>
+        <dt>Function</dt><dd>Reviews at real viewport sizes and measures rather than eyeballs.</dd>
+        <dt>Did</dt><dd><b>Reviewed the whole app for flow and intuitiveness, driving a real browser.</b> Five of its eight critical findings were invisible in the source — including raw exception text rendering on the flagship screen, and a signed-out navigation where ten links did nothing at all.</dd>
+      </dl>
+    </div>
+
+    <div class="agent">
+      <div class="agent-h"><span class="agent-n">naming-brand-researcher</span><span class="tag tag-ran">ran</span></div>
+      <dl>
+        <dt>Role</dt><dd>Naming, domain availability, preliminary collision screening.</dd>
+        <dt>Function</dt><dd>Never lets a name reach external material without an honest account of what has and has not been screened.</dd>
+        <dt>Did</dt><dd><b>Killed three previously-favoured names</b> with live collision testing, and settled the product's name. Ran in an earlier session, before the swarm was formally registered.</dd>
+      </dl>
+    </div>
+
+    <div class="agent">
+      <div class="agent-h"><span class="agent-n">product-marketing</span><span class="tag tag-ran">ran</span></div>
+      <dl>
+        <dt>Role</dt><dd>Positioning and copy accountable to actual build state rather than roadmap intentions.</dd>
+        <dt>Function</dt><dd>Every claim traced to something checkable.</dd>
+        <dt>Did</dt><dd><b>Wrote this document.</b> It refused to attribute a finding whose author the repository does not record, flagged two authorship claims rather than asserting them, and declined to claim novelty for the method after checking the field.</dd>
+      </dl>
+    </div>
+
+
+
+  </div>
+</section>
+
+<section>
+  <span class="snum">05 &middot; Disagreement</span>
+  <h2>Convergence is evidence. Contradiction is the interesting part.</h2>
+
+  <div class="pair">
+    <div class="block">
+      <h3>Three lanes, one finding, no coordination</h3>
+      <p>The architecture, security and QA reviews each arrived by different routes at the same fact: production deploys through a path where none of the checks execute. Three independent confirmations is a stronger signal than one confident report.</p>
+    </div>
+    <div class="block">
+      <h3>Three reviews were wrong about the same thing</h3>
+      <p>All three cited a test as proof that image licensing was handled. Later work proved that test cannot catch the problem at all — it only examines images that already declare a licence, so an unlicensed one is invisible to it. Seventeen had no licence recorded.</p>
+    </div>
+    <div class="block">
+      <h3>The fix was itself defective</h3>
+      <p>Opening the app to offline readers was right, but the check was live — so the moment one bar of signal returned, the reader was thrown back to a sign-in form mid-page. Caught and corrected the same day, with the reasoning written into the file rather than only the commit.</p>
+    </div>
+    <div class="block">
+      <h3>And a person decides</h3>
+      <p>Every report ends with the calls only a human can make. The account gate was flagged as a decision about the sign-up funnel, not an engineering one, and deliberately left open.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <span class="snum">06 &middot; Limits</span>
+  <h2>What I have learned not to trust it with</h2>
+  <p class="lede">This is the section I would want to read if I were hiring someone to do this.</p>
+  <ul class="clean">
+    <li><b>Two agents exist that this document does not list.</b> Neither has ever executed, so neither earned a card — including the unattended one, designed to work with nobody watching. Its safety rules are written and untested, so it does not go near a client repository.</li>
+    <li><b>One agent's declared tools do not exist.</b> Its definition names three interfaces the server does not expose, and its own file admits the names are &ldquo;illustrative&rdquo;. It reviews well; it has never built.</li>
+    <li><b>A migration was built and then reverted.</b> A correctly-licensed vector basemap replaced an unlicensed one. It compiled, passed 346 tests, put every marker in the right geography — and the map never drew. Parked with the code preserved and the diagnosis written down, rather than shipped or deleted.</li>
+    <li><b>An agent worked without a tool it needed and said so</b>, naming the checks it therefore could not run. That sentence is worth more than a clean report.</li>
+    <li><b>Agents inherit assumptions from wherever they came from.</b> This swarm was copied from a different product. Eight definitions still carried that product's domain reasoning, phrased as instruction — a marketing agent advising on real-estate aggregation, a test agent hunting duplicate property listings. The first commit on this branch strips it back out.</li>
+    <li><b>Reviewers are confidently wrong in packs.</b> See the licensing test above. Independent review reduces that risk; it does not remove it, and nothing replaces checking the thing yourself.</li>
+  </ul>
+</section>
+
+<section>
+  <span class="snum">07 &middot; Transfer</span>
+  <h2>What this looks like at your company</h2>
+  <p class="lede">Multi-agent review is not novel in 2026 and I will not claim it is. The differentiation is in the briefs, the constraints and the verification — which is the part that does not come out of the box.</p>
+  <ul class="clean">
+    <li><b>Parallel independent review, not a chain.</b> Specialists that cannot see each other's findings before filing their own.</li>
+    <li><b>Every finding cites a file and a line</b>, so the report is checkable rather than persuasive.</li>
+    <li><b>Reviewers may not fix.</b> The agent that finds a problem does not get to grade its own repair.</li>
+    <li><b>Constraints are handed over, not discovered.</b> Each brief carries the hard rules and the mistakes already made, so nobody rediscovers them expensively.</li>
+    <li><b>Escalation paths out of the system.</b> Legal, licensing and adversarial testing questions get routed to humans by name, not answered by an agent with a confident tone.</li>
+    <li><b>A fix in the working tree is not a fix in production</b> until it has been checked against the running system. That rule came from a real finding here and generalises to any team.</li>
+  </ul>
+</section>
+
+<footer>
+  Case study: Shorebound &middot; shorebound.fish. Ten review documents, 4,228 lines of findings, nine commits.<br>
+  Every finding in this document is traceable to a file in the repository, available on request.
+</footer>
+</div>

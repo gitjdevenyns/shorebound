@@ -16,6 +16,45 @@
       content="Go Fish Yo'Self. Shore fishing guide for Florida's Gulf coast — 25 researched spots, live tide, and the rig for each one. Works offline."
     />
     <title>Shorebound — Go Fish Yo'Self</title>
+
+    <!-- Link previews (iMessage, WhatsApp, Slack, social).
+         Without these, a phone falls back to guessing — iMessage picks up the
+         192px apple-touch-icon above and renders the app icon, cropped, as the
+         whole preview. og:image must be an ABSOLUTE url: a relative path
+         resolves against the sharing app, not this site, and silently yields
+         no image at all.
+
+         These are site-wide, because the app is a single-page bundle with no
+         prerendering — every route returns this same document, so a deep link
+         to a spot page previews as the site rather than as that spot. Per-route
+         previews need the SEO prerendering work in docs/ROADMAP.md.
+
+         Claims here are limited to the pre-cleared list in
+         marketing/CONTENT_POLICY.md: the spot count, the coast, live NOAA
+         tide labelled as prediction, and working offline. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Shorebound" />
+    <meta property="og:url" content="https://shorebound.fish/" />
+    <meta property="og:title" content="Shorebound — Go Fish Yo'Self" />
+    <meta
+      property="og:description"
+      content="A researched shore-fishing guide for Florida's Gulf coast. 25 spots from St. Petersburg to Boca Grande Pass — the tide each one fishes, the rig for each species, and live NOAA predictions. Works offline."
+    />
+    <meta property="og:image" content="https://shorebound.fish/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Shorebound — Go Fish Yo'Self. 25 researched spots, St. Petersburg to Boca Grande Pass."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Shorebound — Go Fish Yo'Self" />
+    <meta
+      name="twitter:description"
+      content="A researched shore-fishing guide for Florida's Gulf coast. 25 spots, the tide each one fishes, and the rig for each species. Works offline."
+    />
+    <meta name="twitter:image" content="https://shorebound.fish/og-image.png" />
     <!-- The SVG is the source the PNGs are rendered from, and doubles as a
          crisp favicon at any tab size. -->
     <link rel="icon" href="/assets/icon-mark.svg" type="image/svg+xml" />
