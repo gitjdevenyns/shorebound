@@ -17,7 +17,7 @@ export const HAZARDS: Hazard[] = [
     id: 'catfish',
     name: 'Hardhead / Gafftopsail Catfish',
     image: {
-      url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Ariopsis_felis_%28FDA_099%29.jpg',
+      url: '/assets/media/ariopsis_felis_-fda_099-.webp',
       alt: 'Hardhead catfish, showing the stout serrated spine at the front of the dorsal fin and the paired spines at the leading edge of each pectoral fin',
       source_url: 'https://commons.wikimedia.org/wiki/File:Ariopsis_felis_(FDA_099).jpg',
       license: 'Public domain (U.S. Food and Drug Administration, via Wikimedia Commons)',
@@ -32,7 +32,7 @@ export const HAZARDS: Hazard[] = [
     id: 'stingray',
     name: 'Southern / Atlantic Stingray',
     image: {
-      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Dasyatis_americana_NOAA.jpg/1280px-Dasyatis_americana_NOAA.jpg',
+      url: '/assets/media/dasyatis_americana_noaa.webp',
       alt: 'Southern stingray seen from above: flat diamond-shaped disc, eyes on top of the body, and the long whip-like tail that carries the barb',
       source_url: 'https://commons.wikimedia.org/wiki/File:Dasyatis_americana_NOAA.jpg',
       license: 'Public domain (NOAA/NMFS Southeast Fisheries Science Center, via Wikimedia Commons)',
@@ -53,7 +53,7 @@ export const HAZARDS: Hazard[] = [
     id: 'lionfish',
     name: 'Lionfish',
     image: {
-      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Gfp-red-lionfish.jpg/1280px-Gfp-red-lionfish.jpg',
+      url: '/assets/media/gfp-red-lionfish.webp',
       alt: 'Red lionfish: red-brown and white banded body with long fanned pectoral fins and a row of tall separated venomous dorsal spines',
       source_url: 'https://commons.wikimedia.org/wiki/File:Gfp-red-lionfish.jpg',
       license: 'Public domain (CC0 dedication — Yinan Chen, via Wikimedia Commons)',
@@ -75,7 +75,7 @@ export const HAZARDS: Hazard[] = [
     id: 'barracuda',
     name: 'Great Barracuda',
     image: {
-      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Banco_de_gran_barracudas_%28Sphyraena_barracuda%29%2C_parque_nacional_Ras_Muhammad%2C_Egipto%2C_2022-03-27%2C_DD_115.jpg/1280px-Banco_de_gran_barracudas_%28Sphyraena_barracuda%29%2C_parque_nacional_Ras_Muhammad%2C_Egipto%2C_2022-03-27%2C_DD_115.jpg',
+      url: '/assets/media/banco_de_gran_barracudas_-sphyraena_barracuda--_parque_nacional_ras_muhammad-_egipto-_2022-03-27-_dd_115.webp',
       alt: 'Great barracuda: long silver torpedo-shaped body, deeply forked tail and an underslung jaw full of long teeth',
       source_url:
         'https://commons.wikimedia.org/wiki/File:Banco_de_gran_barracudas_(Sphyraena_barracuda),_parque_nacional_Ras_Muhammad,_Egipto,_2022-03-27,_DD_115.jpg',
@@ -91,7 +91,7 @@ export const HAZARDS: Hazard[] = [
     id: 'sharks',
     name: 'Sharks',
     image: {
-      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Requin_bouledogue_%28Carcharhinus_leucas%29_%28Ifremer_00813-92510_-_53592%29.jpg/1280px-Requin_bouledogue_%28Carcharhinus_leucas%29_%28Ifremer_00813-92510_-_53592%29.jpg',
+      url: '/assets/media/requin_bouledogue_-carcharhinus_leucas-_-ifremer_00813-92510_-_53592-.webp',
       alt: 'Bull shark: heavy blunt rounded snout, small eyes and a large triangular first dorsal fin — the shark most often encountered in Gulf Coast inshore water',
       source_url:
         'https://commons.wikimedia.org/wiki/File:Requin_bouledogue_(Carcharhinus_leucas)_(Ifremer_00813-92510_-_53592).jpg',
@@ -107,7 +107,7 @@ export const HAZARDS: Hazard[] = [
     id: 'pufferfish',
     name: 'Southern Puffer / Pufferfish',
     image: {
-      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Sphoeroides_nephelus_%28southern_pufferfish%29_%28Tampa_Bay%2C_Florida%2C_USA%29_1.jpg/1280px-Sphoeroides_nephelus_%28southern_pufferfish%29_%28Tampa_Bay%2C_Florida%2C_USA%29_1.jpg',
+      url: '/assets/media/sphoeroides_nephelus_-southern_pufferfish-_-tampa_bay-_florida-_usa-_1.webp',
       alt: 'Southern puffer in a landing net: blunt rounded head, small beak-like mouth, mottled olive back speckled with pale spots',
       source_url:
         'https://commons.wikimedia.org/wiki/File:Sphoeroides_nephelus_(southern_pufferfish)_(Tampa_Bay,_Florida,_USA)_1.jpg',

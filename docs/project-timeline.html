@@ -1,0 +1,409 @@
+<title>Shorebound Launch Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --navy:#031530; --lime:#8dff00;
+  --ground:#eef1f4; --surface:#ffffff; --raised:#f7f9fa;
+  --text:#0a1c33; --muted:#5d6b7c; --line:#d6dde4;
+  --crit:#c8392e; --warn:#b3711a; --good:#1c7d52; --struct:#4a6076;
+  --crit-bg:#fbeceb; --warn-bg:#fbf3e6; --good-bg:#e9f5ef; --hdr:#031530;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Instrument Sans",ui-sans-serif,system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#050d1a; --surface:#0b1728; --raised:#111f33;
+  --text:#e3eaf2; --muted:#93a3b5; --line:#1e2e45;
+  --crit:#ff7b6b; --warn:#e5a854; --good:#4fc48d; --struct:#8aa2ba;
+  --crit-bg:#2a1512; --warn-bg:#261c0c; --good-bg:#0d2419; --hdr:#8dff00;
+}}
+:root[data-theme="dark"]{
+  --ground:#050d1a; --surface:#0b1728; --raised:#111f33;
+  --text:#e3eaf2; --muted:#93a3b5; --line:#1e2e45;
+  --crit:#ff7b6b; --warn:#e5a854; --good:#4fc48d; --struct:#8aa2ba;
+  --crit-bg:#2a1512; --warn-bg:#261c0c; --good-bg:#0d2419; --hdr:#8dff00;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--text);font-family:var(--body);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:clamp(28px,5vw,64px) clamp(18px,4vw,40px) 96px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+a{color:inherit}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* header */
+header{border-bottom:2px solid var(--hdr);padding-bottom:22px;margin-bottom:34px}
+h1{font-size:clamp(34px,6vw,58px);font-weight:800;letter-spacing:-.02em;line-height:1.02;margin:10px 0 6px}
+.sub{color:var(--muted);max-width:62ch}
+.stamp{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:14px}
+
+/* verdict */
+.verdict{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--lime);
+  border-radius:3px;padding:22px 24px;margin-bottom:30px}
+.verdict h2{font-size:19px;font-weight:600;margin-bottom:8px}
+.verdict p{margin:0 0 12px;color:var(--muted);max-width:70ch}
+.verdict p:last-child{margin-bottom:0}
+code{font-family:var(--mono);font-size:.88em;background:var(--raised);
+  border:1px solid var(--line);border-radius:2px;padding:1px 5px}
+
+/* alarm */
+.alarm{background:var(--crit-bg);border:1px solid var(--crit);border-radius:3px;padding:20px 24px;margin-bottom:34px}
+.alarm h2{font-size:17px;font-weight:600;color:var(--crit);margin-bottom:6px}
+.alarm p{margin:0;max-width:74ch}
+
+section{margin-top:46px}
+section>h2{font-size:13px;font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);padding-bottom:9px;border-bottom:1px solid var(--line);margin-bottom:20px;font-weight:500}
+
+/* metric tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:12px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:14px 15px}
+.tile-bad{border-color:var(--crit)}
+.tile-v{font-family:var(--display);font-size:29px;font-weight:800;line-height:1;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums}
+.tile-bad .tile-v{color:var(--crit)}
+.tile-l{font-size:12.5px;color:var(--muted);margin-top:5px}
+.tile-n{font-size:11.5px;color:var(--muted);margin:7px 0 0;line-height:1.45}
+.chip{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;
+  text-transform:uppercase;padding:2px 6px;border-radius:2px;margin-top:7px}
+.chip-unv{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn)}
+
+/* blockers */
+.blk{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--struct);
+  border-radius:3px;padding:15px 18px;margin-bottom:10px}
+.blk.crit{border-left-color:var(--crit)}
+.blk.warn{border-left-color:var(--warn)}
+.blk-h{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:5px}
+.sev{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+  padding:2px 7px;border-radius:2px;white-space:nowrap}
+.crit .sev{background:var(--crit-bg);color:var(--crit)}
+.warn .sev{background:var(--warn-bg);color:var(--warn)}
+.struct .sev{background:var(--raised);color:var(--struct)}
+.blk-t{font-family:var(--display);font-size:16.5px;font-weight:600;flex:1;min-width:min(100%,320px)}
+.blk p{margin:0;font-size:14.5px;color:var(--muted);max-width:82ch}
+.src{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:8px;display:block;opacity:.85}
+
+/* v1 */
+.v1{display:grid;gap:10px}
+.v1row{display:grid;grid-template-columns:auto 1fr;gap:14px;background:var(--surface);
+  border:1px solid var(--line);border-radius:3px;padding:15px 18px}
+.v1n{font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:3px}
+.v1t{font-family:var(--display);font-size:16.5px;font-weight:600;margin-bottom:5px}
+.pill{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.07em;
+  text-transform:uppercase;padding:2px 8px;border-radius:2px;margin-left:9px;vertical-align:2px}
+.st-none{background:var(--crit-bg);color:var(--crit)}
+.st-part{background:var(--warn-bg);color:var(--warn)}
+.st-def{background:var(--good-bg);color:var(--good)}
+.st-broke{background:var(--crit-bg);color:var(--crit)}
+.v1row p{margin:0;font-size:14px;color:var(--muted);max-width:82ch}
+
+/* timeline — a sounding line down the left, depth marks per phase */
+.ph{display:grid;grid-template-columns:78px 1fr;gap:20px;position:relative;padding-bottom:26px}
+.ph::before{content:"";position:absolute;left:77px;top:6px;bottom:0;width:1px;background:var(--line)}
+.ph:last-child::before{display:none}
+.ph-when{text-align:right;font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.5;padding-top:2px}
+.ph-body{position:relative;padding-left:18px}
+.ph-body::before{content:"";position:absolute;left:-4px;top:7px;width:9px;height:9px;border-radius:50%;
+  background:var(--surface);border:2px solid var(--struct)}
+.ph:last-child .ph-body::before{background:var(--lime);border-color:var(--lime)}
+.ph-t{font-family:var(--display);font-size:18px;font-weight:600;margin-bottom:4px}
+.ph p{margin:0;font-size:14.5px;color:var(--muted);max-width:80ch}
+.bar{height:4px;background:var(--struct);border-radius:2px;margin-top:9px;opacity:.4}
+.ph:last-child .bar{background:var(--lime);opacity:1}
+.cc{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:8px}
+
+/* lists */
+.rows{display:grid;gap:9px}
+.row{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:13px 17px}
+.row b{font-family:var(--display);font-size:15.5px;font-weight:600;display:block;margin-bottom:3px}
+.row p{margin:0;font-size:14px;color:var(--muted);max-width:82ch}
+.notes li{font-size:14.5px;color:var(--muted);margin-bottom:9px;max-width:84ch}
+footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.7}
+@media (max-width:600px){
+  .ph{grid-template-columns:1fr;gap:4px}
+  .ph::before{display:none}
+  .ph-when{text-align:left}
+  .v1row{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Shorebound &middot; St. Petersburg to Boca Grande Pass</div>
+  <h1>Launch Tracker</h1>
+  <p class="sub">Where this project came from, what is actually true today, and what stands between here and a listing. Every number is measured from the repository, not carried forward from a previous note.</p>
+  <div class="stamp">Generated 2026-08-25 &nbsp;&middot;&nbsp; github.com/gitjdevenyns/shorebound</div>
+</header>
+
+<div class="verdict">
+  <h2>Is it on track?</h2>
+  <p>No single day of building was wasted, and the response to the two audits missing from the first pass was fast and largely correct: six of seven claimed code-level fixes were independently re-verified against the source and hold up. But &#39;fixed&#39; and &#39;shipped&#39; are not the same claim, and the gap between them is the most important fact in this update: nothing from this remediation session is committed to git, and — confirmed directly against the live Supabase project via <code>supabase migration list</code>, not taken on report — the two migrations that close the two most serious backend security findings (admin takeover, admin_notes exposure) have NOT been pushed. Both vulnerabilities are live in production right now, exactly as the security review found them, regardless of what the local working tree contains.</p>
+    <p>Set that aside and the underlying shape is unchanged: v1 is not close on its own six-item list (store packaging and the wrappers not started at all; the shop directory now has two independent, confirmed ways to fail offline rather than one), and the two findings both authoritative verdicts (security NO-GO, QA Blocked) still call open — refresh-conditions&#39;s unbounded invocation, and every species/hazard/habitat photo breaking offline — are exactly the class of bug this project&#39;s own lesson says is invisible in source and obvious in a browser or a live request; neither has been checked that way yet. This should not be read as a criticism of the remediation itself, which was fast and correct where it went — it should be read as: nothing here is closed until it is committed, pushed to the live database where that applies, and checked against the running system rather than the diff.</p>
+</div>
+
+<div class="alarm">
+  <h2>Fixed is not the same as shipped</h2>
+  <p>The two security migrations exist as files but <strong>have not been applied to the production database</strong> &mdash; <code>supabase migration list</code> reports no remote timestamp for either. Until <code>supabase db push</code> runs, both vulnerabilities are live. Remediation work is also not yet merged to <code>main</code>, which is what Cloudflare deploys from.</p>
+</div>
+
+<section>
+  <h2>Verified state</h2>
+  <div class="tiles">
+    <div class="tile">
+      <div class="tile-v">25</div>
+      <div class="tile-l">researched spots</div>
+      
+      
+    </div>
+    <div class="tile">
+      <div class="tile-v">11</div>
+      <div class="tile-l">species pages</div>
+      
+      
+    </div>
+    <div class="tile">
+      <div class="tile-v">104</div>
+      <div class="tile-l">spot recipes</div>
+      
+      
+    </div>
+    <div class="tile">
+      <div class="tile-v">20</div>
+      <div class="tile-l">shops listed</div>
+      
+      
+    </div>
+    <div class="tile">
+      <div class="tile-v">9</div>
+      <div class="tile-l">shops verified</div>
+      
+      
+    </div>
+    <div class="tile">
+      <div class="tile-v"></div>
+      <div class="tile-l">cited sources</div>
+      <span class="chip chip-unv">unverified</span>
+      <p class="tile-n">CLAUDE.md claims 159. Not reproducible by any counting method tried: 82 SourceRef-shaped objects (publisher: field) across sources.ts+locations.ts+shops.ts, or 169 for every url: field anywhere in src/data/ (a much looser count). The two differ by 2x; no definition in the code produces 159. Do not repeat 159 until a defined, scripted count exists.</p>
+    </div>
+    <div class="tile">
+      <div class="tile-v">341</div>
+      <div class="tile-l">tests passing</div>
+      
+      <p class="tile-n">Re-run 2026-08-25 on the settled tree at 5da971f. Moved 316-&gt;321-&gt;331-&gt;340-&gt;341 across measurements as guard tests were added; re-run before trusting.</p>
+    </div>
+    <div class="tile">
+      <div class="tile-v">78</div>
+      <div class="tile-l">commits</div>
+      
+      
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Launch blockers &mdash; 8 critical of 13</h2>
+  <div class="blk crit">
+    <div class="blk-h"><span class="sev">CRITICAL</span><span class="blk-t">refresh-conditions is invokable by anyone holding the public anon key, with no rate limit of its own</span></div>
+    <p>No rate-limiting, cooldown or ledger exists in refresh-conditions/index.ts. The JWT check that gates it accepts the same anon key shipped in the bundle. Unbounded invocation risks NOAA/NWS throttling the shared Supabase egress IP, degrading live tide/weather for every visitor. The one item both the security NO-GO and the QA Blocked verdict agree is the top open finding. Not fixed; no draft exists.</p>
+    <span class="src">docs/review/security-privacy-review.md (PR-1); same underlying issue as docs/review/backend-review.md (I2)</span>
+  </div>
+  <div class="blk warn">
+    <div class="blk-h"><span class="sev">IMPORTANT</span><span class="blk-t">Offline-first fails on unlicensed species, hazard and habitat photos — PARTIALLY FIXED</span></div>
+    <p>The 20 media refs carrying a licence are now local webp under public/assets/media/, and jpg/jpeg/webp were added to the service-worker precache glob (24 -&gt; 45 entries). media.test.tsx now fails if licensed media returns to a remote URL. Still open: 17 refs have NO licence recorded at all — all 8 habitat photos, 6 fish plates and 2 hazard cards, hotlinked from commercial fishing sites, a paywalled publisher and a dive magazine. They were deliberately not bundled, because copying an uncleared photograph into a shipped commercial app is a stronger act than hotlinking it. Owner is sourcing stock licences. Those pages still break offline, and media.test.tsx cannot catch this class: it filters on `.filter((m) =&gt; m.license)`, so an image with no licence field is invisible to it — which is why three separate reviews read it as evidence licensing was handled.</p>
+    <span class="src">docs/review/qa-review.md (C2)</span>
+  </div>
+  <div class="blk crit">
+    <div class="blk-h"><span class="sev">CRITICAL</span><span class="blk-t">Production deploys through a workflow with no gate on the artifact that ships</span></div>
+    <p>.github/workflows/deploy.yml still runs tests/typecheck/secret-grep against a GitHub Pages target nothing serves. wrangler deploy, the actual production path, is not gated by any of it. Not fixed.</p>
+    <span class="src">docs/review/architecture-review.md (C1); restated as docs/review/security-privacy-review.md (GV-1) and docs/review/qa-review.md (I7) — three independent audits converging on one finding</span>
+  </div>
+  <div class="blk crit">
+    <div class="blk-h"><span class="sev">CRITICAL</span><span class="blk-t">Admin takeover via unconfirmed email match — FIXED IN CODE, NOT IN PRODUCTION</span></div>
+    <p>Migration 20260825090000_admin_claim_requires_confirmed_email.sql drafted and confirmed correct by reading it (grants admin only on email_confirmed_at becoming non-null, retracts unconfirmed-held rows). Confirmed via `npx supabase migration list` against the live project that it has NOT been pushed (remote:&quot;&quot;) while the original vulnerable trigger (20260823120000) is live. The vulnerability is live in production right now.</p>
+    <span class="src">docs/review/backend-review.md (C1)</span>
+  </div>
+  <div class="blk crit">
+    <div class="blk-h"><span class="sev">CRITICAL</span><span class="blk-t">admin_notes readable by anyone with the anon key, plus a previously-unknown broken-admin-writes bug — FIXED IN CODE, NOT IN PRODUCTION</span></div>
+    <p>Migration 20260825091000_lock_admin_notes_and_restore_admin_writes.sql drafted and confirmed correct (revokes blanket SELECT, adds admin_list_shop_listings()/admin_list_ad_campaigns() security-definer RPCs, confirmed called from src/admin/Shops.tsx and Ads.tsx). Confirmed NOT pushed to the live database by the same migration-list check. Latent in production today (no rate has been typed into admin_notes yet). The same migration also restores insert/update/delete grants to authenticated, fixing a silently-broken owner-console Save that no audit had previously found.</p>
+    <span class="src">docs/review/security-privacy-review.md (PR-2)</span>
+  </div>
+  <div class="blk crit">
+    <div class="blk-h"><span class="sev">CRITICAL</span><span class="blk-t">Photo species ID dead on the live domain — FIXED IN CODE, deploy status of the Edge Function not verified</span></div>
+    <p>shorebound.fish added to identify-fish&#39;s ALLOWED_ORIGINS, functions.cors.test.ts now asserts the origin list. Confirmed in code. Not committed; whether this is live depends on whether Edge Functions were deployed separately from git, which was not checked this session.</p>
+    <span class="src">docs/review/security-privacy-review.md (PR-3); docs/review/architecture-review.md (C3)</span>
+  </div>
+  <div class="blk crit">
+    <div class="blk-h"><span class="sev">CRITICAL</span><span class="blk-t">The account gate blocks a first-run offline reader — FIXED IN CODE, not deployed</span></div>
+    <p>RequireAuth.tsx now lets an offline &#39;out&#39; status through; /care moved to the permanently-ungated route group. Confirmed in code and in App.tsx&#39;s route table. Bundle-level fix, not a database migration — takes effect on the next deploy of main once committed.</p>
+    <span class="src">docs/review/architecture-review.md (C2)</span>
+  </div>
+  <div class="blk crit">
+    <div class="blk-h"><span class="sev">CRITICAL</span><span class="blk-t">Service worker caches signed-out users&#39; PII — FIXED IN CODE, not deployed</span></div>
+    <p>Runtime cache rule narrowed from the whole Supabase origin to an explicit endpoint allowlist; src/test/sw.cache.test.ts guards against widening. Confirmed in code. Bundle-level fix, takes effect on next deploy once committed.</p>
+    <span class="src">docs/review/security-privacy-review.md (PR-6); docs/review/architecture-review.md (C6)</span>
+  </div>
+  <div class="blk crit">
+    <div class="blk-h"><span class="sev">CRITICAL (content-integrity, not security)</span><span class="blk-t">Per-species casting advice was inferred, not researched — FIXED IN CODE, not deployed</span></div>
+    <p>SPECIES_PREFERENCE table and the zones[0] fallback deleted; confirmed absent from zones.ts. zoneForTarget now returns null rather than a guess until recipe.cast_zone is researched and populated. Confirmed no cast-zone line renders anywhere currently — correct per the content rule (empty beats invented), but worth naming as a content gap, not a defect.</p>
+    <span class="src">docs/review/qa-review.md (C1) — described by QA as the most serious finding across all six reviews</span>
+  </div>
+  <div class="blk warn">
+    <div class="blk-h"><span class="sev">IMPORTANT</span><span class="blk-t">Cost-control registry claims a tier-based enforcement that does not exist</span></div>
+    <p>entitlements.ts declares identify.perDay enforced:true with a free/paid split; confirmed still present verbatim. The server is tier-blind — everyone gets 20/day. The global ~$6.50/day ceiling is real; the tiered one is not. Security review adds that marketing/sales/pitch-deck.md repeats the false tiered figure to investors.</p>
+    <span class="src">docs/review/architecture-review.md (C5); docs/review/security-privacy-review.md (PR-4)</span>
+  </div>
+  <div class="blk warn">
+    <div class="blk-h"><span class="sev">IMPORTANT</span><span class="blk-t">The one entitlement with a real consumer reads a client-writable flag</span></div>
+    <p>ads.enabled, the only wired capability of 13 declared, resolves tier from localStorage rather than the RLS-protected profiles.tier. One devtools line removes advertising the owner has invoiced someone for.</p>
+    <span class="src">docs/review/security-privacy-review.md (PR-5)</span>
+  </div>
+  <div class="blk warn">
+    <div class="blk-h"><span class="sev">IMPORTANT</span><span class="blk-t">No Content-Security-Policy or HSTS on the production response</span></div>
+    <p>Confirmed absent from public/_headers. More consequential than usual because the session JWT lives in localStorage and the owner console shares the origin.</p>
+    <span class="src">docs/review/security-privacy-review.md (PR-7)</span>
+  </div>
+  <div class="blk struct">
+    <div class="blk-h"><span class="sev">STRUCTURAL_RISK</span><span class="blk-t">src/lib/conditions.ts (all live tide/weather parsing) has zero tests</span></div>
+    <p>The module that turns raw NOAA/NWS payloads into what every spot&#39;s live tide card shows has no test coverage. A regression fails silently; nothing in CI would catch it.</p>
+    <span class="src">docs/review/test-coverage-review.md (item 1); restated by docs/review/qa-review.md (I2) as the single largest gap between tests passing and the live tide feature actually working</span>
+  </div>
+</section>
+
+<section>
+  <h2>v1 scorecard &mdash; 1 of 6 landed, none clean</h2>
+  <div class="v1">
+  <div class="v1row">
+    <div class="v1n">01</div>
+    <div>
+      <div class="v1t">Name, domain, email<span class="pill st-part">partial</span></div>
+      <p>Name (Shorebound) and primary domain (shorebound.fish) are decided and live since Phase 4. Email is not working for real sign-ups (Supabase over_email_send_rate_limit); shorebound.app returns 525, never provisioned; gofishyoself.com redirect not configured. All three are owner-blocked. ROADMAP&#39;s own item text is stale, still recommending a name NAMING.md killed.</p>
+    </div>
+  </div>
+  <div class="v1row">
+    <div class="v1n">02</div>
+    <div>
+      <div class="v1t">Privacy policy and support pages<span class="pill st-def">done with defects</span></div>
+      <p>src/pages/Privacy.tsx and src/pages/Support.tsx exist, are routed, and are substantive. Three confirmed defects (documentation + security-privacy reviews): states &#39;Hosting is GitHub Pages&#39; (false since Phase 4, on an App Store 5.1.1(i) compliance page); SUPPORT_EMAIL points at the unconfirmed shorebound.app domain; and the page still says &#39;we have no record of you to produce, correct or delete&#39; a few paragraphs after describing the account record it holds — pre-accounts language left in place.</p>
+    </div>
+  </div>
+  <div class="v1row">
+    <div class="v1n">03</div>
+    <div>
+      <div class="v1t">The shop directory, visible to readers<span class="pill st-broke">built but broken offline two ways</span></div>
+      <p>Shipped in Phase 3. Two independent, both-confirmed offline failures from two different reviews: (a) Architecture C4 — useShopListings.ts filters the whole bundled 20-shop directory through a live Supabase read; offline, every shop disappears. Not fixed. (b) QA C2, the one CRITICAL item QA&#39;s verdict left open — 10/11 species images, 6/6 hazard images and 8/8 habitat photos are remote hotlinks outside the service worker&#39;s precache glob (jpg/jpeg/webp excluded); offline, the fish-ID plate and every Handle With Care card show a broken-image icon. Not fixed as of this writing.</p>
+    </div>
+  </div>
+  <div class="v1row">
+    <div class="v1n">04</div>
+    <div>
+      <div class="v1t">Store packaging<span class="pill st-none">not started</span></div>
+      <p>store/ contains one icon (icon-1024.png) and a logo-concepts folder. No per-device screenshots beyond one regeneration commit, no listing copy file, no age rating or category decision found.</p>
+    </div>
+  </div>
+  <div class="v1row">
+    <div class="v1n">05</div>
+    <div>
+      <div class="v1t">The Play and iOS wrappers<span class="pill st-none">not started</span></div>
+      <p>No Trusted Web Activity config, no Capacitor/Cordova project, no .aab, no iOS wrapper project found anywhere in the repository.</p>
+    </div>
+  </div>
+  <div class="v1row">
+    <div class="v1n">06</div>
+    <div>
+      <div class="v1t">The twelve held review items<span class="pill st-none">not started</span></div>
+      <p>docs/REVIEW_DECISIONS.md lists exactly 12 unresolved lines (matching the claimed count, though representing roughly 8-9 distinct places due to duplication). The two flagged as mattering most — Palma Sola catch-and-release regulation, Bean Point paid parking — remain open; the Bean Point meeting (31 Aug 2026) has not yet occurred.</p>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section>
+  <h2>How it got here</h2>
+  <div class="ph">
+    <div class="ph-when">6 Aug<br>8 Aug</div>
+    <div class="ph-body">
+      <div class="ph-t">Prototype churn<span class="cc">5 commits</span></div>
+      <p>Three full rebuilds in three days (v4, v5, v6) before the stack settled. Nothing from this phase is user-visible in the current product.</p>
+      <div class="bar" style="width:24%"></div>
+    </div>
+  </div>
+  <div class="ph">
+    <div class="ph-when">10 Aug<br>11 Aug</div>
+    <div class="ph-body">
+      <div class="ph-t">Core build: React PWA v7<span class="cc">21 commits</span></div>
+      <p>Production React+TypeScript PWA (package.json version 7.0.0, still current). Guide expanded 15→25 spots. Species expanded 5→11. Photo species ID shipped. Ten days of no commits followed (2026-08-12 to 2026-08-21).</p>
+      <div class="bar" style="width:100%"></div>
+    </div>
+  </div>
+  <div class="ph">
+    <div class="ph-when">22 Aug<br>22 Aug</div>
+    <div class="ph-body">
+      <div class="ph-t">Monetisation and ops scaffolding<span class="cc">21 commits</span></div>
+      <p>Shop directory split from advertising. Owner console added with a 249-item review queue. Free/paid capability matrix built. docs/ROADMAP.md written and v1 scope frozen. Naming research killed three previously-favoured names via live search collision testing.</p>
+      <div class="bar" style="width:100%"></div>
+    </div>
+  </div>
+  <div class="ph">
+    <div class="ph-when">23 Aug<br>23 Aug</div>
+    <div class="ph-body">
+      <div class="ph-t">Rebrand and accounts<span class="cc">21 commits</span></div>
+      <p>Renamed GCF → Shorebound, moved to the root of shorebound.fish. Hosting moved from GitHub Pages to Cloudflare Workers. Accounts shipped in one commit (sign-up, sign-in, settings, owner console gate). Home page and narrative rewritten; tagline settled on &#39;Go Fish Yo&#39;Self&#39;.</p>
+      <div class="bar" style="width:100%"></div>
+    </div>
+  </div>
+  <div class="ph">
+    <div class="ph-when">24 Aug<br>24 Aug</div>
+    <div class="ph-body">
+      <div class="ph-t">Hardening and handoff<span class="cc">10 commits</span></div>
+      <p>Admin approval flow, CORS preflight fix, owner-vocabulary scrub from reader bundle, agent-swarm reconciliation. Six audits commissioned (architecture, backend, test-coverage, documentation, security-privacy, QA); the first four written to docs/review/ same day but never committed. The security-privacy and QA reports were returned but not written to disk until Phase 6.</p>
+      <div class="bar" style="width:48%"></div>
+    </div>
+  </div>
+  <div class="ph">
+    <div class="ph-when">25 Aug<br>ongoing</div>
+    <div class="ph-body">
+      <div class="ph-t">Same-day remediation of the six audits<span class="cc">6 commits</span></div>
+      <p>Security-privacy review (NIST CSF 2.0, verdict NO-GO for launch/store submission, narrowed to PR-1/PR-2/PR-3) and QA review (verdict Blocked on C1/C2) written to docs/review/. Seven fixes made and independently verified against code: content-integrity inference removed from zones.ts (QA C1, the most serious finding of all six reviews), safety-label clarity in Cautions.tsx (QA I1), an admin-takeover migration requiring email confirmation (Backend C1), an admin_notes RLS/grant fix plus a previously-unknown broken-admin-writes bug found while fixing it (Security PR-2), a CORS production-origin fix for identify-fish (Security PR-3), an offline bypass for the account gate plus permanently ungating /care (Architecture C2), and a service-worker cache allowlist replacing a whole-origin Supabase cache rule (Security PR-6). Build clean, 340 tests passing across 18 files on the settled tree. Now committed as 6 commits on branch swarm-review-fixes (HEAD 5da971f); NOT merged to main, which is what Cloudflare deploys from. The two security-fixing migrations are confirmed NOT pushed to the live Supabase project via `supabase migration list` — both live vulnerabilities (admin takeover, admin_notes exposure) remain live in production.</p>
+      <div class="bar" style="width:29%"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Waiting on the owner</h2>
+  <div class="rows">
+  <div class="row"><b>SMTP for real sign-ups</b><p>Supabase&#39;s built-in mailer is rate-limited and breaks sign-up today. Needs Confirm Email turned off and/or SMTP configured (Office 365 or Resend).</p></div>
+  <div class="row"><b>shorebound.app returns 525</b><p>Never provisioned. Needs Cloudflare SSL/TLS set to Full (strict) and the domain attached to the Worker.</p></div>
+  <div class="row"><b>gofishyoself.com redirect not configured</b><p>A Cloudflare Rules redirect to shorebound.fish, preserving path and UTM, is written down but not done.</p></div>
+  <div class="row"><b>Shop-listing pricing undecided</b><p>&#39;[PRICING — OWNER TO SET]&#39; in marketing/sales/two-pager.md. Needs a number, term, founding-rate decision, and whether a sponsor card prices separately from a listing.</p></div>
+  <div class="row"><b>Pitch deck raise figure blank</b><p>Slide 16 is deliberately left blank.</p></div>
+  <div class="row"><b>Whether the account gate should open for a first-run offline reader</b><p>Architecture review C2 names this a product decision, not an engineering one.</p></div>
+  <div class="row"><b>Whether support@shorebound.app receives mail</b><p>Distinct from the web 525; gates the App Store support-contact requirement (Guideline 1.5) and the NWS API contact requirement.</p></div>
+  <div class="row"><b>Whether the free/paid capability matrix screen should ship in the admin console for v1</b><p>Nothing it currently sets changes anything a reader sees (architecture I2).</p></div>
+  <div class="row"><b>Whether and when to push the two drafted security-fix migrations to the live Supabase project</b><p>20260825090000 (admin takeover) and 20260825091000 (admin_notes leak plus broken admin writes) are correct on disk and confirmed via `supabase migration list` to be un-pushed. This is a deploy action against the live project; same category as the sponsorships migration in docs/OPS_BACKLOG.md item 9.</p></div>
+  <div class="row"><b>Whether the claude.ai artifact links marked &#39;private until shared&#39; in docs/HANDOFF.md are actually link-accessible</b><p>The repository listing those IDs is public. If the links themselves are unauthenticated, pricing and cost material is effectively published already (security review GV-2). Not verified this session.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Found, not scheduled</h2>
+  <ul class="notes">
+  <li>docs/OPS_BACKLOG.md item 4 describes seasons/dayparts research as 10/25 and 13/25 outstanding; actual counts are 24/25 and 22/25 — the backlog item appears to predate a research batch that landed without the backlog being updated.</li>
+  <li>scripts/check-links.mjs references a KNOWN_ISSUES.md that does not exist anywhere in the repository.</li>
+  <li>docs/research/shop-web-presence.md (24 Aug, the newest research file) describes a placeholder shop record (EXAMPLE-osprey-point) not present in src/data/shops.ts.</li>
+  <li>No CHANGELOG.md exists; docs/HANDOFF.md is overwritten each session rather than appended to, so session-to-session history outside git commits is lost.</li>
+  <li>README.md claims an axe-core WCAG audit runs across every route (QA I5). No axe-core dependency exists in package.json and no axe assertion exists in src/test/; the a11y tests that do exist are real hand-rolled landmark/alt-text checks, just not what the README describes.</li>
+  <li>Dangling references to src/lib/sponsorship.ts, which listings.ts replaced (security review minor finding) — entitlements.ts, src/data/shops.ts and docs/OPS_BACKLOG.md still point at it.</li>
+  <li>verification: &#39;needs_check&#39; on a shop has no code linkage to whether that shop is shown to readers (security review minor finding) — the only gate is the owner-set included flag.</li>
+  </ul>
+</section>
+
+<footer>
+  Generated from <code>docs/project-timeline.json</code> by <code>scripts/build-timeline-page.mjs</code>.<br>
+  Do not hand-edit this page &mdash; update the data and regenerate, so a stale number has nowhere to hide.<br>Republished in place at <code>https://claude.ai/code/artifact/e7846233-b786-4c50-bd21-9f84ce9cd4a2</code>.
+</footer>
+</div>

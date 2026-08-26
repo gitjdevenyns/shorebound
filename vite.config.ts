@@ -109,7 +109,15 @@ export default defineConfig({
         // the entire offline story. Inlining keeps registration synchronous.
         inlineWorkboxRuntime: true,
         // Versioned precache of the app shell (hashed JS/CSS + local assets).
-        globPatterns: ['**/*.{js,css,html,svg,png,woff2,webmanifest}'],
+        // jpg/jpeg/webp are here deliberately. Without them the identification
+        // photographs were excluded from the precache, so every species page,
+        // all six Handle With Care cards and the Read the Water photos rendered
+        // broken-image icons with no connection — on the pages where the
+        // photograph IS the content, in the app whose first hard constraint is
+        // that it works offline. The images themselves were also remote
+        // hotlinks, which no precache glob could have saved; the licensed ones
+        // now live in public/assets/media/ as local webp.
+        globPatterns: ['**/*.{js,css,html,svg,png,jpg,jpeg,webp,woff2,webmanifest}'],
         // vite-plugin-pwa already precaches the webmanifest and every icon it
         // declares, with its own revision hashes. Globbing them again yields a
         // second, unrevisioned entry for the same URL, and Workbox aborts the
@@ -164,9 +172,29 @@ export default defineConfig({
         clientsClaim: true,
         runtimeCaching: [
           {
-            // Dynamic content (future cached weather/tide snapshots) —
+            // Cached tide/weather snapshots and the public shop listing view —
             // always prefer the network, fall back to last good copy.
-            urlPattern: /^https:\/\/[a-z0-9-]+\.supabase\.co\/.*/i,
+            //
+            // Scoped BY TABLE, deliberately. This used to be
+            // /^https:\/\/[a-z0-9-]+\.supabase\.co\/.*/i, which matched the
+            // whole project origin: /auth/v1/user and the profiles read that
+            // carries email, display name and tier both landed in CacheStorage
+            // for 24 hours. signOut() clears React state and the SDK's
+            // localStorage but has no reason to know about Cache Storage, so on
+            // a shared or handed-down device the previous user's details stayed
+            // readable to anyone with devtools long after they signed out. On
+            // the owner's device the same rule cached shop_listings rows,
+            // admin_notes included.
+            //
+            // An allowlist of the three read-only, non-personal endpoints keeps
+            // the offline story intact and puts nothing private on disk. Auth
+            // and Edge Function calls now go unrouted, which is correct: there
+            // is no such thing as a usefully cached /auth/v1/user.
+            urlPattern: ({ url }) =>
+              /\.supabase\.co$/i.test(url.hostname) &&
+              /^\/rest\/v1\/(locations|tide_latest|weather_latest|shop_listing_public|ad_campaign_public|app_config)\b/.test(
+                url.pathname,
+              ),
             handler: 'NetworkFirst',
             options: {
               cacheName: 'shorebound-supabase',

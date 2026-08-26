@@ -1,8 +1,9 @@
-import { describe, expect, it, beforeEach } from 'vitest';
+import { describe, expect, it, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import App from '../App';
 import { AUTH_STORAGE_KEY } from '../lib/supabase';
+import { __resetOfflineGrace } from '../components/RequireAuth';
 
 /**
  * The gate, from the signed-out side.
@@ -22,10 +23,19 @@ function renderAt(path: string) {
 
 beforeEach(() => {
   window.localStorage.removeItem(AUTH_STORAGE_KEY);
+  // The offline pass-through latch is module-scoped and outlives a render, so
+  // it has to be cleared between tests or one offline case silently unlocks
+  // every gated assertion after it.
+  __resetOfflineGrace();
 });
 
-const GATED = ['/', '/locations', '/fish', '/id', '/water', '/tides', '/rigs', '/shops', '/start', '/care'];
-const PUBLIC = ['/welcome', '/privacy', '/support', '/signin', '/signup', '/forgot'];
+const GATED = ['/', '/locations', '/fish', '/id', '/water', '/tides', '/rigs', '/shops', '/start'];
+
+// `/care` is deliberately NOT gated. It is the page that says which of these
+// fish will injure you and what to do when one has; `entitlements.ts` marks it
+// NEVER GATE THIS. If it ever reappears in GATED, that is a regression with a
+// person on the other end of it.
+const PUBLIC = ['/welcome', '/privacy', '/support', '/signin', '/signup', '/forgot', '/care'];
 
 describe('signed out', () => {
   for (const path of GATED) {
@@ -49,6 +59,60 @@ describe('signed out', () => {
     renderAt('/locations/emerson-point');
     const link = screen.getByRole('link', { name: /create one/i }) as HTMLAnchorElement;
     expect(link.getAttribute('href')).toContain('next=%2Flocations%2Femerson-point');
+  });
+
+  describe('and offline', () => {
+    // navigator.onLine is read once at mount by useOnline(), so overriding the
+    // property before render is enough and no event dispatch is needed.
+    beforeEach(() => {
+      Object.defineProperty(window.navigator, 'onLine', {
+        configurable: true,
+        get: () => false,
+      });
+    });
+
+    afterEach(() => {
+      Object.defineProperty(window.navigator, 'onLine', {
+        configurable: true,
+        get: () => true,
+      });
+    });
+
+    for (const path of GATED) {
+      it(`opens ${path} rather than stranding the reader on a form`, () => {
+        renderAt(path);
+        expect(
+          screen.getByRole('heading', { level: 1 }).textContent,
+          `${path} redirected to sign-in with no connection — the sign-up it ` +
+            `demands cannot be completed, so the guide is bricked at the water`,
+        ).not.toMatch(/sign in/i);
+      });
+    }
+
+    it('does not throw the reader out when the signal comes back mid-read', () => {
+      // The bug this guards: `useOnline()` is live, so re-checking it on every
+      // render redirected a reader who was already reading — at the water, one
+      // bar returning, page lost. Passing through offline has to latch.
+      const { unmount } = renderAt('/locations');
+      expect(screen.getByRole('heading', { level: 1 }).textContent).not.toMatch(/sign in/i);
+      unmount();
+
+      Object.defineProperty(window.navigator, 'onLine', { configurable: true, get: () => true });
+      renderAt('/locations');
+      expect(
+        screen.getByRole('heading', { level: 1 }).textContent,
+        'signal returning redirected a reader who was already through the gate',
+      ).not.toMatch(/sign in/i);
+    });
+
+    it('still gates once the connection is back', () => {
+      Object.defineProperty(window.navigator, 'onLine', {
+        configurable: true,
+        get: () => true,
+      });
+      renderAt('/locations');
+      expect(screen.getByRole('heading', { level: 1 }).textContent).toMatch(/sign in/i);
+    });
   });
 
   it('refuses an off-site next, which would make sign-in a phishing hop', () => {

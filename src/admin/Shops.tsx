@@ -180,7 +180,11 @@ export default function Shops() {
     (async () => {
       const cp = getSupabaseClient(); if (!cp) return;
       const supabase = await cp;
-      const { data, error } = await supabase.from('shop_listings').select('*');
+      // Not `.from('shop_listings').select('*')`. anon and authenticated hold
+      // column grants that exclude admin_notes, so a direct select of every
+      // column is refused — which is the point. This function is security
+      // definer and checks is_admin() itself.
+      const { data, error } = await supabase.rpc('admin_list_shop_listings');
       if (error) { setMsg(error.message); return; }
       const map: Record<string, Row> = {};
       for (const d of data ?? []) {

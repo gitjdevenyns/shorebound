@@ -56,7 +56,16 @@ const MAX_BODY_CHARS = 2_200_000;
 
 const ALLOWED_MEDIA_TYPES = ["image/jpeg", "image/png", "image/webp"] as const;
 
+// The production origin has to be first and has to be right: corsHeaders()
+// only emits Access-Control-Allow-Origin for an origin on this list, the
+// client's POST is preflighted, and so a missing entry means the browser never
+// sends the request at all. The user sees "Could not reach the identification
+// service" forever, and the function looks broken when it was never called.
+// This list did not follow the move off GitHub Pages, which took photo ID off
+// the live site silently. `src/test/functions.cors.test.ts` now asserts the
+// production origin is present so the same drift cannot happen again.
 const ALLOWED_ORIGINS = [
+  "https://shorebound.fish",
   "https://gitjdevenyns.github.io",
   "http://localhost:5173",
   "http://127.0.0.1:5173",

@@ -1,0 +1,66 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { describe, expect, it } from 'vitest';
+
+/**
+ * The basemap's licence conditions, guarded as source invariants.
+ *
+ * OpenFreeMap is free for commercial use and needs no key, but it does require
+ * attribution, and so does the OpenStreetMap data under it. The first build of
+ * the MapLibre map had none: `attributionControl: undefined` was written
+ * meaning "use MapLibre's default" and instead produced no control at all. The
+ * map looked perfect and credited nobody.
+ *
+ * A rendering test cannot catch this cheaply — jsdom has no WebGL, so the map
+ * never initialises in this suite. So these assert the two decisions that made
+ * it wrong, at the only place they are visible: the source.
+ */
+const RAW = readFileSync(join(__dirname, '..', 'components', 'MapView.tsx'), 'utf8');
+
+/**
+ * Comments stripped. The docblock in MapView explains the exact mistake these
+ * tests ban, quoting it verbatim — so matching the raw file fails the check for
+ * describing why the check exists.
+ */
+const SRC = RAW.split('\n')
+  .filter((l) => {
+    const t = l.trim();
+    return !t.startsWith('//') && !t.startsWith('*') && !t.startsWith('/*');
+  })
+  .join('\n');
+
+describe('basemap licensing', () => {
+  it('adds an attribution control explicitly', () => {
+    expect(
+      /new AttributionControl\(/.test(SRC),
+      'no AttributionControl is constructed — the map would render with no credit, ' +
+        'which breaches both the OpenFreeMap and OpenStreetMap terms',
+    ).toBe(true);
+  });
+
+  it('never leaves the attribution control to an ambiguous default', () => {
+    expect(
+      /attributionControl:\s*undefined/.test(SRC),
+      'attributionControl is set to undefined again — that reads as "use the default" ' +
+        'and silently renders no control at all',
+    ).toBe(false);
+  });
+
+  it('uses a basemap that is licensed for commercial use', () => {
+    // OSM's own tile servers and Esri's keyless imagery are the two the
+    // security review flagged for a lawyer. The street layer must not go back.
+    expect(SRC).toContain('tiles.openfreemap.org');
+    expect(
+      /tile\.openstreetmap\.org/.test(SRC),
+      "OSM's public tile servers are back in the street layer — their usage policy " +
+        'does not cover a commercial app',
+    ).toBe(false);
+  });
+
+  it('flips lat/lng at every crossing into MapLibre', () => {
+    // The app and src/data speak [lat, lng]; MapLibre speaks [lng, lat]. A
+    // transposition still renders a beautiful map, of the Indian Ocean.
+    expect(SRC).toContain('[center[1], center[0]]');
+    expect(SRC).toContain('[loc.lng, loc.lat]');
+  });
+});

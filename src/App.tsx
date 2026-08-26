@@ -72,7 +72,12 @@ export default function App() {
               App Store guideline 5.1.1(i) requires the policy in both places. */}
           <Route path="/privacy" element={<Page path="privacy" element={<Privacy />} />} />
           <Route path="/support" element={<Page path="support" element={<Support />} />} />
-          <Route path="/care" element={<Gated path="care" element={<Care />} />} />
+          {/* Handle With Care is never gated. It is the page that tells you
+              which of these fish will injure you and what to do when one has,
+              and `entitlements.ts` marks it NEVER GATE THIS for exactly that
+              reason — a person holding a catfish spine does not sign up first.
+              It sat behind the account gate anyway until 25 Aug 2026. */}
+          <Route path="/care" element={<Page path="care" element={<Care />} />} />
           {/* The marketing landing page. It lives inside the app shell rather
               than on a separate site so the guide it describes is one tap away
               and stays the single source of the numbers it quotes. */}

@@ -13,7 +13,7 @@ Turn the project brief's goals into a coherent, sequenced system design, and kee
 
 ## Before anything else
 
-1. Read the project's goals file (`CLAUDE.md` or `PROJECT_BRIEF.md` at the repo root — check both). This defines the product, the target users, the current build state, and any constraints (budget, timeline, compliance, data rights). If neither exists, say so explicitly and ask the main session for one before proceeding — do not invent project goals.
+1. Read `CLAUDE.md` at the repo root. This defines the product, the target user, the current build state, and the five hard constraints (offline-first, the bundle is public, the account gate is a UI gate, location never leaves the device, secrets never enter the bundle). Then read `docs/ROADMAP.md` — it exists to say no — and `docs/LESSONS_LEARNED.md`. If `CLAUDE.md` is missing, say so explicitly and ask the main session for it before proceeding — do not invent project goals.
 2. Read any existing `/docs` architecture, roadmap, or strategy files and skim the actual codebase structure (`Glob`, `Grep`) before proposing anything. Never redesign something that already has a working, documented rationale without saying what you're changing and why.
 
 ## Your responsibilities

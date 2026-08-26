@@ -1,0 +1,278 @@
+import { useEffect, useRef } from 'react';
+// maplibre-gl v6 has no default export. `Map` is aliased because the global
+// `Map` constructor is a real thing and shadowing it here would be a trap.
+import {
+  Map as MapLibreMap,
+  Marker,
+  Popup,
+  NavigationControl,
+  AttributionControl,
+  LngLatBounds,
+} from 'maplibre-gl';
+import type { IControl, StyleSpecification } from 'maplibre-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
+import type { Location } from '../data';
+
+/**
+ * OpenFreeMap's vector basemap. MIT-licensed, explicitly free for commercial
+ * use, no API key, no registration, no rate limit, and self-hostable if this
+ * ever needs to stop depending on someone else's server.
+ *
+ * It replaced raster tiles from OSM's own servers, which were the reason the
+ * map looked soft: there is no `@2x` endpoint for them, so on a phone the
+ * labels were always resampled. Vector tiles are drawn at the device's real
+ * pixel ratio, so they are sharp at every zoom and could be themed to the
+ * brand later without changing provider.
+ *
+ * The licensing was the other half. OSM's Tile Usage Policy targets low-volume,
+ * OSM-related use rather than a commercial app heading for the app stores; both
+ * that and the Esri layer below were flagged for a lawyer in
+ * `docs/review/security-privacy-review.md`. This half is now settled.
+ */
+const STREET_LIGHT = 'https://tiles.openfreemap.org/styles/positron';
+/** The dark counterpart. A white map slab in a dark app is the tell that
+ *  nobody looked at it on a phone at night, which is when this app is used. */
+const STREET_DARK = 'https://tiles.openfreemap.org/styles/fiord';
+
+/**
+ * ATTRIBUTION IS A LICENCE CONDITION, NOT A COURTESY.
+ *
+ * OpenFreeMap requires the credit "OpenFreeMap © OpenMapTiles Data from
+ * OpenStreetMap", and the OSM data beneath it requires crediting OSM
+ * contributors. The style JSON carries that string and MapLibre renders it —
+ * but only if an AttributionControl actually exists.
+ *
+ * It did not. Passing `attributionControl: undefined` (meaning "use the
+ * default") silently produced no control at all, so the first build of this
+ * map shipped with no credit anywhere on screen. That is a licence breach that
+ * looks exactly like a working map, which is why the control is now added
+ * explicitly and asserted in `src/test/map.attribution.test.ts`.
+ */
+
+const isDark = () =>
+  typeof document !== 'undefined' && document.documentElement.dataset.theme !== 'light';
+
+const streetStyle = () => (isDark() ? STREET_DARK : STREET_LIGHT);
+
+/**
+ * Satellite is STILL Esri World Imagery, used with no key and no agreement —
+ * unchanged, and still the open licensing question. OpenFreeMap has no imagery
+ * to replace it with. `docs/review/map-vendor-options.md` proposes NAIP (US
+ * federal, public domain) as the fix; until someone does that work this layer
+ * carries the same risk it always did.
+ */
+const SATELLITE_STYLE: StyleSpecification = {
+  version: 8,
+  sources: {
+    esri: {
+      type: 'raster',
+      tiles: [
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      ],
+      tileSize: 256,
+      maxzoom: 19,
+      attribution: 'Esri World Imagery',
+    },
+  },
+  layers: [{ id: 'esri', type: 'raster', source: 'esri' }],
+};
+
+interface Props {
+  locations: Location[];
+  /** Fixed center/zoom (mini map); otherwise fits bounds of the locations. */
+  center?: [number, number];
+  zoom?: number;
+  mini?: boolean;
+  /** Start on the Esri imagery layer — the satellite context a spot needs. */
+  satellite?: boolean;
+  /**
+   * `false` turns the map into a still image: no dragging, zooming, layer
+   * switch or popups. Used where the map is a backdrop rather than a tool (the
+   * location hero band), so it cannot swallow a scroll gesture on a phone.
+   *
+   * A still map also drops the attribution control, because a scrim and the
+   * page's own type sit on top of it. Anything passing `interactive={false}`
+   * must therefore credit the tile source in its own visible caption.
+   */
+  interactive?: boolean;
+  className?: string;
+  /** Client-side navigation for a pin. Falls back to a plain link. */
+  onSelect?: (slug: string) => void;
+  /** Accessible name for the map region. */
+  label?: string;
+}
+
+/** A brand pin, built as a DOM element so it survives a style swap. */
+function pinElement(name: string, region: string): HTMLElement {
+  const pin = document.createElement('div');
+  pin.className = 'mappin';
+  pin.setAttribute('role', 'img');
+  pin.setAttribute('aria-label', `${name}, ${region}`);
+  return pin;
+}
+
+/**
+ * MapLibre GL map with an OpenFreeMap vector basemap and an Esri World Imagery
+ * satellite layer. Every pin opens a popup that links to that location's page.
+ *
+ * Coordinates: this component's props are `[lat, lng]`, matching the rest of
+ * the app and `src/data`. MapLibre is `[lng, lat]`. Every crossing is flipped
+ * explicitly at the call, because a silent transposition puts all 25 spots in
+ * the Indian Ocean and still renders a perfectly good map.
+ */
+export default function MapView({
+  locations,
+  center,
+  zoom,
+  mini,
+  satellite,
+  interactive = true,
+  className,
+  onSelect,
+  label,
+}: Props) {
+  const el = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<MapLibreMap | null>(null);
+  const markersRef = useRef<Marker[]>([]);
+  const themeWatchRef = useRef<MutationObserver | null>(null);
+  // Which layer is showing, readable from the theme observer above.
+  const onSatRef = useRef(Boolean(satellite));
+  // Keep the latest callback without re-running the marker effect.
+  const selectRef = useRef(onSelect);
+  selectRef.current = onSelect;
+
+  useEffect(() => {
+    if (!el.current || mapRef.current) return;
+    try {
+      const map = new MapLibreMap({
+        container: el.current,
+        style: satellite ? SATELLITE_STYLE : streetStyle(),
+        center: center ? [center[1], center[0]] : [-82.49, 27.18],
+        zoom: zoom ?? 9,
+        interactive,
+        attributionControl: false,
+        scrollZoom: !mini && interactive,
+        // The reader is holding a phone in one hand; a map that tips into 3D
+        // because his thumb dragged is a bug, not a feature.
+        pitchWithRotate: false,
+        dragRotate: false,
+        touchZoomRotate: interactive,
+      });
+
+      if (interactive) {
+        map.addControl(
+          // The style JSON already carries the compliant credit ("OpenFreeMap
+          // © OpenMapTiles Data from OpenStreetMap"); ATTRIBUTION above is kept
+          // as the documented requirement and the fallback if that ever stops
+          // arriving. Passing both printed it twice.
+          new AttributionControl({ compact: true }),
+          'bottom-right',
+        );
+        map.addControl(new NavigationControl({ showCompass: false }), 'top-left');
+        map.touchZoomRotate.disableRotation();
+
+        // Street/satellite toggle. MapLibre ships no layer switcher, and the
+        // Leaflet one this replaced was a real control the reader used.
+        const toggle = document.createElement('button');
+        toggle.type = 'button';
+        toggle.className = 'maptoggle';
+        toggle.textContent = satellite ? 'Street' : 'Satellite';
+        toggle.addEventListener('click', () => {
+          const onSat = !onSatRef.current;
+          onSatRef.current = onSat;
+          map.setStyle(onSat ? SATELLITE_STYLE : streetStyle());
+          toggle.textContent = onSat ? 'Street' : 'Satellite';
+        });
+        const holder = document.createElement('div');
+        holder.className = 'maplibregl-ctrl maplibregl-ctrl-group';
+        holder.appendChild(toggle);
+        map.addControl(
+          { onAdd: () => holder, onRemove: () => holder.remove() } as IControl,
+          'top-right',
+        );
+      }
+
+      // Follow a theme change without a reload. Without this, toggling to
+      // light leaves a dark map sitting in a light page until the next mount.
+      const themeWatch = new MutationObserver(() => {
+        if (!onSatRef.current) map.setStyle(streetStyle());
+      });
+      themeWatch.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme'],
+      });
+      themeWatchRef.current = themeWatch;
+
+      mapRef.current = map;
+    } catch {
+      // Map init can fail in non-browser environments (tests); the rest of
+      // the page must still render.
+    }
+    return () => {
+      themeWatchRef.current?.disconnect();
+      themeWatchRef.current = null;
+      mapRef.current?.remove();
+      mapRef.current = null;
+      markersRef.current = [];
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    for (const m of markersRef.current) m.remove();
+    markersRef.current = [];
+
+    for (const loc of locations) {
+      const marker = new Marker({
+        element: pinElement(loc.name, loc.region),
+      }).setLngLat([loc.lng, loc.lat]);
+
+      // A still map's pin is decoration: there is nothing to open, and a popup
+      // the reader cannot dismiss by dragging would be a trap.
+      if (interactive) {
+        const popup = document.createElement('div');
+        const title = document.createElement('b');
+        title.textContent = loc.name;
+        const meta = document.createElement('div');
+        meta.className = 'mut xs';
+        meta.textContent = `${loc.region} · ${loc.structures.join(' · ')}`;
+        const open = document.createElement('a');
+        open.href = `${import.meta.env.BASE_URL}locations/${loc.slug}`;
+        open.textContent = 'Open location page';
+        open.addEventListener('click', (e) => {
+          const go = selectRef.current;
+          if (!go) return;
+          e.preventDefault();
+          go(loc.slug);
+        });
+        popup.append(title, meta, open);
+        marker.setPopup(new Popup({ offset: 18 }).setDOMContent(popup));
+      }
+
+      marker.addTo(map);
+      markersRef.current.push(marker);
+    }
+
+    if (!center && locations.length > 0) {
+      const bounds = new LngLatBounds();
+      for (const l of locations) bounds.extend([l.lng, l.lat]);
+      map.fitBounds(bounds, { padding: 30, maxZoom: 12, animate: false });
+    }
+
+    // Sizing inside newly-laid-out containers.
+    const t = setTimeout(() => map.resize(), 50);
+    return () => clearTimeout(t);
+  }, [locations, center, mini, interactive]);
+
+  return (
+    <div
+      ref={el}
+      className={`map${className ? ` ${className}` : ''}`}
+      role="region"
+      aria-label={label ?? 'Map of fishing locations'}
+    />
+  );
+}

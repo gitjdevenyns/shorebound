@@ -20,6 +20,16 @@ const FUNCTIONS_DIR = join(__dirname, '..', '..', 'supabase', 'functions');
 
 const REQUIRED = ['authorization', 'x-client-info', 'apikey', 'content-type'];
 
+/**
+ * The origin the app is actually served from. A function that allowlists
+ * origins has to name this one, or the browser blocks the preflight and the
+ * feature is dead on the live site while every test still passes — which is
+ * exactly what happened to photo ID when hosting moved off GitHub Pages. The
+ * header list above was guarded because it broke once; the origin list was
+ * not, because it hadn't yet.
+ */
+const PRODUCTION_ORIGIN = 'https://shorebound.fish';
+
 const functions = existsSync(FUNCTIONS_DIR)
   ? readdirSync(FUNCTIONS_DIR, { withFileTypes: true })
       .filter((e) => e.isDirectory())
@@ -53,5 +63,18 @@ describe('Edge Function CORS', () => {
         ).toBe(true);
       }
     });
+
+    // Not every function allowlists origins. The ones that do must include the
+    // origin the app is served from.
+    const originList = source.match(/ALLOWED_ORIGINS\s*=\s*\[([\s\S]*?)\]/)?.[1];
+    if (originList) {
+      it(`${name} allows the production origin`, () => {
+        expect(
+          originList.includes(PRODUCTION_ORIGIN),
+          `${name} allowlists origins but omits ${PRODUCTION_ORIGIN} — the browser ` +
+            `will block the preflight and the feature is dead on the live site`,
+        ).toBe(true);
+      });
+    }
   }
 });
