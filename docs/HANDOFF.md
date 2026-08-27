@@ -14,20 +14,54 @@ https://shorebound.fish
    → turn **Confirm email** off (instant, unblocks everything), then configure
    SMTP properly (`smtp.office365.com:587`, or Resend). Watch for Microsoft
    disabling SMTP AUTH by default on newer tenants.
-2. **`shorebound.app` returns 525** — SSL handshake failure, never provisioned.
-   `shorebound.fish` is fine. Cloudflare → SSL/TLS → Full (strict), and confirm
-   the domain is attached to the Worker rather than sitting as a bare DNS
-   record.
-3. **`gofishyoself.com` redirect not set up.** Cloudflare → Rules → Redirect
-   Rules → hostname `gofishyoself.com` → 301 to
-   `concat("https://shorebound.fish", http.request.uri.path)`. Preserves path
-   and UTM parameters.
+2. ~~**`shorebound.app` returns 525.**~~ **Fixed 26 August 2026.** The cause
+   was not SSL: the zone's only Worker route was `*.shorebound.app/*`, which
+   matches `www` but not the apex, so bare-domain requests fell through to
+   GoDaddy's parking IPs and failed the TLS handshake. Full (strict) alone
+   would have turned the 525 into a 526. `shorebound.app` and
+   `www.shorebound.app` now 301 to `shorebound.fish`, path and query
+   preserved; the stale Worker route and the parking A records are deleted,
+   the origin is a proxied `AAAA 100::`, and SSL is Full (strict).
+3. ~~**`gofishyoself.com` redirect not set up.**~~ **Done 26 August 2026.**
+   `gofishyoself.com` and `gofishyoself.app` are Cloudflare zones, the
+   nameservers were moved to `darl.ns.cloudflare.com` /
+   `lovisa.ns.cloudflare.com` (the same pair all four domains use), and both
+   zones went active. Each 301s to `shorebound.fish` with path and query
+   preserved, verified at the edge. `gofishyoself.app` resolves already;
+   `gofishyoself.com` was still serving GoDaddy's parking page from cached
+   delegation at the time of writing and will follow as the old NS records
+   expire. `gofishyoself.com`'s GoDaddy MX, SPF and DMARC imported intact.
 4. **Pricing for shop listings** is `[PRICING — OWNER TO SET]` in
    `marketing/sales/two-pager.md`. Needs a number, a term, whether a founding
    rate exists, and whether a spot-page sponsor card is priced separately from
    a directory listing.
 5. **The raise figure on slide 16** of the pitch deck is deliberately blank.
 6. **Twelve held review items** need phone calls. See `docs/REVIEW_DECISIONS.md`.
+
+## Mail is not set up on any of these domains
+
+`support@shorebound.app` is the support address in `src/data/contact.ts:13`,
+on the Privacy and Support pages, and in the `refresh-conditions` NWS
+`User-Agent`. That domain has **no MX records at all**, so it receives
+nothing today. The owner's plan is to add the domains to the Office 365
+subscription, which is not done yet.
+
+Order matters: **flip the nameservers to Cloudflare first, then add the
+domains in Microsoft 365.** Microsoft's automatic setup runs through
+GoDaddy's Domain Connect and stops working once the nameservers move, so the
+records will have to be entered in Cloudflare by hand.
+
+Two traps when that happens:
+
+- `gofishyoself.com` already carries a GoDaddy SPF record
+  (`v=spf1 include:spf.em.secureserver.net ?all`). It must be **merged** with
+  the Microsoft one into a single record — two SPF TXT records on one name is
+  a hard fail, and the symptom is mail quietly going to spam.
+- Its two `secureserver.net` MX records must be **deleted**, not demoted to
+  backup priority, or some mail lands in a GoDaddy mailbox nobody reads.
+
+`shorebound.app`'s `_dmarc` still points its reports at `onsecureserver.net`
+and should be repointed or dropped.
 
 ## Cleanup owed
 

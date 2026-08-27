@@ -127,6 +127,19 @@ bridges, so it would misdescribe the product from day one.
 Buy `shorebound.app` (primary), `.fish` and `.co` defensively. Ask a broker
 about `shorebound.com` — a registered domain serving a 404 is often gettable.
 
+> **Overtaken by the build, 26 August 2026.** This section still reads
+> `.app` as primary; it is not. The app shipped on **`shorebound.fish`**,
+> which is what `CLAUDE.md`, the Worker custom domain and every outward-facing
+> string now point at. As of 26 August `shorebound.app`, `www.shorebound.app`,
+> `gofishyoself.com` and `gofishyoself.app` all 301 to `shorebound.fish`,
+> path and query preserved.
+>
+> The one live consequence of the older reading is `support@shorebound.app`
+> in `src/data/contact.ts:13` — a support address on a domain that is now a
+> redirect and has no mailbox. Decide deliberately whether support mail lives
+> at `.app` or moves to `.fish` before the App Store asks for a working
+> support contact; do not let it default by accident a second time.
+
 Then use the descriptor everywhere, verbatim:
 
 - **Store title:** Shorebound — Shore Fishing Guide

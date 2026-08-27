@@ -84,3 +84,34 @@ why.
 > (`d95621cf-6081-4b74-bfbf-7016df48254d`). Brand is settled: Bricolage
 > Grotesque, lime `#8dff00`, navy `#031530`, the snook inversion mark in
 > `public/assets/icon-mark.svg`. Do not re-open the aesthetic.
+
+---
+
+## Domains and DNS — changed 26 August 2026
+
+All four domains are now Cloudflare zones on one account, sharing the
+nameserver pair `darl.ns.cloudflare.com` / `lovisa.ns.cloudflare.com`.
+
+| Domain | State |
+|---|---|
+| `shorebound.fish` | **Canonical.** Worker custom domain, serves the app. |
+| `shorebound.app` | 301 to `shorebound.fish`. Was the 525; fixed. |
+| `gofishyoself.com` | Zone added, 301 rule set, `pending` nameservers. |
+| `gofishyoself.app` | Zone added, 301 rule set, `pending` nameservers. |
+
+The `shorebound.app` 525 was a routing bug, not an SSL one — the zone's only
+Worker route was `*.shorebound.app/*`, which does not match the apex. A
+side effect was that `www.shorebound.app` served the **whole app as a second
+PWA origin**, with its own service-worker cache, its own `localStorage` and
+its own auth session, while only one hostname was in Supabase's redirect
+allowlist. That route is deleted.
+
+**Owner action outstanding:** set the GoDaddy nameservers for the two
+`gofishyoself` domains. Their redirects go live on propagation.
+
+`.app` is an HSTS-preloaded TLD, so plain HTTP is refused by the browser
+before a redirect can run. Both `.app` domains must stay proxied Cloudflare
+hostnames with Universal SSL; a registrar-level forward will not work.
+
+See `docs/HANDOFF.md` for the Microsoft 365 mail sequencing and the two SPF
+and MX traps that come with it.
