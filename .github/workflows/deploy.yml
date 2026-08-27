@@ -17,9 +17,12 @@
 # The build works fine without them; the app treats Supabase as optional.
 name: Deploy to GitHub Pages
 
+# Manual only. This used to fire on every push to main, which is how the
+# tests, typecheck and secret grep ended up gating a target nothing serves
+# while production shipped past them unchecked. Those checks now live in
+# ci.yml. This stays because it works again the moment a custom domain is
+# attached to GitHub Pages — but it no longer pretends to be the gate.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:

@@ -1,0 +1,108 @@
+# The checks that must pass before anything reaches shorebound.fish.
+#
+# WHY THIS EXISTS SEPARATELY FROM deploy.yml
+#
+# deploy.yml runs the same checks and then publishes to GitHub Pages — a target
+# nothing has served since hosting moved to Cloudflare. Three independent
+# reviews (architecture C1, security GV-1, QA I7) landed on the same finding:
+# the tests, the typecheck and the secret grep were all gating a dead artifact,
+# while production shipped through Cloudflare's Git integration with nothing in
+# front of it. README.md claimed CI failed the deploy on a leaked key. It did
+# not, and could not.
+#
+# WHAT THIS DOES AND DOES NOT DO
+#
+# This workflow reports status on every push to main and every pull request.
+# It does NOT by itself stop a red commit from deploying: Cloudflare's Git
+# integration watches the branch, not this workflow. Making it a true gate
+# needs one of:
+#
+#   a) branch protection on main requiring this check, so main only ever
+#      receives reviewed, green code; or
+#   b) turning off the Cloudflare Git integration and deploying with
+#      `wrangler deploy` from a job that runs after this one, which needs a
+#      CLOUDFLARE_API_TOKEN repository secret.
+#
+# Both are owner decisions and neither is done. Until one is, this is an alarm,
+# not a lock — and saying so here is the point, because the last version of
+# this claim was believed for weeks.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Fail fast on a broken suite before spending time on a bundle we would
+      # throw away.
+      - name: Tests
+        run: npm test
+
+      - name: Build (typecheck + vite build)
+        run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL || secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+      # The anon key is publishable and expected in the bundle. The service role
+      # key and the Anthropic key are server-only — the service role lives in the
+      # Edge Function runtime, ANTHROPIC_API_KEY is a Supabase Function secret.
+      # Neither has any reason to appear in a client build, so any sighting is a
+      # leak.
+      #
+      # The previous pattern was service_role|SUPABASE_SERVICE_ROLE_KEY|
+      # ANTHROPIC|sk-ant-, which cannot match the new-format Supabase secret key
+      # (`sb_secret_…`) that is actually in .env.local. A grep that cannot match
+      # the key it guards is worse than none, because it reports success.
+      #
+      # But `sb_secret_` cannot be matched as a bare substring either: the
+      # Supabase client library ships the literal in its own key-format check —
+      #   e.startsWith(`sb_publishable_`) || e.startsWith(`sb_secret_`)
+      # so a substring match fails every build forever, and a guard that cries
+      # wolf gets switched off. Both key families are therefore matched by SHAPE
+      # (prefix plus a plausible key body), while the three tokens that appear
+      # zero times in a clean bundle stay as bare matches.
+      #
+      # Deliberately NOT matching a generic JWT: the publishable anon key is
+      # expected in the bundle, and if it is ever issued in the legacy JWT
+      # format a catch-all would fail the build on the one key that belongs there.
+      - name: Assert no server-only secret reached the bundle
+        run: |
+          PATTERN='service_role|SUPABASE_SERVICE_ROLE_KEY|ANTHROPIC|sb_secret_[A-Za-z0-9_-]{12,}|sk-ant-[A-Za-z0-9_-]{12,}'
+          if grep -rlE "$PATTERN" dist/ ; then
+            echo "::error title=Secret leak::A server-only key reached dist/. The files above matched $PATTERN."
+            exit 1
+          fi
+          echo "Clean: no service-role, Supabase secret-key or Anthropic key in dist/."
+
+      # The reader bundle and the owner console are separate entry points, and
+      # the guide has to work with no connection. Both are asserted by the suite
+      # above; this reports the precache size so a jump is visible in the log
+      # rather than discovered on a phone at a boat ramp.
+      - name: Report precache size
+        run: |
+          if [ -f dist/sw.js ]; then
+            echo "precache entries: $(grep -o 'revision' dist/sw.js | wc -l)"
+            du -sh dist | sed 's/^/dist total: /'
+          fi
