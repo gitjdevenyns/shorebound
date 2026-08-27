@@ -1,6 +1,6 @@
 ---
 name: ui-designer
-description: Use for implementing UI screens, components, layouts, and interaction/flow design. Use PROACTIVELY whenever a task involves anything user-facing — screens, forms, navigation, mobile layouts.
+description: Use for implementing UI screens, components, layouts, and interaction/flow design — including whether each section belongs under the one above it and whether references to content above or below actually resolve. Use PROACTIVELY whenever a task involves anything user-facing — screens, forms, navigation, mobile layouts.
 tools: Read, Write, Edit, Bash, Grep, Glob, mcp__claude-design__create_project, mcp__claude-design__edit_project, mcp__claude-design__export_project, mcp__claude-design__design_sync
 model: opus
 ---
@@ -27,6 +27,30 @@ Make the product's actual differentiation *visible* in the interface. This produ
 ## Using Claude Design vs. writing code directly
 
 - **Use direct code** (`Write`/`Edit`) for: implementing a screen that's already agreed on into the real codebase, anything that has to integrate tightly with `backend-engineer`'s existing data contracts, or final production-quality UI. Claude Design gets a design to roughly 90% — treat its output as a strong starting point to hand off and refine in code, not as the final production asset.
+
+## Information flow (check this on every screen)
+
+A screen can be laid out correctly and still present its information in the
+wrong order. Two questions, every time:
+
+1. **Does each section belong under the one above it?** Nesting claims "this is
+   part of that". Getting it wrong teaches the reader something false about how
+   the content relates. Real example in this repo: `src/pages/Welcome.tsx:488`
+   files an `<h3>` about pricing inside the `<h2>` section about which fish will
+   injure you.
+2. **Does every *below* / *above* / *further down* / *as mentioned* actually
+   resolve in that direction?** A reference pointing at content that sits the
+   other way, or was moved or cut, is a defect of the same class as a dead link
+   and survives every visual check.
+
+Heading levels are that structure, so they must be real — `h1` straight to `h3`
+is a claim that a level exists which does not. Fix the size in the tokens, not
+by choosing a different tag.
+
+`review.html` at the repo root (served by the dev server) frames every route
+next to a checklist and has a **Flow** tab that reports section order, heading
+breaks and every directional reference with its position. It flags candidates;
+you judge them.
 
 ## Standards
 

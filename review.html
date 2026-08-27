@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="robots" content="noindex,nofollow" />
+<title>Shorebound — page review</title>
+<style>
+  :root{
+    --navy:#031530; --navy-2:#07203f; --ink:#0a0f18;
+    --line:#1d3556; --text:#e8eef7; --dim:#8ba3c4; --lime:#8dff00; --amber:#ffb020; --red:#ff5c5c;
+    --panel:420px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{
+    background:var(--ink); color:var(--text); overflow:hidden;
+    font:14px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  button,select,input,textarea{font:inherit;color:inherit}
+  #bar{
+    display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+    padding:8px 12px; background:var(--navy); border-bottom:1px solid var(--line);
+  }
+  #bar .grow{flex:1}
+  .brand{font-weight:700;letter-spacing:-.01em;margin-right:4px}
+  .brand span{color:var(--lime)}
+  button,select{
+    background:var(--navy-2); border:1px solid var(--line); border-radius:6px;
+    padding:5px 10px; cursor:pointer;
+  }
+  button:hover,select:hover{border-color:var(--lime)}
+  button.on{background:var(--lime); color:#04140a; border-color:var(--lime); font-weight:600}
+  #split{display:flex; height:calc(100% - 45px)}
+  #split.flip{flex-direction:row-reverse}
+  #panel{
+    width:var(--panel); min-width:300px; max-width:60vw; flex:none; display:flex; flex-direction:column;
+    background:var(--navy); border-right:1px solid var(--line); overflow:hidden;
+  }
+  #split.flip #panel{border-right:none;border-left:1px solid var(--line)}
+  #grip{width:5px;flex:none;cursor:col-resize;background:var(--line)}
+  #grip:hover{background:var(--lime)}
+  #stage{flex:1; display:flex; justify-content:center; overflow:auto; background:#05080d; padding:10px}
+  #frame{width:100%; height:100%; border:1px solid var(--line); border-radius:8px; background:#fff}
+  /* panel innards */
+  .tabs{display:flex;border-bottom:1px solid var(--line);flex:none}
+  .tabs button{flex:1;border:0;border-radius:0;background:transparent;padding:9px;color:var(--dim)}
+  .tabs button.on{background:transparent;color:var(--lime);box-shadow:inset 0 -2px 0 var(--lime);font-weight:600}
+  .pane{flex:1;overflow:auto;padding:10px 12px;display:none}
+  .pane.on{display:block}
+  .group{margin:12px 0 4px;color:var(--dim);font-size:11px;letter-spacing:.09em;text-transform:uppercase}
+  .row{
+    display:flex;align-items:center;gap:8px;padding:5px 7px;border-radius:6px;cursor:pointer;
+    border:1px solid transparent;
+  }
+  .row:hover{background:var(--navy-2)}
+  .row.cur{background:var(--navy-2);border-color:var(--lime)}
+  .row .path{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}
+  .dot{width:9px;height:9px;border-radius:50%;flex:none;background:#2b415f}
+  .dot.done{background:var(--lime)} .dot.flag{background:var(--red)} .dot.part{background:var(--amber)}
+  h2{font-size:15px;margin:2px 0 2px}
+  .sub{color:var(--dim);font-size:12px;margin-bottom:10px;font-family:ui-monospace,Menlo,monospace}
+  .chk{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:1px solid #12253f}
+  .chk input{margin-top:3px;width:16px;height:16px;accent-color:var(--lime);flex:none}
+  .chk label{flex:1;cursor:pointer}
+  .chk .why{display:block;color:var(--dim);font-size:12px;margin-top:2px}
+  textarea{width:100%;min-height:80px;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px;resize:vertical}
+  .finding{border-left:3px solid var(--amber);background:#10203a;padding:7px 9px;border-radius:0 6px 6px 0;margin:7px 0;font-size:13px}
+  .finding.bad{border-left-color:var(--red)}
+  .finding.ok{border-left-color:var(--lime)}
+  .finding code{background:#04101f;padding:1px 4px;border-radius:3px;font-size:12px}
+  .outline{font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.7}
+  .outline div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--dim)}
+  .outline b{color:var(--text);font-weight:600}
+  .bad-text{color:var(--red)}
+  .foot{display:flex;gap:8px;padding:9px 12px;border-top:1px solid var(--line);flex:none;background:var(--navy)}
+  .foot button{flex:1}
+  .prog{color:var(--dim);font-size:12px;padding:0 12px 8px}
+</style>
+</head>
+<body>
+
+<header id="bar">
+  <div class="brand">Shorebound <span>review</span></div>
+  <select id="base" title="Which build to review">
+    <option value="https://shorebound.fish">shorebound.fish (live — display only)</option>
+  </select>
+  <button data-w="390">390</button>
+  <button data-w="768">768</button>
+  <button data-w="1280">1280</button>
+  <button data-w="0" class="on">full</button>
+  <div class="grow"></div>
+  <button id="prev" title="Previous page (k)">&larr;</button>
+  <button id="next" title="Next page (j)">&rarr;</button>
+  <button id="reload" title="Reload the frame (r)">reload</button>
+  <button id="pop" title="Open this page in a new tab">open ↗</button>
+  <button id="swap" title="Swap which side the site is on">swap sides</button>
+</header>
+
+<main id="split">
+  <aside id="panel">
+    <div class="tabs">
+      <button data-tab="list" class="on">Pages</button>
+      <button data-tab="check">Checklist</button>
+      <button data-tab="flow">Flow</button>
+    </div>
+
+    <div class="pane on" id="pane-list"></div>
+
+    <div class="pane" id="pane-check">
+      <h2 id="c-title">—</h2>
+      <div class="sub" id="c-path"></div>
+      <div id="c-checks"></div>
+      <p class="group">Notes</p>
+      <textarea id="c-note" placeholder="What is wrong with this page, in your words."></textarea>
+      <p class="group">Verdict</p>
+      <div style="display:flex;gap:8px">
+        <button data-verdict="done" style="flex:1">Passes</button>
+        <button data-verdict="flag" style="flex:1">Needs work</button>
+        <button data-verdict="" style="flex:1">Clear</button>
+      </div>
+    </div>
+
+    <div class="pane" id="pane-flow">
+      <h2>Information flow</h2>
+      <div class="sub">Reads the live DOM in the frame. Same-origin only.</div>
+      <button id="scan" style="width:100%;margin-bottom:10px">Scan this page</button>
+      <div id="flow-out"><p style="color:var(--dim)">Load a page and press Scan.</p></div>
+    </div>
+
+    <div class="prog" id="prog"></div>
+    <div class="foot">
+      <button id="export">Export report</button>
+      <button id="reset">Reset all</button>
+    </div>
+  </aside>
+  <div id="grip"></div>
+  <div id="stage"><iframe id="frame" title="site under review"></iframe></div>
+</main>
+
+<script>
+(() => {
+"use strict";
+
+const LOCATIONS = ["emerson-point","palma-sola-bay","green-bridge","bradenton-riverwalk","bridge-street-pier","longboat-pass","coquina-beach","bean-point","cortez-bridge","south-palma-sola-flats","stump-pass","englewood-beach","lemon-bay-mangroves","placida-gasparilla-sound","boca-grande-pass","weedon-island","st-pete-pier","pass-a-grille-jetty","skyway-pier-north","egmont-key","fort-de-soto-gulf-pier","fort-de-soto-bay-pier","bunces-pass-shell-key","new-pass-ken-thompson","south-lido-park"];
+const FISH = ["snook","redfish","trout","tarpon","snapper","sheepshead","ladyfish","black-drum","pompano","spanish-mackerel","jack-crevalle"];
+
+// `gated` mirrors src/App.tsx: <Gated> routes redirect a signed-out visitor to
+// /signin. If one of these renders the sign-in heading, you are reviewing the
+// gate, not the page — sign in on the dev server first.
+const PAGES = [
+  {g:"Core",       p:"/",          t:"Home", gated:true},
+  {g:"Core",       p:"/start",     t:"Start here", gated:true},
+  {g:"Core",       p:"/locations", t:"Locations index", gated:true},
+  {g:"Core",       p:"/fish",      t:"Species index", gated:true},
+  {g:"Core",       p:"/id",        t:"Identify a fish", gated:true},
+  {g:"Core",       p:"/water",     t:"Read the water", gated:true},
+  {g:"Core",       p:"/tides",     t:"Tides", gated:true},
+  {g:"Core",       p:"/rigs",      t:"Rigs", gated:true},
+  {g:"Core",       p:"/shops",     t:"Bait & tackle", gated:true},
+  {g:"Core",       p:"/care",      t:"Handle with care (never gated)", gated:false},
+  {g:"Account",    p:"/welcome",   t:"Welcome / landing", gated:false},
+  {g:"Account",    p:"/signin",    t:"Sign in", gated:false},
+  {g:"Account",    p:"/signup",    t:"Sign up", gated:false},
+  {g:"Account",    p:"/forgot",    t:"Forgot password", gated:false},
+  {g:"Account",    p:"/settings",  t:"Settings", gated:true},
+  {g:"Legal",      p:"/privacy",   t:"Privacy", gated:false},
+  {g:"Legal",      p:"/support",   t:"Support", gated:false},
+  {g:"Edge",       p:"/no-such-page", t:"404", gated:false},
+  ...LOCATIONS.map(s => ({g:"Locations", p:"/locations/"+s, t:s.replace(/-/g," "), gated:true})),
+  ...FISH.map(s => ({g:"Species", p:"/fish/"+s, t:s.replace(/-/g," "), gated:true})),
+];
+
+// The checks. Ordered so the two flow questions come first — they are the ones
+// that prompted this tool.
+const CHECKS = [
+  {id:"order",  t:"Sections are in the right order",
+   why:"Does each block belong under the one above it? Would any read better moved up or down?"},
+  {id:"refs",   t:"No reference points at something that is not there",
+   why:"Anything that says below / above / further down actually resolves in that direction."},
+  {id:"lede",   t:"The page leads with what the reader came for",
+   why:"Where to stand, which tide, what to throw. Not preamble."},
+  {id:"safety", t:"Hazards are led with, not buried",
+   why:"CLAUDE.md: safety is led with rather than buried."},
+  {id:"content",t:"Nothing stated that the research does not support",
+   why:"Never invent fishing content. An unresearched field stays empty."},
+  {id:"offline",t:"Sensible with no connection",
+   why:"Live tide/forecast/photos degrade gracefully; nothing blocks the page."},
+  {id:"voice",  t:"Voice matches CONTENT_POLICY",
+   why:"No hype, no scores on dials, reasoning shown rather than hidden."},
+  {id:"phone",  t:"Holds up at 390px",
+   why:"Read on a phone, in sun, one-handed. Switch the width above."},
+  {id:"a11y",   t:"One h1, no skipped heading levels, images have alt",
+   why:"The Flow tab checks this automatically — confirm it looks right."},
+  {id:"links",  t:"Every link and button goes where it says",
+   why:"Including the ones that leave the app."},
+];
+
+// The source list is built at runtime rather than hardcoded. Vite picks the
+// next free port when 5173 is taken, so a fixed list goes stale the moment two
+// dev servers run at once — and the origin this file was served from is the
+// only one that is *guaranteed* same-origin, which is what the Flow tab needs.
+(function seedSources(){
+  const sel = document.getElementById("base");
+  const here = location.origin;
+  if (/^https?:/.test(here)){
+    const o = document.createElement("option");
+    o.value = here;
+    o.textContent = here.replace(/^https?:\/\//, "") + " (this server — inspectable)";
+    sel.insertBefore(o, sel.firstChild);
+  }
+  sel.selectedIndex = 0;
+})();
+
+const KEY = "shorebound.review.v1";
+let state = load();
+let idx = 0;
+
+function load(){
+  try { return JSON.parse(localStorage.getItem(KEY)) || {pages:{}}; }
+  catch { return {pages:{}}; }
+}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch {} }
+function rec(p){ return state.pages[p] || (state.pages[p] = {checks:{}, note:"", verdict:""}); }
+
+const $ = s => document.querySelector(s);
+const frame = $("#frame");
+
+/* ---------- navigation ---------- */
+
+function baseUrl(){ return $("#base").value; }
+
+function go(i){
+  idx = Math.max(0, Math.min(PAGES.length - 1, i));
+  const pg = PAGES[idx];
+  frame.src = baseUrl() + pg.p;
+  $("#c-title").textContent = pg.t;
+  $("#c-path").textContent = pg.p + (pg.gated ? "   · gated" : "");
+  drawChecks();
+  drawList();
+  $("#flow-out").innerHTML = '<p style="color:var(--dim)">Press Scan once the page has loaded.</p>';
+}
+
+function drawList(){
+  const box = $("#pane-list");
+  box.innerHTML = "";
+  let group = null;
+  PAGES.forEach((pg, i) => {
+    if (pg.g !== group){
+      group = pg.g;
+      const h = document.createElement("p");
+      h.className = "group";
+      h.textContent = group;
+      box.appendChild(h);
+    }
+    const r = rec(pg.p);
+    const n = Object.values(r.checks).filter(Boolean).length;
+    const cls = r.verdict === "done" ? "done" : r.verdict === "flag" ? "flag" : n ? "part" : "";
+    const row = document.createElement("div");
+    row.className = "row" + (i === idx ? " cur" : "");
+    row.innerHTML = '<span class="dot ' + cls + '"></span>'
+      + '<span class="path"></span>'
+      + '<span style="color:var(--dim);font-size:11px">' + (n || "") + '</span>';
+    row.querySelector(".path").textContent = pg.p;
+    row.title = pg.t;
+    row.onclick = () => go(i);
+    box.appendChild(row);
+  });
+  const done = PAGES.filter(p => rec(p.p).verdict === "done").length;
+  const flag = PAGES.filter(p => rec(p.p).verdict === "flag").length;
+  $("#prog").textContent = done + " passed · " + flag + " need work · " + PAGES.length + " pages";
+}
+
+function drawChecks(){
+  const pg = PAGES[idx], r = rec(pg.p), box = $("#c-checks");
+  box.innerHTML = "";
+  CHECKS.forEach(c => {
+    const d = document.createElement("div");
+    d.className = "chk";
+    const id = "chk-" + c.id;
+    d.innerHTML = '<input type="checkbox" id="' + id + '">'
+      + '<label for="' + id + '"><span class="t"></span><span class="why"></span></label>';
+    d.querySelector(".t").textContent = c.t;
+    d.querySelector(".why").textContent = c.why;
+    const input = d.querySelector("input");
+    input.checked = !!r.checks[c.id];
+    input.onchange = () => { r.checks[c.id] = input.checked; save(); drawList(); };
+    box.appendChild(d);
+  });
+  $("#c-note").value = r.note || "";
+}
+
+/* ---------- flow analysis ---------- */
+
+// Words that make a promise about direction. If a page says "below" in its last
+// section, or "above" in its first, the promise is probably broken — which is
+// the failure the owner reported seeing on real pages.
+const FWD = /\b(below|further down|farther down|down the page|at the bottom|later on|that follows|as follows|next section|see below)\b/i;
+const BACK = /\b(above|earlier|at the top|previously|as mentioned|already covered|see above)\b/i;
+
+function scan(){
+  const out = $("#flow-out");
+  let doc;
+  try { doc = frame.contentDocument; } catch { doc = null; }
+  if (!doc || !doc.body){
+    out.innerHTML = '<div class="finding bad">Cannot read this frame.<br>'
+      + 'Cross-origin: the live site can be displayed but not inspected. '
+      + 'Switch the source to <code>localhost:5173</code> and serve this file from the same dev server '
+      + '(<code>http://localhost:5173/review.html</code>) to enable analysis.</div>';
+    return;
+  }
+
+  const parts = [];
+  const H = [...doc.querySelectorAll("h1,h2,h3,h4,h5,h6")];
+
+  // Gate check first — reviewing the sign-in page by accident wastes the pass.
+  const h1s = [...doc.querySelectorAll("h1")];
+  if (PAGES[idx].gated && h1s[0] && /sign in/i.test(h1s[0].textContent)){
+    parts.push('<div class="finding bad"><b>This is the sign-in page, not the page you chose.</b><br>'
+      + 'The account gate redirected it. Sign in on the dev server, then rescan.</div>');
+  }
+
+  // 1. Outline in document order — the raw material for "does this belong here".
+  if (H.length){
+    let o = '<p class="group">Section order</p><div class="outline">';
+    H.forEach(h => {
+      const lvl = +h.tagName[1];
+      const txt = (h.textContent || "").trim().replace(/\s+/g," ").slice(0,64);
+      o += "<div>" + "&nbsp;".repeat((lvl - 1) * 3)
+         + (lvl <= 2 ? "<b>" + esc(txt) + "</b>" : esc(txt))
+         + ' <span style="opacity:.5">h' + lvl + "</span></div>";
+    });
+    parts.push(o + "</div>");
+  } else {
+    parts.push('<div class="finding bad">No headings at all. Nothing structures this page.</div>');
+  }
+
+  // 2. Heading hygiene.
+  const probs = [];
+  if (h1s.length === 0) probs.push("No h1.");
+  if (h1s.length > 1) probs.push(h1s.length + " h1 elements — there should be one.");
+  let prev = 0;
+  H.forEach(h => {
+    const lvl = +h.tagName[1];
+    if (prev && lvl > prev + 1) probs.push("Jumps h" + prev + " → h" + lvl + " at “"
+      + (h.textContent||"").trim().slice(0,40) + "”.");
+    prev = lvl;
+  });
+  const noalt = [...doc.querySelectorAll("img")].filter(i => !i.hasAttribute("alt"));
+  if (noalt.length) probs.push(noalt.length + " image(s) with no alt attribute.");
+  const vague = [...doc.querySelectorAll("a")].filter(a =>
+    /^\s*(click here|here|read more|more|learn more|link)\s*$/i.test(a.textContent || ""));
+  if (vague.length) probs.push(vague.length + " link(s) named only “" + vague[0].textContent.trim() + "”.");
+  parts.push(probs.length
+    ? '<p class="group">Structure</p>' + probs.map(p => '<div class="finding">' + esc(p) + "</div>").join("")
+    : '<p class="group">Structure</p><div class="finding ok">One h1, no skipped levels, every image has alt.</div>');
+
+  // 3. Directional references, checked against where they actually sit.
+  const height = doc.body.scrollHeight || 1;
+  const hits = [];
+  const walk = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
+  let node;
+  while ((node = walk.nextNode())){
+    const txt = (node.textContent || "").trim();
+    if (txt.length < 8) continue;
+    const fwd = FWD.test(txt), back = BACK.test(txt);
+    if (!fwd && !back) continue;
+    const el = node.parentElement;
+    if (!el || el.closest("nav,header,footer,script,style")) continue;
+    const top = el.getBoundingClientRect().top
+      + (frame.contentWindow ? frame.contentWindow.scrollY : 0);
+    hits.push({txt: txt.replace(/\s+/g," ").slice(0,160), fwd, back, pct: Math.round(top / height * 100)});
+  }
+
+  if (!hits.length){
+    parts.push('<p class="group">Directional references</p>'
+      + '<div class="finding ok">None on this page — nothing to point the wrong way.</div>');
+  } else {
+    let o = '<p class="group">Directional references (' + hits.length + ')</p>';
+    hits.forEach(h => {
+      // A forward promise in the last fifth of the page, or a backward one in
+      // the first tenth, has very little room to be true.
+      const broken = (h.fwd && h.pct >= 80) || (h.back && h.pct <= 10);
+      o += '<div class="finding' + (broken ? " bad" : "") + '">'
+        + '<b>' + (h.fwd ? "points down" : "points up") + '</b> · at ' + h.pct + '% of the page'
+        + (broken ? ' <span class="bad-text">— little or nothing in that direction</span>' : "")
+        + '<br>“' + esc(h.txt) + '”</div>';
+    });
+    o += '<div class="finding">Each one needs an eye: the check is whether the thing it promises '
+       + 'is actually in that direction, not merely that the words exist.</div>';
+    parts.push(o);
+  }
+
+  out.innerHTML = parts.join("");
+}
+
+function esc(s){
+  return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+}
+
+/* ---------- export ---------- */
+
+function report(){
+  const when = new Date().toISOString().slice(0,16).replace("T"," ");
+  const L = ["# Shorebound page review", "", "Source: " + baseUrl(), "Generated: " + when + " UTC", ""];
+  const done = PAGES.filter(p => rec(p.p).verdict === "done");
+  const flag = PAGES.filter(p => rec(p.p).verdict === "flag");
+  const touched = PAGES.filter(p => {
+    const r = rec(p.p);
+    return r.verdict || r.note || Object.values(r.checks).some(Boolean);
+  });
+  L.push(done.length + " passed, " + flag.length + " need work, "
+    + (PAGES.length - touched.length) + " not reviewed, " + PAGES.length + " total.", "");
+
+  if (flag.length){
+    L.push("## Needs work", "");
+    flag.forEach(p => {
+      const r = rec(p.p);
+      L.push("### " + p.p + " — " + p.t, "");
+      const missed = CHECKS.filter(c => !r.checks[c.id]);
+      if (missed.length){
+        L.push("Unchecked:");
+        missed.forEach(c => L.push("- " + c.t));
+        L.push("");
+      }
+      if (r.note) L.push(r.note, "");
+    });
+  }
+
+  const noted = touched.filter(p => rec(p.p).verdict !== "flag" && rec(p.p).note);
+  if (noted.length){
+    L.push("## Notes on pages that otherwise passed", "");
+    noted.forEach(p => L.push("**" + p.p + "** — " + rec(p.p).note, ""));
+  }
+
+  const untouched = PAGES.filter(p => !touched.includes(p));
+  if (untouched.length){
+    L.push("## Not reviewed", "");
+    untouched.forEach(p => L.push("- " + p.p));
+    L.push("");
+  }
+  return L.join("\n");
+}
+
+/* ---------- wiring ---------- */
+
+$("#pane-list").addEventListener("click", () => {});
+document.querySelectorAll(".tabs button").forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("on", x === b));
+    document.querySelectorAll(".pane").forEach(p => p.classList.toggle("on", p.id === "pane-" + b.dataset.tab));
+  };
+});
+
+document.querySelectorAll("#bar button[data-w]").forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll("#bar button[data-w]").forEach(x => x.classList.toggle("on", x === b));
+    const w = +b.dataset.w;
+    frame.style.width = w ? w + "px" : "100%";
+  };
+});
+
+document.querySelectorAll("#pane-check button[data-verdict]").forEach(b => {
+  b.onclick = () => { rec(PAGES[idx].p).verdict = b.dataset.verdict; save(); drawList(); };
+});
+
+$("#c-note").oninput = e => { rec(PAGES[idx].p).note = e.target.value; save(); drawList(); };
+$("#base").onchange = () => go(idx);
+$("#next").onclick = () => go(idx + 1);
+$("#prev").onclick = () => go(idx - 1);
+$("#reload").onclick = () => go(idx);
+$("#pop").onclick = () => window.open(baseUrl() + PAGES[idx].p, "_blank");
+$("#swap").onclick = () => $("#split").classList.toggle("flip");
+$("#scan").onclick = scan;
+
+$("#export").onclick = async () => {
+  const md = report();
+  try { await navigator.clipboard.writeText(md); } catch {}
+  const blob = new Blob([md], {type:"text/markdown"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "page-review.md";
+  a.click();
+  URL.revokeObjectURL(a.href);
+};
+
+$("#reset").onclick = () => {
+  if (!confirm("Erase every check, note and verdict?")) return;
+  state = {pages:{}}; save(); go(idx);
+};
+
+// Drag the divider.
+(() => {
+  let on = false;
+  $("#grip").addEventListener("mousedown", e => { on = true; e.preventDefault(); });
+  addEventListener("mouseup", () => on = false);
+  addEventListener("mousemove", e => {
+    if (!on) return;
+    const flip = $("#split").classList.contains("flip");
+    const w = flip ? innerWidth - e.clientX : e.clientX;
+    document.documentElement.style.setProperty("--panel", Math.max(300, Math.min(innerWidth * .6, w)) + "px");
+  });
+})();
+
+addEventListener("keydown", e => {
+  if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+  if (e.key === "j") go(idx + 1);
+  if (e.key === "k") go(idx - 1);
+  if (e.key === "r") go(idx);
+  if (e.key === "s") scan();
+  if (/^[1-9]$/.test(e.key)){
+    const c = CHECKS[+e.key - 1];
+    if (c){ const r = rec(PAGES[idx].p); r.checks[c.id] = !r.checks[c.id]; save(); drawChecks(); drawList(); }
+  }
+});
+
+go(0);
+})();
+</script>
+</body>
+</html>
