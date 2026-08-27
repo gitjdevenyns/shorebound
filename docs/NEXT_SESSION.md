@@ -18,6 +18,28 @@ why.
   Two older projects, "GCF — Gulf Coast Fishing redesign (Track B)" and
   "Gulf Coast Fishing — Track B Screens", predate the rename, the snook mark and
   the current hero — the owner judged them not worth carrying forward.
+
+  **Corrected 26 Aug 2026: that judgement was about the name, not the system,
+  and reading it as "dead" cost a design round.** "Gulf Coast Fishing — Track B
+  Screens" (`5dcf7339-8960-4e61-be1e-6c8760a020c9`) holds
+  `00 Foundations.dc.html` — the design system this app **still ships**.
+  `--b600 #075bd8`, `--g400 #8dff00` and the cool neutral ramp in
+  `src/styles/tokens.css` are that file's tokens, name for name. It also
+  documents each derived token's contrast ratio *and the reason for it* (`--m`
+  at 5.4:1 light / 8.3:1 dark, replacing a value that failed AA), carries a
+  full screen set — Home, Location, Species, Tides and Water, Handle With
+  Care — and states the rule the shipped app breaks in 17 places: *"every
+  striped plate is a licensed-photo slot. Nothing here hotlinks third-party
+  media."*
+
+  Its `04 Tides and Water` screen is the standard the current `/water` page
+  falls short of: a plotted tide curve with shaded incoming/outgoing bands and
+  four per-stage charts, against a brown lozenge on a blue rectangle in
+  production.
+
+  **Treat it as the governing design system.** Only the name on it is stale.
+  A first pass at three "clean look" directions was built without it and had
+  to be reworked — do not repeat that.
 - `CLAUDE.md` is new at the repo root. The `architect` agent reads it before
   anything else and, by its own instructions, stops rather than inventing
   project goals. It carries the audience, the moat, and the five hard
