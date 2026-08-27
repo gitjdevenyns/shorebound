@@ -56,8 +56,27 @@ jobs:
 
       # Fail fast on a broken suite before spending time on a bundle we would
       # throw away.
+      # The suite needs a Supabase config to exist, or `isSupabaseConfigured()`
+      # is false, the account gate resolves to 'disabled', and RequireAuth waves
+      # everything through — so the twelve signed-out assertions in
+      # auth.test.tsx cannot pass. src/test/setup.ts says this outright:
+      # ".env.local gives the test build a Supabase config, so the account gate
+      # is live in here exactly as it is in production."
+      #
+      # The first version of this workflow set env on the build step and not
+      # this one, which is why CI went red on a suite that passes locally.
+      #
+      # These are deliberately FAKE and deliberately not the repository secrets.
+      # The gate only needs a config to be present, never a reachable project —
+      # and pinning them here means CI exercises the mode the product actually
+      # ships in, rather than the never-shipped 'disabled' mode it was silently
+      # testing before. It also stops the suite ever reaching a real Supabase
+      # project, which it was doing locally and answering with 401s.
       - name: Tests
         run: npm test
+        env:
+          VITE_SUPABASE_URL: https://ci-not-a-real-project.supabase.co
+          VITE_SUPABASE_ANON_KEY: sb_publishable_ci_placeholder_not_a_real_key
 
       - name: Build (typecheck + vite build)
         run: npm run build
